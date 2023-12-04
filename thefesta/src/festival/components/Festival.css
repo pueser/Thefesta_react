@@ -1,0 +1,40 @@
+.festival {
+  position: relative;
+}
+
+.festival h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.festival h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.festival h2:last-child {
+  margin-bottom: 40px;
+}
+
+.festivalImg {
+  width: 380px;
+  height: 480px;
+  margin-bottom: 24px;
+}
+
+.fImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fImg.fdfImg {
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/image_default.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
