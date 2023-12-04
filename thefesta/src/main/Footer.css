@@ -1,0 +1,24 @@
+.Footer {
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	margin-bottom: 10px;
+	color: #cacaca;
+}
+
+.footer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.footer_logo {
+	margin-right: 100px;
+	font-family: 'RubikBubbles-Regular';
+	font-size: 14px;
+}
+
+.footer_text {
+	font-size: 12px;
+}
+
