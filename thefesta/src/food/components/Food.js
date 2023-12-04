@@ -22,6 +22,8 @@ function Food({ contentid, title, addr1, firstimage2 }) {
     )
 }
 
+// git test
+
 Food.prototype = {
     contentid: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
