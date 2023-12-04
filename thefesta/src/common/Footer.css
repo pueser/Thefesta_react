@@ -1,0 +1,10 @@
+.footer {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	width: 100%;
+}
+
+.footer_logo {
+	margin-right: 100px;
+}
