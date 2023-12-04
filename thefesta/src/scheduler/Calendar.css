@@ -1,0 +1,21 @@
+tr{
+    flex-direction: row;
+  }
+td{
+  margin: 0;
+  outline: 1px solid black;
+  width:14.3em;
+  height: 8ex;
+  /* padding-top: 2%;
+  padding-bottom: 2%; */
+  text-align: center;
+}
+.dayDateText{
+position: absolute;
+top: 0px;
+left: 5px;
+margin-top: 0%;
+}
+#notNowMonth{
+  background-color: #D3D3D3;
+}

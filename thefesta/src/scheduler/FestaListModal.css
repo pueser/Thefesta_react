@@ -1,0 +1,28 @@
+#FestaListModalBack{
+    background-color: white;
+    outline: 1px solid black;
+    width: max-content;
+    /* aspect-ratio: auto 1/1; */
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    z-index: 300;
+}
+#modalTitle{
+    display: flex;
+    justify-content: center;
+}
+hr{
+    margin: 0;
+}
+#festaTitles{
+    /* display: flex; */
+    /* justify-content: left; */
+    list-style: none;
+    padding: 0;
+}
+.festaTitle{
+    margin: 0% 10px;
+    display: flex;
+    align-items: center;
+}
