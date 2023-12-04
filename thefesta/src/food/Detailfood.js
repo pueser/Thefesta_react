@@ -144,20 +144,20 @@ function Detailfood() {
     }, [userId, contentid, isLiked]);
 
     return (
-        <section className="Detail-container">
-            <div className="Detail-food">
-                <div className="Detail-food-flex">
-                    <div className="Detail-food-image">
+        <section className="Fdetail-container">
+            <div className="Fdetail-food">
+                <div className="Fdetail-food-flex">
+                    <div className="Fdetail-food-image">
                         <img src={food.firstimage} title={food.title} alt={food.title} />
                     </div>
-                    <div className="Detail-food-data">
-                        <div className="Detail-food-data-flex1">
-                            <h2 className="Detail-food-title">{food.title}</h2>
-                            <span id="likeBtn" className="Detail-likeBtn" onClick={toggleLike}>
-                                {isLiked ? <img className="Detail-heart" src="/images/fullheart.png" /> : <img className="Detail-heart" src="/images/emptyheart.png" />}
+                    <div className="Fdetail-food-data">
+                        <div className="Fdetail-food-data-flex1">
+                            <h2 className="Fdetail-food-title">{food.title}</h2>
+                            <span id="likeBtn" className="Fdetail-likeBtn" onClick={toggleLike}>
+                                {isLiked ? <img className="Fdetail-heart" src="/images/fullheart.png" /> : <img className="Fdetail-heart" src="/images/emptyheart.png" />}
                             </span>
                         </div>
-                        <table className="Detail-food-table">
+                        <table className="Fdetail-food-table">
                             <tbody>
                                 <tr>
                                     <th>주소</th>
@@ -191,12 +191,12 @@ function Detailfood() {
                         </table>
                     </div>
                 </div>
-                <div className="Detail-food-info">
-                    <p className="Detail-food-overview">소개</p>
-                    <p className="Detail-food-content">{food.overview}</p>
+                <div className="Fdetail-food-info">
+                    <p className="Fdetail-food-overview">소개</p>
+                    <p className="Fdetail-food-content">{food.overview}</p>
                 </div>
-                <div className="Detail-food-map">
-                    <p className="Detail-food-location">위치</p>
+                <div className="Fdetail-food-map">
+                    <p className="Fdetail-food-location">위치</p>
                     <DetailMap mapx={food.mapx} mapy={food.mapy} />
                 </div>
             </div>

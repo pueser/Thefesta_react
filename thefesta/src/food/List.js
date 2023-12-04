@@ -3,25 +3,26 @@ import { json } from 'react-router-dom';
 import Food from './components/Food';
 import './List.css';
 
-function List() {
-
+function List({ contentid }) {
+    const id = contentid;
+    // console.log('id', id);
     const [foods, setFoods] = useState([]);
     // console.log(foods);
     const [areacode, setAreacode] = useState("");
     // console.log(areacode);
     const [showMoreFoods, setShowMoreFoods] = useState(
         localStorage.getItem('showMoreFoods') === 'true' || false
-    );
-
-    // 음식점 목록 가져오기
-    const getFoods = async () => {
-        try {
-            const response = await fetch("/food/list");
-            if (!response.ok) {
-                throw new Error(`HTTP 오류 상태: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log(data);
+        );
+        
+        // 음식점 목록 가져오기
+        const getFoods = async () => {
+            try {
+                const response = await fetch(`/food/list?contentid=${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP 오류 상태: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
             setFoods(data.recommendDTOList);
             setAreacode(data.areacodeDTO)
         } catch (error) {

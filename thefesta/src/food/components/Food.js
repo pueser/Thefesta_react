@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './Food.css';
 
-
 function Food({ contentid, title, addr1, firstimage2 }) {
-
+    //firstimage2의 값 유무 확인
+    const imageSource = firstimage2 ? firstimage2 : "/images/noimage.png";
+    
     return (
         <div className="Food">
             <Link to={`/food/detail/${contentid}`}>
-                <img src={firstimage2} title={title} alt={title} />
+                <img src={imageSource} title={title} alt={title} />
             </Link>
             <div className="Food-data">
                 <h3 className="Food-title">
@@ -22,13 +23,11 @@ function Food({ contentid, title, addr1, firstimage2 }) {
     )
 }
 
-// git test 수정 다시
-
 Food.prototype = {
     contentid: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     addr1: PropTypes.string.isRequired,
-    firstimage2: PropTypes.string.isRequired
+    firstimage2: PropTypes.string,
 }
 
 export default Food;

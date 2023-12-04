@@ -1,10 +1,10 @@
-.Detail-container{
+.Fdetail-container{
     width: 80%;
     margin: 0 auto;
     font-family: 'noto sans kr';
 }
 
-.Detail-food {
+.Fdetail-food {
     width: 70%;
     margin: 10px auto;
     padding-top: 50px;
@@ -13,7 +13,7 @@
     border-bottom: 1px solid #d9d9d9;
 }
 
-.Detail-food-flex{
+.Fdetail-food-flex{
     display: flex;
     align-items: center;
     justify-content: left;
@@ -21,46 +21,46 @@
     height: 500px;
 }
 
-.Detail-food-image img {
+.Fdetail-food-image img {
     width: 450px;
     height: 450px;
 }
 
-.Detail-food-data {
+.Fdetail-food-data {
     width: 52%;
     text-align: start;
     margin-left: 30px;
 }
 
-.Detail-food-data-flex1 {
+.Fdetail-food-data-flex1 {
     display: flex;
     height: 60px;
 }
 
-.Detail-food-title{ 
+.Fdetail-food-title{ 
     font-size: 2em;
     margin-top: 5px;
 }
-.Detail-food-data-flex1 span {
+.Fdetail-food-data-flex1 span {
     margin-top: 17px;
     margin-left: 5%;
 }
 
-.Detail-heart {
+.Fdetail-heart {
     width: 25px;
     height: 25px;
 }
 
-.Detail-food-table {
+.Fdetail-food-table {
     margin-top: 10px;
     width: 100%;
 }
 
-.Detail-food-table tbody {
+.Fdetail-food-table tbody {
     background-color: rgb(0, 0, 0, 0%);
 }
 
-.Detail-food-table tbody > tr > th {
+.Fdetail-food-table tbody > tr > th {
     width: 90px;
     height: 50px;
     text-align: left;
@@ -68,21 +68,21 @@
     font-size: 1.1em;    
 }
 
-.Detail-food-table tbody > tr > td {
+.Fdetail-food-table tbody > tr > td {
     text-align: left;
     color: #4b4b4b;
     font-size: 1em;
 }
 
-.Detail-food-table tbody > tr > th, td {
+.Fdetail-food-table tbody > tr > th, td {
     vertical-align: top;
 }
 
-.Detail-food-info { 
+.Fdetail-food-info { 
     background-color: rgb(0, 0, 0, 0%);
 }
 
-.Detail-food-overview {
+.Fdetail-food-overview {
     text-align: left;
     margin-left: 20px;
     margin-bottom: 5px;
@@ -90,7 +90,7 @@
     font-size: 1.1em;
 }
 
-.Detail-food-content {
+.Fdetail-food-content {
     text-align: left;
     margin-left: 20px;
     margin-top: 10px;
@@ -99,7 +99,7 @@
     line-height: 2;
 }
 
-.Detail-food-location {
+.Fdetail-food-location {
     text-align: left;
     margin-left: 20px;
     margin-top: 20px;
