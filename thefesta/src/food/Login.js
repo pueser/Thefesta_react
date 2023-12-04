@@ -56,11 +56,11 @@ function Login() {
   };
 
   const handleSubmit2 = () => {
-        Cookies.remove('loginInfo');
+    Cookies.remove('loginInfo');
   };
-  
-    return (
-      <div>
+
+  return (
+    <div>
       <h1>로그인</h1>
       <form>
         <label>
@@ -101,8 +101,8 @@ function Login() {
       </form>
     </div>
 
-    
-    );
+
+  );
 }
 
 /* 로그아웃 버튼은 임시. 쿠키 삭제할 때 사용. */

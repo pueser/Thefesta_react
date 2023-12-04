@@ -12,17 +12,18 @@ function List({ contentid }) {
     // console.log(areacode);
     const [showMoreFoods, setShowMoreFoods] = useState(
         localStorage.getItem('showMoreFoods') === 'true' || false
-        );
-        
-        // 음식점 목록 가져오기
-        const getFoods = async () => {
-            try {
-                const response = await fetch(`/food/list?contentid=${id}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP 오류 상태: ${response.status}`);
-                }
-                const data = await response.json();
-                console.log(data);
+    );
+
+    // 음식점 목록 가져오기
+    const getFoods = async () => {
+        try {
+            const response = await fetch(`/food/list?contentid=${id}`);
+            if (!response.ok) {
+                throw new Error(`HTTP 오류 상태: ${response.status}`);
+            }
+            const data = await response.json();
+            // console.log(data);
+
             setFoods(data.recommendDTOList);
             setAreacode(data.areacodeDTO)
         } catch (error) {
@@ -55,7 +56,7 @@ function List({ contentid }) {
     return (
         <section className="List-container">
             <div className="List-foods">
-                <div className='List-food-container-top'> 
+                <div className='List-food-container-top'>
                     <h1 className='List-food-title'>축제와 함께 즐기는 {areacode.sname} 맛집</h1>
                     <button
                         className='List-food-button'
