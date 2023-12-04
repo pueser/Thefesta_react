@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import './FestaCnt.css';
+import './FestaCnt.css'
 import FestaListModal from "./FestaListModal";
+import React, { useEffect, useState } from "react";
 
 function FestaCnt(props){
     
