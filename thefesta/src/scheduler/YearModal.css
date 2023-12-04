@@ -1,0 +1,41 @@
+.yearModalBack{
+    /* height: 90%; */
+    width: 100%;
+    z-index: 100;
+    background-color: #D3D3D390;
+    /* position: relative; */
+    /* top: -15px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#yearModal{
+    /* height: 90%; */
+    width: 90%;
+    border-radius: 15px;
+    z-index: 150;
+    background-color: white;
+    /* position: absolute;
+    top: 5%;
+    left: 5%; */
+    display: flex;
+}
+.yearModalContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#prevYears{
+    width: 10%;
+}
+#tableYears{
+    width: 80%;
+    /* padding: auto; */
+}
+#nextYears{
+    width: 10%;
+}
+.yearsIcon{
+    font-size: 30px;
+    cursor: pointer;
+}
