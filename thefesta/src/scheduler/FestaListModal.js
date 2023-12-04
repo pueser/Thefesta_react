@@ -1,7 +1,7 @@
-import { Icon } from "@iconify/react";
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import './FestaListModal.css';
+import axios from "axios";
+import { Icon } from "@iconify/react";
 
 function FestaListModal(props){
     let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
