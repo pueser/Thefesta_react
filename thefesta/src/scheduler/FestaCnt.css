@@ -1,0 +1,17 @@
+#festaCnt{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+#festaText{
+    width: 50%;
+    aspect-ratio: auto 1/1;
+    background-color: yellow;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: pointer;
+}
