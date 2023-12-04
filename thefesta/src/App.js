@@ -4,13 +4,12 @@ import Header from "./common/Header";
 import Detailfood from './food/Detailfood';
 import List from './food/List';
 import Login from './food/Login';
-import Scheduler from './scheduler/scheduler';
+import Scheduler from './scheduler/Scheduler';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      ㅎㅇㅇㅎㅎㅇㅎㅇ
       <Routes>
         <Route path='/food/list' element={<List />} />
         <Route path='/food/detail/:contentid' element={<Detailfood />} />

@@ -34,7 +34,7 @@
     flex-direction: row;
 }
 #monthModal table td{
-    height: 16ex;
+    height: 10ex;
     border-radius: 15px;
     text-align: center;
     margin: 0;
@@ -43,6 +43,7 @@
     padding-bottom: 2%;
 }
 .monthBtn{
+    height: 10ex;
     background: none;
     border: none;
     font-size: x-large;
