@@ -10,6 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      ㅎㅇㅇㅎㅎㅇㅎㅇ
       <Routes>
         <Route path='/food/list' element={<List />} />
         <Route path='/food/detail/:contentid' element={<Detailfood />} />
