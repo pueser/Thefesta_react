@@ -22,7 +22,7 @@ function Food({ contentid, title, addr1, firstimage2 }) {
     )
 }
 
-// git test
+// git test 수정
 
 Food.prototype = {
     contentid: PropTypes.string.isRequired,
