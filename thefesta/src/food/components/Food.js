@@ -10,7 +10,7 @@ function Food({ contentid, title, addr1, firstimage2 }) {
         title = title.replace(/\([^)]*\)/, '').trim();
     }
 
-    //firstimage2의 값 유무 확인
+    //firstimage2의 데이터 유무 확인
     const imageSource = firstimage2 ? firstimage2 : "/images/noimage.png";
 
     return (

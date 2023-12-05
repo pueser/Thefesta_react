@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-function Login() {
 
+function Login() {
   const [userData, setUserData] = useState({
     id: '',
     password: '',
@@ -23,7 +23,7 @@ function Login() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData(prevData => ({
+    setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -34,8 +34,9 @@ function Login() {
   };
 
   const handleSubmit = () => {
-    axios.post('http://localhost:9090/member/loginPost', userData)
-      .then(response => {
+    axios
+      .post('/member/loginPost', userData)
+      .then((response) => {
         const memInfo = response.data;
 
         if (memInfo) {
@@ -50,7 +51,7 @@ function Login() {
 
         console.log(memInfo);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   };
@@ -65,34 +66,34 @@ function Login() {
       <form>
         <label>
           <input
-            type="text"
-            name="id"
+            type='text'
+            name='id'
             value={userData.id}
             onChange={handleInputChange}
-            placeholder="아이디"
+            placeholder='아이디'
           />
         </label>
         <br />
         <label>
           <input
-            type="password"
-            name="password"
+            type='password'
+            name='password'
             value={userData.password}
             onChange={handleInputChange}
-            placeholder="비밀번호"
+            placeholder='비밀번호'
           />
         </label>
         <br />
-        <button type="button" onClick={handleSubmit}>
+        <button type='button' onClick={handleSubmit}>
           로그인
         </button>
-        <button type="button" onClick={handleSubmit2}>
+        <button type='button' onClick={handleSubmit2}>
           로그아웃
         </button>
         <br />
         <label>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={rememberId}
             onChange={handleRememberIdChange}
           />
@@ -100,8 +101,6 @@ function Login() {
         </label>
       </form>
     </div>
-
-
   );
 }
 

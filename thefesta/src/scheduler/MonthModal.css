@@ -37,7 +37,10 @@
     height: 16ex;
     border-radius: 15px;
     text-align: center;
-    
+    margin: 0;
+    outline: 1px solid black;
+    width: 14.3em;
+    padding-bottom: 2%;
 }
 .monthBtn{
     background: none;

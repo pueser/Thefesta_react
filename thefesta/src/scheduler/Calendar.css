@@ -1,7 +1,7 @@
-tr{
+.calendarRow{
     flex-direction: row;
   }
-td{
+.dayBlock{
   margin: 0;
   outline: 1px solid black;
   width:14.3em;

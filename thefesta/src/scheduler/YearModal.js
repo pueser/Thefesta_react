@@ -1,7 +1,7 @@
-import { Icon } from '@iconify/react';
 import React, { useEffect, useRef, useState } from "react";
-import './YearModal.css';
 import Years from "./Years";
+import './YearModal.css';
+import { Icon } from '@iconify/react';
 
 function MomentModal (props){
 
