@@ -5,7 +5,6 @@ import Detailfood from './food/Detailfood';
 import Login from './food/Login';
 import Scheduler from './scheduler/scheduler';
 import Main from './main/Main';
-
 function App() {
   return (
     <BrowserRouter>
