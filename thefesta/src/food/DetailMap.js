@@ -21,7 +21,7 @@ const DetailMap = ({ mapx, mapy }) => {
 
             const imageSrc = '/images/foodshop.png', // 마커이미지 주소    
                 imageSize = new kakao.maps.Size(64, 69), // 마커이미지 크기
-                imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지 옵션(마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정)
+                imageOption = { offset: new kakao.maps.Point(35, 60) }; // 마커이미지 옵션(마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정)
 
             // 마커의 이미지정보를 가지고 있는 마커이미지를 생성
             const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),

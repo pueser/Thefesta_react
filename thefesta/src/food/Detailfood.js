@@ -139,11 +139,24 @@ function Detailfood() {
     };
 
     useEffect(() => {
+        // 페이지 맨 위로 스크롤
+        window.scrollTo(0, 0);
+
+        // 음식 및 사용자 정보 가져오기
         getFood();
         getUserInfo();
-        // 컴포넌트가 마운트 될 때, 로컬 스토리지에서 좋아요 상태를 불러와 설정
+
+        // 로컬 스토리지에서 좋아요 상태 불러오기
         setIsLiked(getLikedStatusFromLocalStorage(userId, contentid));
     }, [userId, contentid]);
+
+    // 주소, 전화, 영업시간, 휴무일, 주차시설, 대표메뉴, 취급메뉴 데이터에서 <br>을 공백으로 대체
+    const formatDataWithLineBreaks = (data) => {
+        if (typeof data === 'string') {
+            return data.replace(/<br>/g, ' ');
+        }
+        return data;
+    };
 
     // 좋아요 상태 변경 시 로컬 스토리지에 상태 업데이트
     useEffect(() => {
@@ -168,31 +181,31 @@ function Detailfood() {
                             <tbody>
                                 <tr>
                                     <th>주소</th>
-                                    <td>{food.addr1}</td>
+                                    <td>{formatDataWithLineBreaks(food.addr1)}</td>
                                 </tr>
                                 <tr>
                                     <th>전화</th>
-                                    <td>{food.infocenterfood}</td>
+                                    <td>{formatDataWithLineBreaks(food.infocenterfood)}</td>
                                 </tr>
                                 <tr>
                                     <th>영업시간</th>
-                                    <td>{food.opentimefood}</td>
+                                    <td>{formatDataWithLineBreaks(food.opentimefood)}</td>
                                 </tr>
                                 <tr>
                                     <th>휴무일</th>
-                                    <td>{food.restdatefood}</td>
+                                    <td>{formatDataWithLineBreaks(food.restdatefood)}</td>
                                 </tr>
                                 <tr>
                                     <th>주차시설</th>
-                                    <td>{food.parkingfood}</td>
+                                    <td>{formatDataWithLineBreaks(food.parkingfood)}</td>
                                 </tr>
                                 <tr>
                                     <th>대표메뉴</th>
-                                    <td>{food.firstmenu}</td>
+                                    <td>{formatDataWithLineBreaks(food.firstmenu)}</td>
                                 </tr>
                                 <tr>
                                     <th>취급메뉴</th>
-                                    <td>{food.treatmenu}</td>
+                                    <td>{formatDataWithLineBreaks(food.treatmenu)}</td>
                                 </tr>
                             </tbody>
                         </table>
