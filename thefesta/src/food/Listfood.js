@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { json } from 'react-router-dom';
 import Food from './components/Food';
-import './List.css';
+import './Listfood.css';
 
-function List({ contentid }) {
+function Listfood({ contentid }) {
     const id = contentid;
     // console.log('id', id);
     const [foods, setFoods] = useState([]);
@@ -82,4 +82,4 @@ function List({ contentid }) {
     )
 }
 
-export default List;
+export default Listfood;
