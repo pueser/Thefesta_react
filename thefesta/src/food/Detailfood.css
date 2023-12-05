@@ -1,5 +1,5 @@
-.Detail-container{
-    width: 80%;
+.Detail-container {
+    width: 70%;
     margin: 0 auto;
     font-family: 'noto sans kr';
 }
@@ -7,13 +7,13 @@
 .Detail-food {
     width: 70%;
     margin: 10px auto;
-    padding-top: 50px;
+    padding-top: 30px;
     text-align: center;
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
 }
 
-.Detail-food-flex{
+.Detail-food-flex {
     display: flex;
     align-items: center;
     justify-content: left;
@@ -37,13 +37,14 @@
     height: 60px;
 }
 
-.Detail-food-title{ 
+.Detail-food-title {
     font-size: 2em;
-    margin-top: 5px;
+    margin-top: 0px;
 }
+
 .Detail-food-data-flex1 span {
-    margin-top: 17px;
-    margin-left: 5%;
+    margin-top: 13px;
+    margin-left: 3%;
 }
 
 .Detail-heart {
@@ -57,28 +58,32 @@
 }
 
 .Detail-food-table tbody {
-    background-color: rgb(0, 0, 0, 0%);
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.Detail-food-table tbody > tr > th {
-    width: 90px;
-    height: 50px;
+
+.Detail-food-table tbody>tr>th {
+    width: 45px;
+    height: 30px;
     text-align: left;
     font-weight: 700;
-    font-size: 1.1em;    
+    font-size: 1.1em;
 }
 
-.Detail-food-table tbody > tr > td {
+.Detail-food-table tbody>tr>td {
     text-align: left;
+    height: 50px;
     color: #4b4b4b;
     font-size: 1em;
+    outline: none;
 }
 
-.Detail-food-table tbody > tr > th, td {
+.Detail-food-table tbody>tr>th,
+td {
     vertical-align: top;
 }
 
-.Detail-food-info { 
+.Detail-food-info {
     background-color: rgb(0, 0, 0, 0%);
 }
 
@@ -95,7 +100,7 @@
     margin-left: 20px;
     margin-top: 10px;
     margin-right: 10px;
-    color: #4b4b4b ;
+    color: #4b4b4b;
     line-height: 2;
 }
 
