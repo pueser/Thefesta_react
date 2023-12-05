@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from "./common/Footer";
-import Header from "./common/Header";
+import Footer from "./main/Footer";
+import Header from "./main/Header";
 import Detailfood from './food/Detailfood';
 import List from './food/List';
 import Login from './food/Login';
@@ -10,13 +10,12 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Main />
       <Routes>
         <Route path='/food/list' element={<List />} />
         <Route path='/food/detail/:contentid' element={<Detailfood />} />
         <Route path='/member/loginPost' element={<Login />} />
         <Route path='/scheduler' element={<Scheduler />} />
-        <Route path='/*' element={<List />} />
+        <Route path='/' element={<Main />} />
       </Routes>
       <Footer />
     </BrowserRouter>

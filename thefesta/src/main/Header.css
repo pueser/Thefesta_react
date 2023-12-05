@@ -21,17 +21,21 @@
 	justify-content: space-around;
 	align-items: flex-start;
 	text-align: center;
+	list-style: none;
 }
 
-.menu, .member{
+.menu, .member {
 	border-radius: 50%;
 	width: 70px;
 	height: 35px;
 	font-size: 16px;
 	line-height: 2;
+	text-decoration-line: none;
+	text-align: center;
+	color: rgb(0, 0, 0);
 }
 
-.scheduler {
+.menu_scheduler {
 	width: 100px;
 }
 
@@ -50,11 +54,9 @@
 	flex-direction: row;
 	justify-content: space-between;
 	text-align: center;
+	list-style: none;
 }
 
-.header_member :first-child{
-	margin-right: 30px;
-}
 
 .hover {
 	cursor: pointer;

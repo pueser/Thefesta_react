@@ -1,5 +1,5 @@
-import '../App.css';
-import Kakaomap from "../components/Kakaomap";
+import './Main.css';
+import Kakaomap from "./Kakaomap";
 function Main() {
     return (
         <div>

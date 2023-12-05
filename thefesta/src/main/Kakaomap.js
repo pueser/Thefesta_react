@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import './Kakaomap.css';
-import add from '../imgs/add.svg';
-import remove from '../imgs/remove.svg';
+// import add from '../images/add.svg';
+// import remove from '../images/remove.svg';
+
 
 function Kakaomap() {
     const [level, setLevel] = useState(13);
@@ -45,10 +46,10 @@ function Kakaomap() {
                     ))}
                     <div className='map_button'>
                         <span onClick={() => setLevel(level - 1)}>
-                            <img src={add} alt='확대' />
+                            <img src="/images/add.svg" alt='확대' />
                         </span>
                         <span onClick={() => setLevel(level + 1)}>
-                            <img src={remove} alt='축소' />
+                            <img src="/images/remove.svg" alt='축소' />
                         </span>
                     </div>
                 </Map>
