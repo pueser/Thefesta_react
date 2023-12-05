@@ -1,0 +1,297 @@
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import MemberSelectBox from "./MemberSelectBox";
+import Pagenation from "./Pagenation";
+
+function MemberDetail(){
+  //memberList(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
+  const {id} = useParams();
+  const location = useLocation();
+  const statecode = location.state.statecode
+  let userData = [];
+  const [curPage, setCurPage] = useState(1); //현재 페이지 세팅
+  const [startPage, setStartPage] = useState(""); //startPage
+  const [endPage, setEndPage] = useState(""); //endPage
+  const [total, setTotal] = useState("")//list 총갯수
+  const [next, setNext] = useState("")//이전 페이지
+  const [prev, setPrev] = useState("")//다음 페이지
+  const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
+  console.log("location statecode",statecode)
+
+
+  //회원 상세페이지 정보 저장 useState
+  const [memberDetail, setMemberDetail] = useState([]);
+  //상태코드 변경값 저장 useState
+  const [statecodeChange, setStatecodeChange] = useState(statecode);
+  const message = "회원의 현재 신고 누적 갯수가 4회 입니다. 한 번더 승인하시면 회원은 강퇴 처리되며 남은 신고들은 삭제됩니다. 승인 하시겠습니까?";
+
+  //MemberSelectBox(하위 컴포넌트)에서 값 전달 받음
+  function StateChange(stateValue){
+    if(stateValue === "일반"){
+      setStatecodeChange("일반");
+    }else if(stateValue === "탈퇴"){
+      setStatecodeChange("탈퇴");
+    }else if(stateValue === "재가입 가능"){
+      setStatecodeChange("재가입 가능");
+    }else if(stateValue === "강퇴"){
+      setStatecodeChange("강퇴");
+    }
+  }
+  
+  useEffect(
+      ()=>{getMemberrDetail()
+  },[]);
+  
+  //회원 상세페이지 get
+  const getMemberrDetail = async() =>{
+  await axios
+      .get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${curPage}&amount=${amount}`)
+      
+      .then((response)=> {
+        //회원 상세 정보 저장
+        setMemberDetail(response.data)
+       
+        console.log("setMemberDetail", response)
+        alert("list 불러오기 성공")
+
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+        
+      })
+      .catch((error)=>{
+        console.log("error", error)
+        alert("list 불러오기 실패")
+      })
+  }
+
+  //Pagenation에서 현재페이지 받기
+  const curPageChange =(page) =>{
+    setCurPage(page);
+    console.log("넘겨받은 page = ", page)
+    
+     axios.get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${page}&amount=${amount}`)
+      
+      .then((response)=> {
+        //회원 상세 정보 저장
+        setMemberDetail(response.data)
+       
+        console.log("setMemberDetail", response)
+        alert("list 불러오기 성공")
+
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+        
+      })
+      .catch((error)=>{
+        console.log("error", error)
+        alert("list 불러오기 실패")
+      })
+  }
+
+  //회원 상태코드 변경 및  (회원 controller)
+  const SaveClick =  (e) => {
+    e.preventDefault();
+    console.log("저장 statecodeChange", statecodeChange)
+    let newStatecode = null;
+    if(statecodeChange  === "일반"){
+      console.log("if문 타기")
+      newStatecode = "1";
+    }else if(statecodeChange === "탈퇴"){
+      newStatecode = "2";
+    }else if(statecodeChange === "재가입 가능"){
+      newStatecode = "3";
+    }else if(statecodeChange === "강퇴"){
+      newStatecode = "4";
+    }
+    console.log("id", id)
+    console.log("statecode", newStatecode)
+    userData = ({id : id, statecode : newStatecode})
+    
+    axios.post('http://localhost:9090/member/updateState', userData
+      
+      ).then((response) => {
+          console.log(response.data[0])
+          alert("변경사항이 저장되었습니다.")
+
+      })
+      .catch((error)=>{
+      console.log(error.data[0])
+      alert("변경사항이 저장에 실패하였습니다.")
+    })
+  }
+
+  
+
+
+//승인 버튼 누렀을 때 alert 창
+const confirmAction = (data) => {
+  if (window.confirm(message)) {
+    noConfirm(data);
+  } else {
+    alert("승인이 취소되었습니다.")
+    return;
+  }
+};
+
+//회원 승인 버튼 눌렀을 때(신고누적 4회 이상O)
+const noConfirm = (data) =>{
+  setMemberDetail("");
+  axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
+  }).then((response)=> {
+    console.log("response", response.data)
+    alert(response.data + "번 신고글이 승인 되었습니다.")
+    setStatecodeChange("강퇴");
+  }).catch((error)=>{
+    console.log("error", error.data)
+    alert("신고글이 승인 되지 않았습니다. 해당 업체에 문의바랍니다.")
+  })
+}
+
+
+//회원 승인 버튼 눌렀을 때(신고누적 4회 이상X)
+const onConfirm = (data) => {
+  console.log("data = ", data)
+  console.log("memberDetail" , memberDetail)
+  const deleteListArray = 
+  memberDetail.list&&memberDetail.list.map((item)=>{
+    if(item.reportid === data.reportid) {
+      return -1
+    }else{   
+      return item
+    }
+  }).filter((item) => item !== -1);
+  setMemberDetail({list : deleteListArray, pageMaker : memberDetail.pageMaker})
+
+  console.log("onConfirm data = ", data)
+  axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
+  }).then((response)=> {
+    console.log("response", response.data)
+    alert(response.data + "번 신고글이 승인 되었습니다.")
+
+  }).catch((error)=>{
+    console.log("error", error.data)
+    alert("신고글이 승인 되지 않았습니다. 해당 업체에 문의바랍니다.")
+  })
+}
+
+console.log("memberDetail", memberDetail)
+//승인버튼 누를때
+function approveClick(data){
+  console.log("data = ", data)
+
+  console.log("승인 data.reported = ", data.reported);
+  axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
+    }).then((response)=> {
+
+      console.log("response", response)
+
+      //회원 reportnum이 4회인 경우 alert(확인 or 취소)
+      if(response.data === 4){
+        confirmAction(data);
+      }else{
+        onConfirm(data);
+      }
+
+      alert(response.data)
+    }).catch((error)=>{
+      console.log("error", error.data)
+      alert(error.data)
+    })
+}
+
+  
+  //신고글 삭제
+  function deleteClick(data){
+    console.log("삭제할 reportid = ", data)
+
+    const deleteListArray = 
+    memberDetail.list&&memberDetail.list.map((item)=>{
+      if(item.reportid === data) {
+        return -1
+      }else{   
+        return item
+      }
+    }).filter((item) => item !== -1);
+    setMemberDetail({list : deleteListArray, pageMaker : memberDetail.pageMaker})
+      
+      axios.post(`http://localhost:9090/admin/memberReportDelete?reportid=${data}`, {
+        }).then((response)=>{
+          console.log(response);
+          alert(response.data)
+  
+        }).catch((error)=>{
+          console.log(error)
+          alert(error.data)
+      })
+  }
+  
+  return(
+    <div>
+      <p><Link to='/member'>X</Link></p>
+      <p>
+        <span>{id}</span>
+        <span >회원상태 : <MemberSelectBox  defaultValue={statecode} statecodeChange={StateChange}></MemberSelectBox></span>
+        <span>최근 접속일 : {memberDetail.finalaccess}</span>
+      </p>
+      <div>
+      신고내역
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>신고번호</th>
+            <th>신고내용</th>
+            <th>신고자</th>
+            <th>신고대상</th>
+            <th>신고일자</th>
+            <th>승인</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            memberDetail.list&&memberDetail.list.map(
+              (item, idx)=>(
+                <tr key={idx}>
+                  <td>{item.reportid}</td>
+                  <td><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}}>{item.reportcontent}</Link></td>
+                  <td>{item.reporter}</td>
+                  <td>{item.reportnumber}</td>
+                  <td>{item.reportdate}</td>
+                  <td><button onClick={()=>approveClick(item)}>승인</button></td>
+                  <td><button onClick={()=>deleteClick(item.reportid)}>삭제</button></td>
+                </tr>
+              )
+            )
+          }
+        </tbody>
+      </table> 
+      <section>
+        <button onClick={SaveClick}>저장</button>
+        <Link to='/member'><button onClick={()=>getMemberrDetail()}>취소</button></Link>
+      </section>
+      <div>
+          <Pagenation
+            page={curPage}
+            startPage={startPage}
+            endPage={endPage}
+            curPageChange ={curPageChange}
+            total = {total}
+            next={next}
+            prev ={prev}
+            amount={amount}
+          />
+        </div>
+
+    </div>
+  );
+}
+
+export default MemberDetail;
