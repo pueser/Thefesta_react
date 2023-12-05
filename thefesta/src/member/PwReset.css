@@ -1,0 +1,30 @@
+.PwReset-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .PwReset-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .PwReset-label {
+    margin-bottom: 10px;
+  }
+  
+  .PwReset-input {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+  }
+  
+  .PwReset-button {
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  
