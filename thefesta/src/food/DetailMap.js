@@ -9,13 +9,15 @@ const DetailMap = ({ mapx, mapy }) => {
             console.log('fmapx', mapx);
             console.log('fmapy', mapy);
 
+            const { kakao } = window;
+
             const container = document.getElementById('map');
             const options = {
-                center: new window.kakao.maps.LatLng(floatMapY, floatMapX),
+                center: new kakao.maps.LatLng(floatMapY, floatMapX),
                 level: 2
             };
 
-            const map = new window.kakao.maps.Map(container, options);
+            const map = new kakao.maps.Map(container, options);
 
             const imageSrc = '/images/foodshop.png', // 마커이미지 주소    
                 imageSize = new kakao.maps.Size(64, 69), // 마커이미지 크기
