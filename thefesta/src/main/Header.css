@@ -35,10 +35,6 @@
 	color: rgb(0, 0, 0);
 }
 
-.menu_scheduler {
-	width: 100px;
-}
-
 .menu:hover {
 	background-color: rgb(0, 116, 44);
 	color: white;

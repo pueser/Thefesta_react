@@ -32,11 +32,8 @@ function Header() {
                 <h1>THE<br />FESTA</h1>
             </div>
             <div className='header_menu hover'>
-                {/* <p className='menu'>축제</p>
-                <p className='menu menu_scheduler'>스케줄러</p>
-                <p className='menu'>톡톡</p> */}
                 <Link className='menu' to='/'><li className='menu'>축제</li></Link>
-                <Link className='menu' to='/scheduler'><li className='menu menu_scheduler'>스케줄러</li></Link>
+                <Link className='menu' to='/scheduler'><li className='menu'>스케줄러</li></Link>
                 <Link className='menu' to='/board'><li className='menu'>톡톡</li></Link>
             </div>
             <div className='header_member hover'>
