@@ -5,6 +5,7 @@ import Pagenation from "./Pagenation";
 
 function Board() {
   const [boardList, setBoardList] = useState([]);
+  let newBoardList = [];
   const [curPage, setCurPage] = useState(1); //현재 페이지 세팅
   const [startPage, setStartPage] = useState(""); //startPage
   const [endPage, setEndPage] = useState(""); //endPage
@@ -12,22 +13,11 @@ function Board() {
   const [next, setNext] = useState("")//이전 페이지
   const [prev, setPrev] = useState("")//다음 페이지
   const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
-
-
-  //게시판 종류(자유게시판, 리뷰게시판)
-  const [bno, setBno] = useState("");
-  //작성일자(yyyy.MM.dd)
-  const [bregist, setBregist] = useState("");
-  
-
-  console.log("boardList = ", boardList)
   
   useEffect(
     ()=>{getBoardList()
   },[]);
 
-
-    
   //회원 게시판 list 불러오기
   const getBoardList = async() =>{
     
@@ -35,24 +25,24 @@ function Board() {
       .get(`http://localhost:9090/board/list?pageNum=${curPage}&amount=${amount}&type=${""}&keyword=${""}`)
         
       .then((response)=> {
-        setBoardList(response.data)
-        console.log(response.data)
+        //setBoardList(response.data)
+        console.log("setBoardList = ", response.data)
 
-        //게시판 종류 이름 지정 및 작성일자 변경(yyyy.MM.dd)
-        response.data.list.forEach(element => {
-          // console.log("element = ", element)
-           if(element.bno === 1){
-             setBno(...bno, {bno : 1, name: "자유게시판"})
-           }else if(element.bno === 2){
-             setBno(...bno, {bno : 2, name: "리뷰게시판"})
-           }else{
-             setBno(...bno, {bno : "삭제된 게시글 입니다", name: "삭제된 게시글 입니다"})
-           }
+          //게시판 종류 이름 지정 및 작성일자 변경(yyyy.MM.dd)
+          response.data.list.forEach(element=>{
+            let code;
+            let date = element.bregist.substr(0,10);
 
-           let newBregist = element.bregist.substr(0,10);
-           setBregist(...bregist, newBregist);
-        });
+            if(element.bno === 1){
+              code = "자유게시판";
+              newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
+            }else if(element.bno === 2){
+              code = "리뷰게시판";
+              newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
+            }
 
+            setBoardList(newBoardList)
+          })
 
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
@@ -69,27 +59,28 @@ function Board() {
     
   //게시글 삭제
   function deleteClick(data){
-
+    
+    
     //화면상 삭제된 게시글 안보이도록
     const deleteListArray = 
-    boardList.list&&boardList.list.map((item)=>{
+    boardList&&boardList.map((item)=>{
       if(item.bid === data) {
         return -1
       }else{   
         return item
       }
     }).filter((item) => item !== -1);
-    setBoardList({list : deleteListArray, pageMaker : boardList.pageMaker})
+    setBoardList(deleteListArray)
 
     axios.post(`http://localhost:9090/board/remove?bid=${data}`, {
       }).then((response)=>{
         console.log(response);
-        alert(data , "번 게시글이 삭제 되었습니다.")
-        getBoardList()
+        alert(`${data}번 게시글이 삭제 되었습니다.`)
+        getBoardList();
 
       }).catch((error)=>{
         console.log(error)
-        alert(data , "번 게시글 삭제 실패하였습니다.")
+        alert("게시글 삭제 실패하였습니다.")
     })
 
     
@@ -98,13 +89,29 @@ function Board() {
     //Pagenation에서 현재페이지 받기
     const curPageChange =(page) =>{
       setCurPage(page);
-      console.log("넘겨받은 page = ", page)
       
       axios.get(`http://localhost:9090/board/list?pageNum=${page}&amount=${amount}&type=${""}&keyword=${""}`)
         
       .then((response)=> {
-        setBoardList(response.data)
         console.log(response.data)
+
+        //게시판 종류 이름 지정 및 작성일자 변경(yyyy.MM.dd)
+        response.data.list.forEach(element=>{
+          console.log("element.bno = ", element.bno)
+          let code;
+          let date = element.bregist.substr(0,10);
+          console.log("date=", date)
+          
+          if(element.bno === 1){
+            code = "자유게시판";
+            newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
+          }else if(element.bno === 2){
+            code = "리뷰게시판";
+            newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
+          }
+
+          setBoardList(newBoardList)
+        })
 
         setStartPage(response.data.pageMaker.startPage);
         setEndPage(response.data.pageMaker.endPage)
@@ -117,7 +124,6 @@ function Board() {
       })
     }
     
-
     return (
       <div>
         <table>
@@ -133,14 +139,14 @@ function Board() {
           </thead>
           <tbody>
             {
-              boardList.list&&boardList.list.map(
+              boardList&&boardList.map(
                 (item, idx)=>(
                   <tr key={idx}>
-                    <td>{bno.name}</td>
+                    <td>{item.bno}</td>
                     <td>{item.bid}</td>
                     <td onClick={() => window.open(`/board/read?bid=${item.bid}`, '_blank')}>{item.btitle}</td>
                     <td>{item.id}</td>
-                    <td>{bregist}</td>
+                    <td>{item.bregist}</td>
                     <td><button onClick={()=>deleteClick(item.bid)}>삭제</button></td>
                   </tr>
                 )

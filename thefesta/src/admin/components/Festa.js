@@ -13,6 +13,7 @@ function Festa() {
   const [next, setNext] = useState("")//이전 페이지
   const [prev, setPrev] = useState("")//다음 페이지
   const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
+  const message = "해당 축제를 삭제하면 축제 건의도 삭제 됩니다. 삭제하시겠습니까?";
 
    useEffect(
      ()=>{getFestaList()
@@ -26,7 +27,7 @@ function Festa() {
       
         .then((response)=> {
           console.log("setReportList", response.data)
-          alert("list 불러오기 성공")
+          //alert("list 불러오기 성공")
 
           response.data.questionDto.forEach(element=>{
             //addr1 주소 자르기
@@ -44,7 +45,7 @@ function Festa() {
         })
         .catch((error)=>{
           console.log("error", error)
-          alert("list 불러오기 실패")
+          //alert("list 불러오기 실패")
         })
     }
 
@@ -56,7 +57,7 @@ function Festa() {
       
       .then((response)=> {
         console.log("setReportList", response.data)
-        alert("list 불러오기 성공")
+        //alert("list 불러오기 성공")
         
         response.data.questionDto.forEach(element=>{
           //addr1 주소 자르기
@@ -75,27 +76,38 @@ function Festa() {
       })
       .catch((error)=>{
         console.log("error", error)
-        alert("list 불러오기 실패")
+        //alert("list 불러오기 실패")
       })
   }
   
-  //게시글 삭제
-  function deleteClick(data){
+  //삭제 버튼 누렀을 때 alert 창
+  const deleteClick = (data) => {
+    if (window.confirm(message)) {
+      confirm(data);
+    } else {
+      alert("삭제가 취소되었습니다.")
+      return;
+    }
+  };
 
-    console.log("삭제할 데이터 = ", data)
+
+  //삭제 alert 확인 눌렀을때
+  const confirm = (data)=>{
+    setFestaList(festaList.filter((item) => item.contentid !== data));  
 
     axios.post(`http://localhost:9090/admin/festaDelete?contentid=${data}`, {
       }).then((response)=>{
         console.log(response);
-        alert(response)
+        alert(`${response.data}번 축제가 삭제되었습니다`)
+        getFestaList();
 
       }).catch((error)=>{
         console.log(error)
-        alert(error)
+        alert("축제 삭제가 실패하였습니다. 해당 업체에 문의 바랍니다.")
     })
     
   }
-    console.log("festaList = ", festaList);
+    
     return (
       <div>
         <table>

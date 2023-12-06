@@ -9,7 +9,7 @@ function MemberDetail(){
   const {id} = useParams();
   const location = useLocation();
   const statecode = location.state.statecode
-  let userData = [];
+  const finalaccess = location.state.finalaccess
   const [curPage, setCurPage] = useState(1); //현재 페이지 세팅
   const [startPage, setStartPage] = useState(""); //startPage
   const [endPage, setEndPage] = useState(""); //endPage
@@ -17,6 +17,10 @@ function MemberDetail(){
   const [next, setNext] = useState("")//이전 페이지
   const [prev, setPrev] = useState("")//다음 페이지
   const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
+  let userData = []; // 회원 상태코드변경 
+  let newMemberList =[]; //회원 신고대상 및 상태코드(0번일 때)
+  const [reportnum, setReportnum] = useState();
+
   console.log("location statecode",statecode)
 
 
@@ -25,6 +29,124 @@ function MemberDetail(){
   //상태코드 변경값 저장 useState
   const [statecodeChange, setStatecodeChange] = useState(statecode);
   const message = "회원의 현재 신고 누적 갯수가 4회 입니다. 한 번더 승인하시면 회원은 강퇴 처리되며 남은 신고들은 삭제됩니다. 승인 하시겠습니까?";
+
+  
+  
+  useEffect(
+      ()=>{getMemberrDetail()
+  },[]);
+  
+  //회원 상세페이지 get
+  const getMemberrDetail = async() =>{
+  await axios
+      .get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${curPage}&amount=${amount}`)
+      
+      .then((response)=> {
+        console.log("setMemberDetail", response)
+
+        response.data.list.forEach(element=>{
+        //회원 신고 누적횟수
+        if(element.reportnum === 0){
+          let code = 0
+          
+            //회원 신고 대상
+            if(element.rfrno > 0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+            }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+            }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0){//게시글 댓글
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+            }
+          
+          }else {
+            //회원 신고 대상
+            if(element.rfrno >0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+            }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+            }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0){//게시글 댓글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+            }
+          }
+          setMemberDetail(newMemberList)
+        })
+      
+        //console.log("넣어야할 reportnun : " , memberDetail[0].reportnum)
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+        
+      })
+      .catch((error)=>{
+        console.log("error", error)
+        //alert("list 불러오기 실패")
+      })
+  }
+
+  //Pagenation에서 현재페이지 받기
+  const curPageChange =(page) =>{
+    setCurPage(page);
+    console.log("넘겨받은 page = ", page)
+    
+     axios.get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${page}&amount=${amount}`)
+      
+      .then((response)=> {
+        console.log("setMemberDetail", response)
+        
+        response.data.list.forEach(element=>{
+          //회원 신고 누적횟수
+          if(element.reportnum === 0){
+            let code = 0
+          
+              //회원 신고 대상
+              if(element.rfrno >0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+              }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+              }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0 ){//게시글 댓글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+              }
+            
+            }else {
+              //회원 신고 대상
+              if(element.rfrno > 0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+              }else if(element.rfrno === 0 && element.rbid > 0 && element.rbrno === 0){ //게시글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+              }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno > 0){//게시글 댓글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+              }
+            }
+            setMemberDetail(newMemberList)
+          })
+
+        
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+        
+      })
+      .catch((error)=>{
+        console.log("error", error)
+        //alert("list 불러오기 실패")
+      })
+  }
 
   //MemberSelectBox(하위 컴포넌트)에서 값 전달 받음
   function StateChange(stateValue){
@@ -37,62 +159,6 @@ function MemberDetail(){
     }else if(stateValue === "강퇴"){
       setStatecodeChange("강퇴");
     }
-  }
-  
-  useEffect(
-      ()=>{getMemberrDetail()
-  },[]);
-  
-  //회원 상세페이지 get
-  const getMemberrDetail = async() =>{
-  await axios
-      .get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${curPage}&amount=${amount}`)
-      
-      .then((response)=> {
-        //회원 상세 정보 저장
-        setMemberDetail(response.data)
-       
-        console.log("setMemberDetail", response)
-        alert("list 불러오기 성공")
-
-        setStartPage(response.data.pageMaker.startPage);
-        setEndPage(response.data.pageMaker.endPage)
-        setTotal(response.data.pageMaker.total);
-        setNext(response.data.pageMaker.next)
-        setPrev(response.data.pageMaker.prev)
-        
-      })
-      .catch((error)=>{
-        console.log("error", error)
-        alert("list 불러오기 실패")
-      })
-  }
-
-  //Pagenation에서 현재페이지 받기
-  const curPageChange =(page) =>{
-    setCurPage(page);
-    console.log("넘겨받은 page = ", page)
-    
-     axios.get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${page}&amount=${amount}`)
-      
-      .then((response)=> {
-        //회원 상세 정보 저장
-        setMemberDetail(response.data)
-       
-        console.log("setMemberDetail", response)
-        alert("list 불러오기 성공")
-
-        setStartPage(response.data.pageMaker.startPage);
-        setEndPage(response.data.pageMaker.endPage)
-        setTotal(response.data.pageMaker.total);
-        setNext(response.data.pageMaker.next)
-        setPrev(response.data.pageMaker.prev)
-        
-      })
-      .catch((error)=>{
-        console.log("error", error)
-        alert("list 불러오기 실패")
-      })
   }
 
   //회원 상태코드 변경 및  (회원 controller)
@@ -140,13 +206,13 @@ const confirmAction = (data) => {
   }
 };
 
-//회원 승인 버튼 눌렀을 때(신고누적 4회 이상O)
+//회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
   setMemberDetail("");
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
   }).then((response)=> {
     console.log("response", response.data)
-    alert(response.data + "번 신고글이 승인 되었습니다.")
+    alert(`${response.data}번 신고글이 승인 되었습니다.`)
     setStatecodeChange("강퇴");
   }).catch((error)=>{
     console.log("error", error.data)
@@ -157,23 +223,22 @@ const noConfirm = (data) =>{
 
 //회원 승인 버튼 눌렀을 때(신고누적 4회 이상X)
 const onConfirm = (data) => {
-  console.log("data = ", data)
-  console.log("memberDetail" , memberDetail)
+  console.log(" onConfirm data = ", data)
+  console.log(" onConfirm memberDetail" , memberDetail)
   const deleteListArray = 
-  memberDetail.list&&memberDetail.list.map((item)=>{
+  memberDetail&&memberDetail.map((item)=>{
     if(item.reportid === data.reportid) {
       return -1
     }else{   
       return item
     }
   }).filter((item) => item !== -1);
-  setMemberDetail({list : deleteListArray, pageMaker : memberDetail.pageMaker})
+  setMemberDetail(deleteListArray)
 
-  console.log("onConfirm data = ", data)
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
   }).then((response)=> {
-    console.log("response", response.data)
-    alert(response.data + "번 신고글이 승인 되었습니다.")
+    alert(`${response.data}번 신고글이 승인 되었습니다.`)
+    getMemberrDetail();
 
   }).catch((error)=>{
     console.log("error", error.data)
@@ -181,7 +246,6 @@ const onConfirm = (data) => {
   })
 }
 
-console.log("memberDetail", memberDetail)
 //승인버튼 누를때
 function approveClick(data){
   console.log("data = ", data)
@@ -190,7 +254,7 @@ function approveClick(data){
   axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
     }).then((response)=> {
 
-      console.log("response", response)
+      console.log("reportnum = ", response.data)
 
       //회원 reportnum이 4회인 경우 alert(확인 or 취소)
       if(response.data === 4){
@@ -231,14 +295,15 @@ function approveClick(data){
           alert(error.data)
       })
   }
-  
+ 
   return(
     <div>
       <p><Link to='/member'>X</Link></p>
       <p>
         <span>{id}</span>
         <span >회원상태 : <MemberSelectBox  defaultValue={statecode} statecodeChange={StateChange}></MemberSelectBox></span>
-        <span>최근 접속일 : {memberDetail.finalaccess}</span>
+        <span>신고 누적횟수 : </span>
+        <span>최근 접속일 : {finalaccess}</span>
       </p>
       <div>
       신고내역
@@ -257,7 +322,7 @@ function approveClick(data){
         </thead>
         <tbody>
           {
-            memberDetail.list&&memberDetail.list.map(
+            memberDetail&&memberDetail.map(
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
@@ -289,7 +354,6 @@ function approveClick(data){
             amount={amount}
           />
         </div>
-
     </div>
   );
 }
