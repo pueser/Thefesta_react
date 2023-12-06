@@ -106,7 +106,7 @@ const handleRememberIdChange = (e) => {
 
     return (
       <div className="login-container">
-      <h1>로그인</h1>
+      <h1 className='login-h1'>로그인</h1>
       <form className="login-form">
         <label className="login-label">
           <input
