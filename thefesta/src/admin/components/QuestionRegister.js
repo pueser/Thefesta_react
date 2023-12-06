@@ -1,13 +1,42 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function QuestionRegister (){
     //Detail에서 contentid 전달받음
     const location = useLocation();
     const contentid = location.state.contentid
+   /// const contentid = '2861656'
     const [questioncontent, setQuestioncontent] = useState("");
     const [id, setId] = useState("");
+    const [userId, setUserId] = useState(null);
+
+    // 회원 정보 가져오기
+    const getUserInfo = () => {
+        const loginInfo = Cookies.get('loginInfo');
+        if (loginInfo) {
+            try {
+                const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
+                console.log('logininfo',loginInfo);
+                setUserId(parsedLoginInfo.id);
+                console.log('id:', parsedLoginInfo.id);
+            } catch (error) {
+                console.error('Error parsing loginInfo:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    // const loginInfoString = Cookies.get('loginInfo');
+    // const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
+
+    //console.log("취득한 id", loginInfo);
+    
+
 
     const handlecontent = (evnet) => {
         evnet.preventDefault()
