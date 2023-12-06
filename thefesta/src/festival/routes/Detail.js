@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ReplyList from '../component/ReplyList';
+import Listfood from '../../food/Listfood';
 import './Detail.css';
 
 function Detail() {
@@ -140,9 +141,10 @@ function Detail() {
             </tr>
           </table>
         </div>
+        <Listfood></Listfood>
         <div className='bar'></div>
         <ReplyList contentid={festival.contentid}></ReplyList>
-        {/* <ReplySection contentid={festival.contentid}></ReplySection> */}
+        <Link to='/QuestionRegister'>축제 건의하기</Link>
       </div>
     </div>
   );

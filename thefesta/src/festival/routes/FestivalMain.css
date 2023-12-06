@@ -1,0 +1,20 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center;
+  padding: 0 10%; */
+}
+
+/* body {
+  margin: 0 13%;
+  font-family: 'NotoSansKR-VariableFont_wght';
+} */
+
+.festivals {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
