@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-// import hbgBtn from './images/hbgBtn.svg';
 
 function Header() {
     const [cookies, setCookie, removeCookie] = useCookies(['loginInfo']);
     const [loggedIn, setLoggedIn] = useState(false);
+
+    const id = cookies.loginInfo;
+    console.log(id);
 
     useEffect(() => {
         if (cookies.loginInfo) {
@@ -18,11 +20,23 @@ function Header() {
     }, [cookies.loginInfo]);
 
     const handleLogout = async () => {
-        await axios.get('http://localhost:9090/member/logout');
-
-        removeCookie('loginInfo');
-        setLoggedIn(false);
+        try {
+            const response = await axios.get('http://localhost:9090/member/logout', {
+                params: { id }
+            });
+    
+            if (response.data === 'success') {
+                removeCookie('loginInfo');
+                setLoggedIn(false);
+            } else {
+                console.error('로그아웃 실패:', response.data);
+            }
+        } catch (error) {
+            // 오류 처리
+            console.error('로그아웃 중 오류 발생:', error);
+        }
     };
+
     return (
         <div className='header'>
             <div className='header_hbgBtn'>

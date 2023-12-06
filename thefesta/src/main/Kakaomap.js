@@ -20,9 +20,6 @@ function Kakaomap() {
 
     return (
         <div className='container'>
-            <div className='searchbar'>
-                <input type='search' id='search'></input>
-            </div>
             <div className='kakaomap'>
                 <Map
                     className='map'
