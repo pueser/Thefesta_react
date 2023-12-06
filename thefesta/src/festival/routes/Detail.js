@@ -141,10 +141,15 @@ function Detail() {
             </tr>
           </table>
         </div>
-        <Listfood></Listfood>
+        <Listfood contentid={festival.contentid}></Listfood>
         <div className='bar'></div>
         <ReplyList contentid={festival.contentid}></ReplyList>
-        <Link to='/QuestionRegister'>축제 건의하기</Link>
+        <Link
+          to='/QuestionRegister'
+          state={{ contentid: festival.contentid, title: festival.title }}
+        >
+          축제 건의하기
+        </Link>
       </div>
     </div>
   );
