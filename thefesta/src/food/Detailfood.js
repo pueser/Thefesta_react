@@ -111,6 +111,13 @@ function Detailfood() {
             }
             const data = await response.json();
             // console.log(data);
+
+            // title () 안의 내용 삭제
+            if (data.title && data.title.includes('(')) {
+                data.title = data.title.replace(/\([^)]*\)/, '').trim();
+            }
+
+
             setFood(data);
         } catch (error) {
             console.error("Error fetching data: " + error);

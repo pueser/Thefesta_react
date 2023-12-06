@@ -1,0 +1,31 @@
+.search {
+  width: 60%;
+  margin-bottom: 70px;
+}
+
+.searchForm {
+  position: relative;
+  height: 35px;
+  display: flex;
+}
+
+.searchInput {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.searchBtn {
+  width: 20px;
+  height: 20px;
+  background-color: inherit;
+  border: none;
+  background-image: url('../img/search.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  cursor: pointer;
+}
