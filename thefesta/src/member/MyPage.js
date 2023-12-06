@@ -58,7 +58,7 @@ const imageName = '4.jpg';
 
   return (
     <div>
-      <h1>Image Display</h1>
+      <h1 className='MyPage-h1'>Image Display</h1>
       <img
         src={`http://localhost:9090/images/${imageName}`}
         alt="Image"

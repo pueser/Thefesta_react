@@ -43,7 +43,7 @@ function PwReset() {
   
     return (
       <div className='PwReset-container'>
-      <h1>비밀번호 재설정</h1>
+      <h1 className='PwReset-h1'>비밀번호 재설정</h1>
       <form className='PwReset-form'>
         <label className='PwReset-label'>
           <input
