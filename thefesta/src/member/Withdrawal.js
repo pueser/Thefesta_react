@@ -34,7 +34,7 @@ function Withdrawal() {
   
     return (
       <div>
-      <h1>회원탈퇴</h1>
+      <h1 className='Withdrawal-h1'>회원탈퇴</h1>
       <form>
         <label>
           <input

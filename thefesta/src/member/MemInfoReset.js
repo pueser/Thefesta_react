@@ -67,7 +67,7 @@ function MemInfoReset() {
   
     return (
       <div>
-      <h1>회원 정보 수정</h1>
+      <h1 className='MemInfoReset-h1'>회원 정보 수정</h1>
       <form className='MemInfoReset-form'>
         <label className='MemInfoReset-label'>
           아이디  
