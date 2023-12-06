@@ -12,6 +12,8 @@ function Login() {
     password: '',
   });
 
+  console.log(userData);
+
   const [rememberId, setRememberId] = useState(false);
 
   const [idError, setIdError] = useState('');
@@ -86,7 +88,7 @@ const handleRememberIdChange = (e) => {
           console.log(statecode);
 
           if (statecode == 0) {
-            navigate('/member')
+            navigate('/join')
             console.log('0번 도착')
           } else {
             navigate('/');
@@ -96,18 +98,12 @@ const handleRememberIdChange = (e) => {
         } else {
           setError('*미가입된 아이디입니다. 회원가입 후 로그인해주세요.');
         }
-
-        console.log(memInfo);
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
 
-  // const handleSubmit2 = () => {
-  //       Cookies.remove('loginInfo');
-  // };
-  
     return (
       <div className="login-container">
       <h1>로그인</h1>
@@ -141,9 +137,6 @@ const handleRememberIdChange = (e) => {
         <button type="button" name="login" onClick={handleSubmit} className="login-button">
           로그인
         </button>
-        {/* <button type="button" onClick={handleSubmit2}>
-          로그아웃
-        </button> */}
         <div className="error-message">{error}</div>
         <br />
         <label className="label-container">
@@ -170,6 +163,4 @@ const handleRememberIdChange = (e) => {
     </div>
     );
 }
-
-/* 로그아웃 버튼은 임시. 쿠키 삭제할 때 사용. */
 export default Login;
