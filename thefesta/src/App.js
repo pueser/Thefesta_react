@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from "./main/Footer";
-import Header from "./main/Header";
+import Footer from './main/Footer';
+import Header from './main/Header';
 import Detailfood from './food/Detailfood';
 import Scheduler from './scheduler/scheduler';
 import Login from './member/Login';
@@ -27,28 +27,27 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-
         <Route path='/' element={<Main />} />
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/join' element={<Join/>}/>
-        <Route path='/pwreset' element={<PwReset/>}/>
-        <Route path='/mypage' element={<MyPage/>}/>
-        <Route path='/withdrawal' element={<Withdrawal/>}/>
-        <Route path='/MemInfoReset' element={<MemInfoReset/>}/>
+        <Route path='/festival/:pageNum/:keyword?' element={<Main />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/join' element={<Join />} />
+        <Route path='/pwreset' element={<PwReset />} />
+        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/withdrawal' element={<Withdrawal />} />
+        <Route path='/MemInfoReset' element={<MemInfoReset />} />
         <Route path='/festival/detail/:contentid/:page?' element={<Detail />} />
         <Route path='/food/detail/:contentid' element={<Detailfood />} />
         <Route path='/scheduler' element={<Scheduler />} />
-        <Route path='/member' element={<Member/>} />
-        <Route path='/report' element={<Report/>} />
-        <Route path='/festa' element={<Festa/>} />
-        <Route path='/board' element={<Board/>} />
-        <Route path='/memberDetail/:id' element={<MemberDetail/>} />
-        <Route path='/memberReport/:reportid' element={<MemberReport/>} />
-        <Route path='/reportDetail/:reportid' element={<ReportDetail/>} />
-        <Route path='/Question/:contentid' element={<Question/>} />
-        <Route path='/QuestionDetail/:contentid' element={<QuestionDetail/>} />
-        <Route path='/QuestionRegister' element={<QuestionRegister/>} />
-
+        <Route path='/member' element={<Member />} />
+        <Route path='/report' element={<Report />} />
+        <Route path='/festa' element={<Festa />} />
+        <Route path='/board' element={<Board />} />
+        <Route path='/memberDetail/:id' element={<MemberDetail />} />
+        <Route path='/memberReport/:reportid' element={<MemberReport />} />
+        <Route path='/reportDetail/:reportid' element={<ReportDetail />} />
+        <Route path='/Question/:contentid' element={<Question />} />
+        <Route path='/QuestionDetail/:contentid' element={<QuestionDetail />} />
+        <Route path='/QuestionRegister' element={<QuestionRegister />} />
       </Routes>
       <Footer />
     </BrowserRouter>
