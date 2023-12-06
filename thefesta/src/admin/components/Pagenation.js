@@ -1,16 +1,10 @@
 
 function Pagenation({page, startPage, endPage, curPageChange, total, next, prev, amount}){
+    console.log("endPage", endPage)
     //페이지 리스트
     const tmpPages = [];
-    if((Math.ceil(total/amount))-1 === endPage){
-        endPage = (Math.ceil(total/amount))
-         for (let i = startPage; i <= endPage; i++) {
-             tmpPages.push(i);
-        }
-    }else{
-        for (let i = startPage; i <= endPage; i++) {
-            tmpPages.push(i);
-        }
+    for (let i = startPage; i <= endPage; i++) {
+        tmpPages.push(i);
     }
 
     //페이지 클릭했을 때

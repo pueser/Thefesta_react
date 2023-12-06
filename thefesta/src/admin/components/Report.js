@@ -14,7 +14,6 @@ function Report() {
   const [next, setNext] = useState("")//이전 페이지
   const [prev, setPrev] = useState("")//다음 페이지
   const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
-  const navigate = useNavigate();
 
   useEffect(
     ()=>{getReportList()
@@ -29,7 +28,6 @@ function Report() {
         .then((response)=> {
           setReportList(response.data)
           console.log("setReportList", response.data)
-          alert("list 불러오기 성공")
 
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
@@ -83,7 +81,8 @@ function Report() {
     axios.post(`http://localhost:9090/admin/reportstateChange?reportid=${data}`, {
     }).then((response)=>{
         console.log(response);
-        alert(response.data + "번 승인 되었습니다. 해당 회원 상세페이지에서 확인 가능 합니다.")
+        alert(`${response.data}번 승인 되었습니다. 해당 회원 상세페이지에서 확인 가능 합니다.`)
+        getReportList();
 
     }).catch((error)=>{
         console.log(error)
@@ -109,11 +108,14 @@ function Report() {
     axios.post(`http://localhost:9090/admin/memberReportDelete?reportid=${data}`, {
     }).then((response)=>{
         console.log(response);
-        alert(response.data);
+        alert(`${response.data}번 반려 되었습니다`)
+        getReportList();
+
 
     }).catch((error)=>{
         console.log(error)
-        alert(error.data)
+        alert("승인이 되지 않았습니다. 해당 업체에 문의 바랍니다.")
+        
     })
   }  
   

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function ReportDetail(){
     const {reportid} = useParams();
-    
-    //신고내용 저장 useState
     const [reportDetail, setReportDetail] = useState("");
+    const navigate = useNavigate();
 
     useEffect(
         ()=>{getReportDetail()
@@ -19,13 +18,10 @@ function ReportDetail(){
             
             .then((response)=> {
                 setReportDetail(response.data)
-      
                 console.log("setReportDetail", response)
-                alert("reportcontent 불러오기 성공")
             })
             .catch((error)=>{
               console.log("error", error)
-              alert("reportcontent 불러오기 실패")
             })
     }
 
@@ -34,10 +30,12 @@ function ReportDetail(){
         axios.post(`http://localhost:9090/admin/reportstateChange?reportid=${data}`, {
         }).then((response)=> {
             console.log("response", response.data)
-            alert(response.data)
+            alert(`${response.data}번 승인 되었습니다. 해당 회원 상세페이지에서 확인 가능 합니다.`)
+            navigate('/report')
+
         }).catch((error)=>{
             console.log("error", error.data)
-            alert(error.data)
+            alert("승인이 되지 않았습니다. 해당 업체에 문의 바랍니다.")
         })
     }
     //반려버튼 누를때
@@ -45,11 +43,12 @@ function ReportDetail(){
         axios.post(`http://localhost:9090/admin/memberReportDelete?reportid=${data}`, {
         }).then((response)=>{
             console.log(response);
-            alert(response.data)
+            alert(`${response.data}번 반려 되었습니다`)
+            navigate('/report')
 
         }).catch((error)=>{
             console.log(error)
-            alert(error.data)
+            alert("승인이 되지 않았습니다. 해당 업체에 문의 바랍니다.")
         })
     }  
 
@@ -68,9 +67,11 @@ function ReportDetail(){
                         <td>{reportDetail}</td>
                     </tr>
                 </tbody>
+            </table>
+            <td>
                 <Link to='/report'><button onClick={()=>approveClick(reportid)}>승인</button></Link>
                 <Link to='/report'><button onClick={()=>deleteClick(reportid)}>반려</button></Link>
-            </table>
+            </td>
         </div>
     );
 }
