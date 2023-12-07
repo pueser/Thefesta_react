@@ -88,7 +88,7 @@ const handleRememberIdChange = (e) => {
           console.log(statecode);
 
           if (statecode == 0) {
-            navigate('/join')
+            navigate('/member')
             console.log('0번 도착')
           } else {
             navigate('/');
