@@ -10,11 +10,9 @@
 
 .yearBlock {
     border-radius: 15px;
-    height: 16ex;
-    margin: 0;
+    height: 10ex;
     outline: 1px solid black;
     width: 14.3em;
-    padding-bottom: 2%;
     text-align: center;
 }
 
@@ -24,4 +22,5 @@
     font-size: x-large;
     cursor: pointer;
     padding: 10px;
+    height: 10ex;
 }

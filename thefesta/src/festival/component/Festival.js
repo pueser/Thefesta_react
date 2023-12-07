@@ -50,7 +50,7 @@ function Festival({
     <div>
       <div className='festival'>
         <Link
-          to={`/detail/${contentid}`}
+          to={`/festival/detail/${contentid}`}
           state={{
             contentid,
             title,

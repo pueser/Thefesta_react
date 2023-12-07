@@ -124,13 +124,13 @@ function Scheduler(){
         {calendarShow&&<table>
           <thead>
             <tr>
-              <td style={{color:'red'}} className='dayBlock'>일</td>
-              <td className='dayBlock'>월</td>
-              <td className='dayBlock'>화</td>
-              <td className='dayBlock'>수</td>
-              <td className='dayBlock'>목</td>
-              <td className='dayBlock'>금</td>
-              <td style={{color:'red'}} className='dayBlock'>토</td>
+              <td style={{color:'red'}} className='dayWeekBlock'>일</td>
+              <td className='dayWeekBlock'>월</td>
+              <td className='dayWeekBlock'>화</td>
+              <td className='dayWeekBlock'>수</td>
+              <td className='dayWeekBlock'>목</td>
+              <td className='dayWeekBlock'>금</td>
+              <td style={{color:'red'}} className='dayWeekBlock'>토</td>
             </tr>
           </thead>
           <tbody>

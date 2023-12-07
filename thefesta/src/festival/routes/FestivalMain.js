@@ -1,11 +1,12 @@
-import './Main.css';
-import Kakaomap from './Kakaomap';
-import Search from '../festival/component/Search';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Festival from '../festival/component/Festival';
-import Pagination from '../festival/component/Pagination';
+import Pagination from '../component/Pagination';
+import Festival from '../component/Festival';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Search from '../component/Search';
+import './FestivalMain.css';
+import Kakaomap from '../../main/Kakaomap';
+
 function Main() {
   const { pageNum, keyword } = useParams();
   const [festivals, setFestivals] = useState([]);
@@ -47,8 +48,9 @@ function Main() {
     fetchData(page, keyword);
     navigate(`/festival/${page}/${keyword}`);
   };
+
   return (
-    <div>
+    <div className='body'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
       <Kakaomap></Kakaomap>
       {festivals.length > 0 ? (
@@ -87,7 +89,6 @@ function Main() {
         </div>
       )}
       <Pagination pageMaker={pageMaker} handlePageChange={handlePageChange} />
-      <hr className='hr' />
     </div>
   );
 }

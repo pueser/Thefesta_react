@@ -119,6 +119,14 @@
   padding-bottom: 2%; */
   /* text-align: center;
 } */
+.dayWeekBlock{
+  margin: 0;
+  outline: 1px solid black;
+  width:14.3em;
+  /* height: 8ex; */
+  position: relative;
+  text-align: center;
+}
 .dayDateText{
   position: absolute;
   top: 0px;
