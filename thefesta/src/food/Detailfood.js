@@ -163,12 +163,15 @@ function Detailfood() {
         setLikedStatusToLocalStorage(userId, contentid, isLiked);
     }, [userId, contentid, isLiked]);
 
+    //firstimage의 데이터 유무 확인
+    const imageSource = food.firstimage ? food.firstimage : "/images/noimage.png";    
+
     return (
         <section className="Detail-container">
             <div className="Detail-food">
                 <div className="Detail-food-flex">
                     <div className="Detail-food-image">
-                        <img src={food.firstimage} title={food.title} alt={food.title} />
+                        <img src={imageSource} title={food.title} alt={food.title} />
                     </div>
                     <div className="Detail-food-data">
                         <div className="Detail-food-data-flex1">
