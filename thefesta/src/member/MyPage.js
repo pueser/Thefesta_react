@@ -1,71 +1,96 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import './MyPage.css';
+import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MyPage() {
-//   const [imageUrl, setImageUrl] = useState("/1.jpg");
-//   const fileInputRef = useRef(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const fileInputRef = useRef(null);
+  const id = Cookies.get('loginInfo').trim();
+  const parsedId = id ? JSON.parse(id) : '';
+  const navigate = useNavigate();
 
-//   const handleImageClick = () => {
-//     // 클릭 시 파일 선택 창 열기
-//     fileInputRef.current.click();
-//   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://localhost:9090/member/selMember', {
+          id: parsedId
+        });
+        
+        const memData = response.data;
 
-//   const handleFileChange = async (event) => {
-//     const selectedFile = event.target.files[0];
+        if (memData.profileImg) {
+          setImageUrl(memData.profileImg);
+        }
+      } catch (error) {
+        console.error('Error fetching member data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
     
-//     // 파일 업로드
-//     const formData = new FormData();
-//     formData.append('id', 'testuser3@naver.com'); 
-//     formData.append('file', selectedFile);
+    const formData = new FormData();
+    formData.append('id', parsedId); 
+    formData.append('file', selectedFile);
 
-//     try {
-//       const response = await axios.post('http://localhost:9090/member/updateImg', formData, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data',
-//         },
-//       });
-//       const updatedImageUrl = response.data; // 서버에서 받은 업데이트된 이미지 URL
-//       console.log(updatedImageUrl);
+    try {
+      const response = await axios.post('http://localhost:9090/member/updateImg', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-//       // 이미지 URL 업데이트
-//       setImageUrl(updatedImageUrl);
-//     } catch (error) {
-//       console.error('Error uploading image:', error);
-//     }
-//   };
+      if (response.data === 'success') {
+        const memberResponse = await axios.post('http://localhost:9090/member/selMember', {
+          id: parsedId,
+          randomParam: Math.random(),
+        });
+        
+        const memData = memberResponse.data;
+        console.log("memData : " + memData.profileImg);
 
-//   return (
-//     <div>
-//       <img
-//         src={`http://localhost:9090/thefestaTest${imageUrl}`}
-//         alt="Profile Preview"
-//         onClick={handleImageClick}
-//         className='mypageimage'
-//       />
+        if (memData.profileImg) {
+          setImageUrl(memData.profileImg);
+        }
+      }
 
-//       <input
-//         type="file"
-//         ref={fileInputRef}
-//         onChange={handleFileChange}
-//         style={{ display: 'none' }}
-//       />
-//     </div>
-//   );
-// }
-
-const imageName = '4.jpg';
+      console.log(imageUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
 
   return (
     <div>
-      <h1 className='MyPage-h1'>Image Display</h1>
       <img
-        src={`http://localhost:9090/images/${imageName}`}
-        alt="Image"
-        style={{ maxWidth: '100%', height: 'auto' }}
+        src={`${imageUrl}`}
+        alt="Profile Preview"
+        onClick={handleImageClick}
+        className='mypageimage'
       />
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      /><br/>
+
+      <>
+        <Link to='/MemInfoReset' className='MemInfoReset'>회원정보수정</Link><br/>
+        <Link to='/withdrawal' className='withdrawal'>회원탈퇴</Link>
+      </>
     </div>
   );
-};
+}
 
 export default MyPage;
+
