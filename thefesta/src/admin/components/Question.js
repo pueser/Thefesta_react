@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Pagenation from "./Pagenation";
 
 function Question (){
     const {contentid} = useParams();
-    const [questionList, setQuestionList] = useState([]);
+    const [questList, setQuestionList] = useState([]);
     const [curPage, setCurPage] = useState(1); //현재 페이지 세팅
     const [startPage, setStartPage] = useState(""); //startPage
     const [endPage, setEndPage] = useState(""); //endPage
@@ -12,7 +13,6 @@ function Question (){
     const [next, setNext] = useState("")//이전 페이지
     const [prev, setPrev] = useState("")//다음 페이지
     const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
-    console.log("contentid", contentid)
 
     useEffect(
         ()=>{getBoardList()
@@ -28,12 +28,71 @@ function Question (){
         console.log("response", response.data)
         setQuestionList(response.data);
 
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+
         })
 
         .catch((error)=>{
         console.log("error", error)
         })
     }
+
+  //Pagenation에서 현재페이지 받기
+  const curPageChange =(page) =>{
+    console.log("page", page)
+    setCurPage(page);
+    axios.get(`http://localhost:9090/admin/questionList?pageNum=${page}&amount=${amount}&contentid=${contentid}`)
+      
+      .then((response)=> {
+        console.log("setReportList", response.data)
+        //alert("list 불러오기 성공")
+        setQuestionList(response.data);
+
+        setStartPage(response.data.pageMaker.startPage);
+        setEndPage(response.data.pageMaker.endPage)
+        setTotal(response.data.pageMaker.total);
+        setNext(response.data.pageMaker.next)
+        setPrev(response.data.pageMaker.prev)
+        
+      })
+      .catch((error)=>{
+        console.log("error", error)
+        //alert("list 불러오기 실패")
+      })
+  }
+
+
+  //확인 눌렀을 때
+  const deleteClick = (data)=>{
+
+   
+   //화면상 확인된 건의글 안보이도록
+   const deleteListArray = 
+   questList.list&&questList.list.map((item)=>{
+     if(item.questionid === data) {
+       return -1
+     }else{   
+       return item
+     }
+   }).filter((item) => item !== -1);
+   setQuestionList({list : deleteListArray, pageMaker : questList.pageMaker})
+
+    axios.post(`http://localhost:9090/admin/questionDelete?questionid=${data}`, {
+      }).then((response)=>{
+        console.log(response);
+        alert(`${response.data}번 건의글이 확인되었습니다`)
+        getBoardList();
+
+      }).catch((error)=>{
+        console.log(error)
+        alert("건의글 확인이 실패하였습니다. 해당 업체에 문의 바랍니다.")
+    })
+    
+  }
 
     return(
         <div>
@@ -50,14 +109,14 @@ function Question (){
           </thead>
           <tbody>
             {
-              questionList.list&&questionList.list.map(
+              questList.list&&questList.list.map(
                 (item, idx)=>(
                   <tr key={idx}>
                     <td>{item.questionid}</td>
-                    <td><Link to={{ pathname:`/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent}}>{item.questioncontent}</Link></td>
+                    <td><Link to={{ pathname:`/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}>{item.questioncontent}</Link></td>
                     <td>{item.id}</td>
                     <td>{item.questiondate}</td>
-                    <td><button>확인</button></td>
+                    <td><button onClick={()=>deleteClick(item.questionid)}>확인</button></td>
                   </tr>
                 )
               )
@@ -65,7 +124,16 @@ function Question (){
           </tbody>
         </table>
         <div>
-          
+          <Pagenation
+            page={curPage}
+            startPage={startPage}
+            endPage={endPage}
+            curPageChange ={curPageChange}
+            total = {total}
+            next={next}
+            prev ={prev}
+            amount={amount}
+          />
         </div>
         </div>
     );

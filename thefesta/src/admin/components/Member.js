@@ -27,31 +27,27 @@ function Member() {
         
         .then((response)=> {
           setMemberList(response.data)
-          alert("list 불러오기 성공")
-          console.log("setBoardList", response)
-
+          console.log("response", response)
           response.data.list.forEach(element=>{
-            console.log("element = ", element);
             let code;
 
             //회원 상태 변경
             if(element.statecode === "1"){
               code = "일반";
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }else if(element.statecode === "2"){
               code = "탈퇴";
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum , pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }else if(element.statecode === "3"){
               code = "재가입 가능"
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }else if(element.statecode === "4"){
               code = "강퇴"
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }
             //MemberList 에 넣기
             setMemberList(newMemberList)
           })
-
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
           setTotal(response.data.pageMaker.total);
@@ -74,26 +70,23 @@ function Member() {
         
         .then((response)=> {
           setMemberList(response.data)
-          console.log("setBoardList", response)
-          alert("list 불러오기 성공")
           
           response.data.list.forEach(element=>{
-            console.log("element = ", element);
             let code;
 
             //회원 상태 변경
             if(element.statecode === "1"){
               code = "일반";
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }else if(element.statecode === "2"){
               code = "탈퇴";
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum , pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum })
             }else if(element.statecode === "3"){
               code = "재가입 가능"
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }else if(element.statecode === "4"){
               code = "강퇴"
-              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, pageMaker : response.data.pageMaker})
+              newMemberList.push({statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }
             //MemberList 에 넣기
             setMemberList(newMemberList)
@@ -111,8 +104,7 @@ function Member() {
           alert("list 불러오기 실패")
         })
   }
-
-  console.log("memberList = ", memberList)
+console.log("memberlist = ", memberList)
     return (
       <div>
         <table>
@@ -132,8 +124,9 @@ function Member() {
                   <MemberList key={item.id}
                     id={item.id}
                     statecode={item.statecode}
-                    reportnum={item.reportnum}
-                    finalaccess={item.finalaccess}>
+                    totalreportnum={item.totalreportnum}
+                    finalaccess={item.finalaccess}
+                    reportnum={item.reportnum}>
                   </MemberList>
                 )
               )

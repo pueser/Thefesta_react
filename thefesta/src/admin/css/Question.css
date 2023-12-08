@@ -1,0 +1,97 @@
+.Question-container {
+    width: 70%;
+    margin: 30px auto 60px;
+    /* background-color: aqua; */
+    text-align: center;
+    font-family: 'noto sans kr';
+}
+
+.Question-title{
+    margin-bottom: 50px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.Question-info {
+    width: 50%;
+    margin: 0px auto;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Question-info h2 {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.Question-userinfo{
+    display: flex;
+    align-items: center;
+}
+
+.Question-profileimg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.Question-nickname {
+    margin-left: 10px;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.Question-form {
+    /* background-color: beige; */
+    width: 50%;
+    margin: 0px auto;
+    display: inline-block
+}
+
+.Question-content {
+    display: grid;
+    margin-bottom: 30px;
+}
+
+.Question-content textarea {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: sans-serif;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    outline: none;
+}
+
+.Question-button input {
+    width: 80px;
+    height: 40px;
+    margin: 0 5px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.Question-button input:first-child {
+   background-color: white;
+   border: 2px solid black;
+   border-radius: 5px;
+}
+
+.Question-button input:last-child {
+    background-color: white;
+    border: 2px solid #ff4949;
+    color: #ff4949;
+    border-radius: 5px;
+}
+
+.Question-button input:first-child:hover {
+    background-color: black;
+    color: white;
+}
+
+.Question-button input:last-child:hover {
+    background-color: #ff4949;
+    color: white;
+}
+
