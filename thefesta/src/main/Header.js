@@ -1,13 +1,40 @@
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
-// import hbgBtn from './images/hbgBtn.svg';
 
 function Header() {
     const [cookies, setCookie, removeCookie] = useCookies(['loginInfo']);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [getNickname, setGetNickname] = useState('');
+
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
+    console.log(parsedId);
+
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            if (parsedId !== '') {
+            const response = await axios.post('http://localhost:9090/member/selMember', {
+              id: parsedId
+            });
+                const memData = response.data;
+        
+                if (memData.nickname) {
+                    setGetNickname(memData.nickname);
+                }
+            }
+          } catch (error) {
+            console.error('Error fetching member data:', error);
+          }
+        };
+        fetchData();
+      }, [parsedId]);
 
     useEffect(() => {
         if (cookies.loginInfo) {
@@ -17,12 +44,6 @@ function Header() {
         }
     }, [cookies.loginInfo]);
 
-    const handleLogout = async () => {
-        await axios.get('http://localhost:9090/member/logout');
-
-        removeCookie('loginInfo');
-        setLoggedIn(false);
-    };
     return (
         <div className='header'>
             <div className='header_hbgBtn'>
@@ -32,17 +53,16 @@ function Header() {
                 <h1>THE<br />FESTA</h1>
             </div>
             <div className='header_menu hover'>
-                {/* <p className='menu'>축제</p>
-                <p className='menu menu_scheduler'>스케줄러</p>
-                <p className='menu'>톡톡</p> */}
                 <Link className='menu' to='/'><li className='menu'>축제</li></Link>
                 <Link className='menu' to='/scheduler'><li className='menu menu_scheduler'>스케줄러</li></Link>
                 <Link className='menu' to='/board'><li className='menu'>톡톡</li></Link>
             </div>
             <div className='header_member hover'>
                 {loggedIn ? (
-                    <p className='member' onClick={handleLogout}>Logout</p>
-                ) : (
+                    <>
+                    <Link to='/mypage' className='mypage'>{getNickname}</Link>
+                    </>
+                    ) : (
                     <>
                         <Link to='/login' className='member'>Login</Link>
                         <Link to='/join' className='member'>Join</Link>
