@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
-import Join from './Join';
 
 function Login() {
 
@@ -12,14 +11,12 @@ function Login() {
     password: '',
   });
 
-  console.log(userData);
-
   const [rememberId, setRememberId] = useState(false);
 
   const [idError, setIdError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
-//
+
   useEffect(() => {
     const storedId = Cookies.get('rememberedId');
     if (storedId) {
@@ -47,66 +44,112 @@ function Login() {
       setPasswordError('');
       document.getElementById('passwordInput').style.borderColor = '';
     }
-};
-
-const handleRememberIdChange = (e) => {
-  setRememberId(e.target.checked);
-};
-
-  const handleSubmit = () => {
-    // 아이디 유효성 검사
-    if (!userData.id.trim()) {
-      setIdError('*아이디를 입력해주세요.');
-      document.getElementById('idInput').style.borderColor = 'red';
-      return;
-    }
-
-    // 비밀번호 유효성 검사
-    if (!userData.password.trim()) {
-      setPasswordError('*비밀번호를 입력해주세요.');
-      document.getElementById('passwordInput').style.borderColor = 'red';
-      return;
-    }
-
-    document.getElementById('idInput').style.borderColor = '';
-    document.getElementById('passwordInput').style.borderColor = '';
-
-    axios.post('http://localhost:9090/member/loginPost', userData)
-      .then(response => {
-        const memInfo = response.data;
-
-        if (memInfo) {
-          Cookies.set('loginInfo', JSON.stringify(memInfo));
-
-          if (rememberId) {
-            Cookies.set('rememberedId', userData.id);
-          } else {
-            Cookies.remove('rememberedId');
-          }
-
-          const statecode = memInfo.statecode;
-          console.log(statecode);
-
-          if (statecode == 0) {
-            navigate('/member')
-            console.log('0번 도착')
-          } else {
-            navigate('/');
-            console.log('n번 도착')
-          } // 후에 수정할 것...
-          
-        } else {
-          setError('*미가입된 아이디입니다. 회원가입 후 로그인해주세요.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
   };
+  
+  const handleRememberIdChange = (e) => {
+    setRememberId(e.target.checked);
+  };
+  
+  const handleSubmit = () => {
+    
+    axios.post('http://localhost:9090/member/selMember', userData)
+    .then(response => {
+      const idCheck = response.data
+      
+      console.log(idCheck)
+      
+      if (idCheck == '') {
+        setIdError('*미가입 된 아이디입니다. 회원가입 후 로그인해주세요.')
+        setPasswordError('')
+        document.getElementById('passwordInput').style.borderColor = '';
+        document.getElementById('idInput').style.borderColor = 'red';
+      } else if (idCheck != '') {
+        
+        
+        // 아이디 유효성 검사
+        if (!userData.id.trim()) {
+          setIdError('*아이디를 입력해주세요.');
+          document.getElementById('idInput').style.borderColor = 'red';
+          return;
+        }
+        
+        // 비밀번호 유효성 검사
+        if (!userData.password.trim()) {
+          setPasswordError('*비밀번호를 입력해주세요.');
+          document.getElementById('passwordInput').style.borderColor = 'red';
+          return;
+        }
+        
+        document.getElementById('idInput').style.borderColor = '';
+        document.getElementById('passwordInput').style.borderColor = '';
+        
+        axios.post('http://localhost:9090/member/loginPost', userData)
+        .then(response => {
+          const memInfo = response.data;
+          console.log("memInfo : " + memInfo);
+          if (memInfo) {
+            Cookies.set('loginInfo', JSON.stringify(memInfo.id));
+            
+            if (rememberId) {
+              Cookies.set('rememberedId', userData.id);
+            } else {
+              Cookies.remove('rememberedId');
+            }
+            
+            const statecode = memInfo.statecode;
+            console.log(statecode);
+            
+            if (String(statecode) == 0) {
+              navigate('/member')
 
+            } else if (String(statecode) == 1) {
+              navigate('/')
+
+            } else if (String(statecode) == 2) {
+              const updatedate = memInfo.updatedate;
+              const originalDate = new Date(updatedate);
+              const sevenDaysLater = new Date(originalDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+              const currentDate = new Date();
+              const date = sevenDaysLater.toLocaleString();
+
+              if (currentDate < sevenDaysLater) {
+                window.alert("탈퇴한 계정입니다. " + date + "초 이후에 재가입 가능합니다.");
+                return;
+              } else {
+                userData.statecode = 3;
+                console.log("user data : " + userData.statecode);
+
+                axios.post('http://localhost:9090/member/updateState', userData)
+                return;
+              }
+
+            } else if (String(statecode) == 3) {
+              setIdError('*미가입 된 아이디입니다. 회원가입 후 로그인해주세요.')
+              setPasswordError('')
+              document.getElementById('passwordInput').style.borderColor = '';
+              document.getElementById('idInput').style.borderColor = 'red';
+
+            } else if (String(statecode) == 4) {
+              window.alert("영구 차단된 계정입니다.")
+            }
+              
+            
+          } else if (memInfo == '') {
+            setError('*아이디 또는 비밀번호가 일치하지 않습니다.');
+            document.getElementById('idInput').style.borderColor = '';
+            document.getElementById('passwordInput').style.borderColor = '';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    })
+    };
+    
     return (
       <div className="login-container">
-      <h1 className='login-h1'>로그인</h1>
+      <h1>로그인</h1>
       <form className="login-form">
         <label className="login-label">
           <input
@@ -117,7 +160,7 @@ const handleRememberIdChange = (e) => {
             onChange={handleInputChange}
             placeholder="아이디"
             className="input-style"
-          />
+            />
           <div className="error-message">{idError}</div>
         </label>
         <br />
@@ -130,7 +173,7 @@ const handleRememberIdChange = (e) => {
             onChange={handleInputChange}
             placeholder="비밀번호"
             className="input-style"
-          />
+            />
           <div className="error-message">{passwordError}</div>
         </label>
         <br />
@@ -154,7 +197,7 @@ const handleRememberIdChange = (e) => {
           회원가입
         </Link>
           {' | '}
-        <Link to="/join" className="link-container">
+        <Link to="/pwreset" className="link-container">
           비밀번호 찾기
         </Link>
       </label>
