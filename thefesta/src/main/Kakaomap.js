@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import './Kakaomap.css';
-// import add from '../images/add.svg';
-// import remove from '../images/remove.svg';
 
 function Kakaomap() {
   const [level, setLevel] = useState(13);
@@ -19,16 +17,11 @@ function Kakaomap() {
 
   return (
     <div className='container'>
-      {/* <div className='searchbar'>
-        <input type='search' id='search'></input>
-      </div> */}
       <div className='kakaomap'>
         <Map
           className='map'
           center={{ lat: 37.5518911, lng: 126.9917937 }}
-          level={level}
-        >
-
+          level={level}>
           {locations.map((loc, idx) => (
             <MapMarker
               key={`${loc.title}-${loc.latlng}`}
@@ -42,16 +35,16 @@ function Kakaomap() {
           ))}
           <div className='map_button'>
             <span onClick={() => setLevel(level - 1)}>
-              <img src='/images/add.svg' alt='확대' />
+              <img src="/images/add.svg" alt='확대' />
             </span>
             <span onClick={() => setLevel(level + 1)}>
-              <img src='/images/remove.svg' alt='축소' />
+              <img src="/images/remove.svg" alt='축소' />
             </span>
           </div>
         </Map>
       </div>
     </div>
-  );
+  )
 }
 
 export default Kakaomap;
