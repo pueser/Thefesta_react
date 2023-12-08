@@ -2,9 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import './MyPage.css';
 import Cookies from 'js-cookie';
+import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
 function MyPage() {
+
+  const [cookies, setCookie, removeCookie] = useCookies(['loginInfo']);
+
   const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef(null);
   const id = Cookies.get('loginInfo').trim();
@@ -68,6 +72,24 @@ function MyPage() {
     }
   };
 
+  const handleLogout = async () => {
+        try {
+            const response = await axios.get('http://localhost:9090/member/logout', {
+                params: { id }
+            });
+    
+            if (response.data === 'success') {
+              navigate('/')
+              removeCookie('loginInfo');
+            } else {
+                console.error('로그아웃 실패:', response.data);
+            }
+        } catch (error) {
+            // 오류 처리
+            console.error('로그아웃 중 오류 발생:', error);
+        }
+    };
+
   return (
     <div>
       <img
@@ -88,9 +110,12 @@ function MyPage() {
         <Link to='/MemInfoReset' className='MemInfoReset'>회원정보수정</Link><br/>
         <Link to='/withdrawal' className='withdrawal'>회원탈퇴</Link>
       </>
+
+      <button type="button" onClick={handleLogout} className='PwReset-button'>
+          로그아웃
+        </button>
     </div>
   );
 }
 
 export default MyPage;
-
