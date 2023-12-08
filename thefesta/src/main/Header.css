@@ -5,7 +5,6 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 30px;
-	/* border-bottom: 1px solid #d9d9d9; */
 }
 
 .header_logo {
@@ -33,10 +32,6 @@
 	text-decoration-line: none;
 	text-align: center;
 	color: rgb(0, 0, 0);
-}
-
-.menu_scheduler {
-	width: 100px;
 }
 
 .menu:hover {

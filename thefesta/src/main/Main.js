@@ -1,11 +1,13 @@
 import './Main.css';
-import Kakaomap from './Kakaomap';
+/* import Kakaomap from './Kakaomap'; */
 import Search from '../festival/component/Search';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Festival from '../festival/component/Festival';
 import Pagination from '../festival/component/Pagination';
+import KMap from './KMap';
+import Kakaomap from './Kakaomap';
 function Main() {
   const { pageNum, keyword } = useParams();
   const [festivals, setFestivals] = useState([]);
@@ -50,7 +52,7 @@ function Main() {
   return (
     <div>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
-      <Kakaomap></Kakaomap>
+      <KMap></KMap>
       {festivals.length > 0 ? (
         <div>
           <div className='festivals'>
