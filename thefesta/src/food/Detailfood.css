@@ -1,28 +1,30 @@
 .Detail-container {
     width: 100%;
     margin: 0 auto;
-    font-family: 'noto sans kr';
+    font-family: 'noto sans kr', sans-serif;
 }
 
 .Detail-food {
-    width: 70%;
+    width: 80%;
     margin: 10px auto;
     padding-top: 30px;
     text-align: center;
-    border-top: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9;
+    /* border-top: 1px solid #d9d9d9; */
+    /* border-bottom: 1px solid #d9d9d9; */
+    /* background-color: aliceblue; */
 }
 
 .Detail-food-flex {
     display: flex;
     align-items: center;
+    margin-left: 18px;
     justify-content: left;
-    margin-left: 20px;
     height: 500px;
+    /* background-color: antiquewhite; */
 }
 
 .Detail-food-image img {
-    width: 450px;
+    width: 550px;
     height: 450px;
 }
 
@@ -30,6 +32,8 @@
     width: 52%;
     text-align: start;
     margin-left: 30px;
+    margin-right: 10px;
+    /* background-color: aqua; */
 }
 
 .Detail-food-data-flex1 {
@@ -39,12 +43,12 @@
 }
 
 .Detail-food-title {
-    font-size: 2em;
+    font-size: 1.8em;
     margin-top: 0px;
 }
 
 .Detail-food-data-flex1 span {
-    margin-top: 13px;
+    margin-top: 10px;
     margin-left: 3%;
 }
 
@@ -64,18 +68,18 @@
 
 
 .Detail-food-table tbody>tr>th {
-    width: 85px;
+    width: 75px;
     height: 30px;
     text-align: left;
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .Detail-food-table tbody>tr>td {
     text-align: left;
     height: 50px;
     color: #4b4b4b;
-    font-size: 1em;
+    font-size: 0.9em;
     outline: none;
 }
 
@@ -89,26 +93,29 @@ td {
 }
 
 .Detail-food-overview {
+    width: 900px;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-bottom: 5px;
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .Detail-food-content {
+    width: 97%;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-top: 10px;
     margin-right: 10px;
+    font-size: 0.9em;
     color: #4b4b4b;
     line-height: 2;
 }
 
 .Detail-food-location {
     text-align: left;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-top: 20px;
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1em;
 }

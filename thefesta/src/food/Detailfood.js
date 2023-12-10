@@ -216,7 +216,7 @@ function Detailfood() {
                 </div>
                 <div className="Detail-food-info">
                     <p className="Detail-food-overview">소개</p>
-                    <p className="Detail-food-content">{food.overview}</p>
+                    <p className="Detail-food-content">{formatDataWithLineBreaks(food.overview)}</p>
                 </div>
                 <div className="Detail-food-map">
                     <p className="Detail-food-location">위치</p>
