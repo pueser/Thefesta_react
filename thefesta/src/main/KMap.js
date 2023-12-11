@@ -8,7 +8,7 @@ function KMap() {
 
   useEffect(() => {
     getApi();
-    /* setPositions(clusterPositionsData.positions); */
+    // setPositions(clusterPositionsData.positions);
   }, [])
 
   const getApi = (key) => {
@@ -19,7 +19,11 @@ function KMap() {
         keyword: key || (key ? key : ''),
       },
     })
-      .then((res) => { console.log("res.data", res.data) })
+      .then((res) => { 
+        console.log("getApi res.data", res.data) 
+        console.log("getApi res.data.list", res.data.list[0].mapx) 
+        setPositions(res.data.list)
+      })
       .catch((error) => { console.log("error", error) })
   }
 
@@ -32,7 +36,7 @@ function KMap() {
       }}
       style={{
         // 지도의 크기
-        width: "100%",
+        width: "60%",
         height: "450px",
       }}
       level={14} // 지도의 확대 레벨
@@ -43,10 +47,10 @@ function KMap() {
       >
         {positions.map((pos) => (
           <MapMarker
-            key={`${pos.mapx}-${pos.mapy}`}
+            key={`${pos.mapy}-${pos.mapx}`}
             position={{
-              lat: pos.mapx,
-              lng: pos.mapy,
+              lat: pos.mapy,
+              lng: pos.mapx,
             }}
           />
         ))}
