@@ -1,0 +1,44 @@
+.main{
+    text-align: center;
+    font-family: 'noto sans kr';
+    border-left-color: black;
+    width: 90%;
+    margin: 30px auto 60px;
+    
+}
+.link{
+    text-decoration: none;
+}
+.ButtonTD{
+    width: 10%;
+    padding:5px
+}
+table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    /* height: 485.33px; */
+  }
+  
+th,
+td {
+    text-align: center;
+    border: 1px solid #d0d3d8;
+    padding: 10px;
+}
+  
+th {
+    text-align: center;
+    background-color: #f2f2f2;
+}
+/* tbody{
+    height: 462.667px;
+} */
+tr{ height: 46.26; }
+tr:nth-child(odd) { background-color: #ddd; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+
+
+
+

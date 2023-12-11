@@ -4,8 +4,8 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
 
-function MemberDetail(props){
-  //member(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
+function MemberDetail(){
+  //memberList(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
   const {id} = useParams();
   const location = useLocation();
   const statecode = location.state.statecode
@@ -22,6 +22,7 @@ function MemberDetail(props){
   const [reportnum, setReportnum] = useState();
 
   console.log("location statecode",statecode)
+  
 
   //회원 상세페이지 정보 저장 useState
   const [memberDetail, setMemberDetail] = useState([]);
@@ -44,22 +45,39 @@ function MemberDetail(props){
         console.log("response", response)
 
         response.data.list.forEach(element=>{
+        //회원 신고 누적횟수
+        if(element.reportnum === 0){
+          let code = 0
           
             //회원 신고 대상
             if(element.rfrno > 0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
-              newMemberList.push({ finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
                 ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
             }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
-              newMemberList.push({finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
                 ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
             }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0){//게시글 댓글
-              newMemberList.push({finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+              newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
                 ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
             }
           
+          }else {
+            //회원 신고 대상
+            if(element.rfrno >0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+            }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+            }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0){//게시글 댓글
+              newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+            }
+          }
           setMemberDetail(newMemberList)
         })
       
+        //console.log("넣어야할 reportnun : " , memberDetail[0].reportnum)
         setStartPage(response.data.pageMaker.startPage);
         setEndPage(response.data.pageMaker.endPage)
         setTotal(response.data.pageMaker.total);
@@ -84,20 +102,37 @@ function MemberDetail(props){
         console.log("response", response)
         
         response.data.list.forEach(element=>{
+          //회원 신고 누적횟수
+          if(element.reportnum === 0){
+            let code = 0
           
-          //회원 신고 대상
-          if(element.rfrno > 0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
-            newMemberList.push({finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
-              ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
-          }else if(element.rfrno === 0 && element.rbid > 0 && element.rbrno === 0){ //게시글
-            newMemberList.push({finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
-              ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
-          }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno > 0){//게시글 댓글
-            newMemberList.push({ finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
-              ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
-          }
-          setMemberDetail(newMemberList)
-        })
+              //회원 신고 대상
+              if(element.rfrno >0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+              }else if(element.rfrno === 0 && element.rbid >0 && element.rbrno === 0){ //게시글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+              }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno >0 ){//게시글 댓글
+                newMemberList.push({reportnum : code, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+              }
+            
+            }else {
+              //회원 신고 대상
+              if(element.rfrno > 0 && element.rbid === 0 && element.rbrno === 0){  //축제댓글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "축제 댓글 코드"})
+              }else if(element.rfrno === 0 && element.rbid > 0 && element.rbrno === 0){ //게시글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 코드"})
+              }else if(element.rfrno === 0 && element.rbid === 0 && element.rbrno > 0){//게시글 댓글
+                newMemberList.push({reportnum : element.reportnum, finalaccess: element.finalaccess, reportcontent: element.reportcontent, reportdate : element.reportdate
+                  ,reported : element.reported, reporter : element.reporter, reportid : element.reportid, reportnumber : "게시글 댓글 코드"})
+              }
+            }
+            setMemberDetail(newMemberList)
+          })
 
         
         setStartPage(response.data.pageMaker.startPage);
@@ -115,7 +150,6 @@ function MemberDetail(props){
 
   //MemberSelectBox(하위 컴포넌트)에서 값 전달 받음
   function StateChange(stateValue){
-    console.log("셀렉트박스 전달 받은 값 = ", stateValue)
     if(stateValue === "일반"){
       setStatecodeChange("일반");
     }else if(stateValue === "탈퇴"){
@@ -174,11 +208,13 @@ const confirmAction = (data) => {
 
 //회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
+  setMemberDetail("");
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
   }).then((response)=> {
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
-    // StateChange("강퇴");
+    
+
 
 
   }).catch((error)=>{
@@ -206,7 +242,6 @@ const onConfirm = (data) => {
   }).then((response)=> {
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
     getMemberrDetail();
-    
 
   }).catch((error)=>{
     console.log("error", error.data)
@@ -270,7 +305,7 @@ function approveClick(data){
       <p><Link to='/member'>X</Link></p>
       <p>
         <span>{id}</span>
-        <span >회원상태 : <MemberSelectBox  defaultValue={statecodeChange} statecodeChange={StateChange}></MemberSelectBox></span>
+        <span >회원상태 : <MemberSelectBox  defaultValue={statecode} statecodeChange={StateChange}></MemberSelectBox></span>
         <span>신고 누적횟수 : </span>
         <span>최근 접속일 : {finalaccess}</span>
       </p>
@@ -295,7 +330,7 @@ function approveClick(data){
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
-                  <td><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} approveClick={approveClick()}>{item.reportcontent}</Link></td>
+                  <td><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}}>{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>

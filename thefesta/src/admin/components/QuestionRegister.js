@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Question.css';
@@ -15,43 +15,43 @@ function QuestionRegister (){
     const message = "건의글 등록을 취소하시겠습니까?";
 
 
-    useEffect(() => {
-        getUserInfo();
-    }, []);
+    // useEffect(() => {
+    //     getUserInfo();
+    // }, []);
 
     // 회원 정보 가져오기
-    const getUserInfo = () => {
-        const loginInfo = Cookies.get('loginInfo');
-        if (loginInfo) {
-            try {
-                const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
-                console.log('logininfo',loginInfo);
-                //setUserId(parsedLoginInfo.id);
-                console.log('id:', parsedLoginInfo.id);
-                console.log('userId:', parsedLoginInfo.id);
-                setId(parsedLoginInfo.id)
-                getNickName(parsedLoginInfo.id)
-            } catch (error) {
-                console.error('Error parsing loginInfo:', error);
-            }
-        }
-    };
+    // const getUserInfo = () => {
+    //     const loginInfo = Cookies.get('loginInfo');
+    //     if (loginInfo) {
+    //         try {
+    //             const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
+    //             console.log('logininfo',loginInfo);
+    //             //setUserId(parsedLoginInfo.id);
+    //             console.log('id:', parsedLoginInfo.id);
+    //             console.log('userId:', parsedLoginInfo.id);
+    //             setId(parsedLoginInfo.id)
+    //             getNickName(parsedLoginInfo.id)
+    //         } catch (error) {
+    //             console.error('Error parsing loginInfo:', error);
+    //         }
+    //     }
+    // };
 
     //회원 닉네임 가져오기
-    function getNickName(data){
-        console.log("userId 넘겨받은 = ", data)
-         axios.get(`http://localhost:9090/admin/memberNickName?id=${data}`)
+    // function getNickName(data){
+    //     console.log("userId 넘겨받은 = ", data)
+    //      axios.get(`http://localhost:9090/admin/memberNickName?id=${data}`)
             
-            .then((response)=> {
-              console.log("response", response)
-              //alert("list 불러오기 성공")
-              setMember(response.data)
-            })
-            .catch((error)=>{
-              console.log("error", error)
-              //alert("list 불러오기 실패")
-            })
-    }
+    //         .then((response)=> {
+    //           console.log("response", response)
+    //           //alert("list 불러오기 성공")
+    //           setMember(response.data)
+    //         })
+    //         .catch((error)=>{
+    //           console.log("error", error)
+    //           //alert("list 불러오기 실패")
+    //         })
+    // }
 
    
     const handlecontent = (evnet) => {
@@ -100,6 +100,7 @@ function QuestionRegister (){
 
     console.log("member", member)
     return(
+     
         <div className="Question-container">
             <h1 className="Question-title">건의하기</h1>
             <div className="Question-info">

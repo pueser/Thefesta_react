@@ -38,7 +38,7 @@ function MemberSelectBox(props){
     function handleChange (e)  {
         e.preventDefault();
 		console.log("select값 변경 = ", e.target.value);
-        props.statecodeChange(e.target.value);
+        props.statecodeChange(e.target.value)
 	};
 
     return(
