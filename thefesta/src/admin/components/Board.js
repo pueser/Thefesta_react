@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagenation from "./Pagenation";
+import '../css/Board.css';
+import '../css/Table.css';
+import '../css/Button.css';
 
 function Board() {
   const [boardList, setBoardList] = useState([]);
@@ -125,12 +128,12 @@ function Board() {
     }
     
     return (
-      <div>
+      <div className="main">
         <table>
           <thead>
             <tr>
               <th>게시판 종류</th>
-              <th>게시글번호</th>
+              <th id="boardBno">게시글번호</th>
               <th>게시글제목</th>
               <th>작성자</th>
               <th>작성일자</th>
@@ -142,12 +145,12 @@ function Board() {
               boardList&&boardList.map(
                 (item, idx)=>(
                   <tr key={idx}>
-                    <td>{item.bno}</td>
+                    <td id="boardBno">{item.bno}</td>
                     <td>{item.bid}</td>
-                    <td onClick={() => window.open(`/board/read?bid=${item.bid}`, '_blank')}>{item.btitle}</td>
+                    <td id="windowBtn" onClick={() => window.open(`/board/read?bid=${item.bid}`, '_blank')}>{item.btitle}</td>
                     <td>{item.id}</td>
                     <td>{item.bregist}</td>
-                    <td><button onClick={()=>deleteClick(item.bid)}>삭제</button></td>
+                    <td className="ButtonTD"><button onClick={()=>deleteClick(item.bid)} className="Delete-button">삭제</button></td>
                   </tr>
                 )
               )

@@ -1,0 +1,35 @@
+.Delete-button {
+    width: 50px;
+    height: 30px;
+    margin: 0 5px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 2px solid black;
+   
+}
+.Rgister-button {
+    width: 50px;
+    height: 30px;
+    margin: 0 5px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 2px solid black;
+    & .link{
+        color: black;
+    }
+   
+}
+.Delete-button:hover {
+    background-color: #ff4949;
+    color: white;
+}
+.Rgister-button:hover {
+    background-color: black;
+    & .link{
+        color: white;
+    }
+}
+
+
+.Rgister-button:hover { cursor: pointer; }
+.Delete-button:hover { cursor: pointer; }

@@ -1,0 +1,14 @@
+#pagination{
+   margin-top: 60px;
+   margin-bottom: 90px;
+}
+
+#pagination input {
+    background-color: white;
+     color: black;
+     margin: 0 2px;
+    &.active {
+        background-color: #ddd;
+        font-weight: bold;
+    }
+}
