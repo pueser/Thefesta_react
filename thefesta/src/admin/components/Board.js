@@ -47,6 +47,7 @@ function Board() {
             setBoardList(newBoardList)
           })
 
+          
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
           setTotal(response.data.pageMaker.total);
