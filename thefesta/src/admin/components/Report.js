@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Pagenation from "./Pagenation";
+import '../css/Table.css';
+import '../css/Button.css';
 
 function Report() {
   //신고내용 저장 useState
@@ -34,6 +36,12 @@ function Report() {
           setTotal(response.data.pageMaker.total);
           setNext(response.data.pageMaker.next)
           setPrev(response.data.pageMaker.prev)
+          if(response.data.list.length!=10){
+            document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
+          }
+          else{
+            document.getElementById("adminPagination").style.marginTop = "75px";
+          }
         })
         .catch((error)=>{
           console.log("error", error)
@@ -57,6 +65,12 @@ function Report() {
       setTotal(response.data.pageMaker.total);
       setNext(response.data.pageMaker.next)
       setPrev(response.data.pageMaker.prev)
+      if(response.data.list.length!=10){
+        document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
+      }
+      else{
+        document.getElementById("adminPagination").style.marginTop = "75px";
+      }
     })
     .catch((error)=>{
       console.log("error", error)
@@ -120,9 +134,9 @@ function Report() {
   }  
   
   return (
-    <div>
-      <table>
-        <thead>
+    <div className="adminMain">
+      <table className="adminTable">
+        <thead className="adminThead">
           <tr>
             <th>신고번호</th>
             <th>신고내용</th>
@@ -132,19 +146,19 @@ function Report() {
             <th>승인 / 반려</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="adminTbody">
           {
             reportList.list&&reportList.list.map(
               (item, idx)=>(
                 <tr key={idx}>
-                  <td>{item.reportid}</td>
-                  <td><Link to={{ pathname:`/reportDetail/${item.reportid}`}}>{item.reportcontent}</Link></td>
+                  <td className="adminTableTr">{item.reportid}</td>
+                  <td><Link to={{ pathname:`/reportDetail/${item.reportid}`}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>
-                  <td>
-                    <button onClick={()=>approveClick(item.reportid)}>승인</button>
-                    <button onClick={()=>deleteClick(item.reportid)}>반려</button>
+                  <td id="adminBtntd">
+                    <button onClick={()=>approveClick(item.reportid)} className="adminApprove-button">승인</button>
+                    <button onClick={()=>deleteClick(item.reportid)} className="adminDelete-button">반려</button>
                   </td>
                 </tr>
               )
@@ -167,5 +181,4 @@ function Report() {
     </div>
   );
 }
-  
   export default Report;

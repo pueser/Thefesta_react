@@ -53,4 +53,5 @@ function MemberSelectBox(props){
 		</select>
     );
 }
+
 export default MemberSelectBox;
