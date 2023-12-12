@@ -4,7 +4,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
 
-function MemberDetail(props){
+function MemberDetail(){
   //member(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
   const {id} = useParams();
   const location = useLocation();
@@ -65,6 +65,13 @@ function MemberDetail(props){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+20) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "20px";
+        }
         
       })
       .catch((error)=>{
@@ -105,6 +112,13 @@ function MemberDetail(props){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+20) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "20px";
+        }
         
       })
       .catch((error)=>{
@@ -215,10 +229,10 @@ const onConfirm = (data) => {
 }
 
 //승인버튼 누를때
-function approveClick(data){
+const approveClick = (data)=>{
   console.log("data = ", data)
 
-  console.log("승인 data.reported = ", data.reported);
+   console.log("승인 data.reported = ", data.reported);
   axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
     }).then((response)=> {
 
@@ -266,19 +280,18 @@ function approveClick(data){
  
   console.log("setMemberDetail = ", memberDetail)
   return(
-    <div>
-      <p><Link to='/member'>X</Link></p>
-      <p>
-        <span>{id}</span>
-        <span >회원상태 : <MemberSelectBox  defaultValue={statecodeChange} statecodeChange={StateChange}></MemberSelectBox></span>
-        <span>신고 누적횟수 : </span>
-        <span>최근 접속일 : {finalaccess}</span>
-      </p>
-      <div>
-      신고내역
+    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}}>
+      <div className="adminDetailMemeberDisplay">
+          <div className="adminDetailReportLeft">
+              <div style={{textAlign: 'left' ,marginBottom: '5px', fontWeight: 'bold'}}>신고대상 : {id}</div>
+              <span style={{marginRight: '5px', textAlign: 'left'}}>회원상태 : <MemberSelectBox  defaultValue={statecodeChange} statecodeChange={StateChange} ></MemberSelectBox></span>
+              <span style={{marginRight: '5px', textAlign: 'left'}}>신고 누적횟수 : </span>
+              <span >최근 접속일 : {finalaccess}</span>
+          </div>
+          <div className="adminDetailOut"><Link to='/member' className="adminLinkBtn">X</Link></div>
       </div>
-      <table>
-        <thead>
+      <table className="adminTable" style={{marginTop: '10px'}}>
+        <thead className="adminThead">
           <tr>
             <th>신고번호</th>
             <th>신고내용</th>
@@ -289,29 +302,26 @@ function approveClick(data){
             <th>삭제</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="adminTbody">
           {
             memberDetail&&memberDetail.map(
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
-                  <td><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} approveClick={approveClick()}>{item.reportcontent}</Link></td>
+                  <td ><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>
-                  <td><button onClick={()=>approveClick(item)}>승인</button></td>
-                  <td><button onClick={()=>deleteClick(item.reportid)}>삭제</button></td>
+                  <td id="adminBtntd2"><button onClick={()=>approveClick(item)} className="adminApprove-button">승인</button></td>
+                  <td id="adminBtntd2"><button onClick={()=>deleteClick(item.reportid)} className="adminDelete-button">삭제</button></td>
                 </tr>
               )
             )
           }
         </tbody>
+        
       </table> 
-      <section>
-        <button onClick={SaveClick}>저장</button>
-        <Link to='/member'><button onClick={()=>getMemberrDetail()}>취소</button></Link>
-      </section>
-      <div>
+      <div >
           <Pagenation
             page={curPage}
             startPage={startPage}
@@ -321,8 +331,12 @@ function approveClick(data){
             next={next}
             prev ={prev}
             amount={amount}
-          />
+            />
         </div>
+      <section>
+        <button onClick={SaveClick} className="adminApprove-button">저장</button>
+        <Link to='/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
+      </section>
     </div>
   );
 }

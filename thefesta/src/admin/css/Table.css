@@ -1,42 +1,63 @@
-/* .main{
+.adminMain{
     text-align: center;
     font-family: 'noto sans kr';
     border-left-color: black;
     width: 90%;
-    margin: 30px auto 60px;
+    height: 100%;
+    margin: 60px auto 60px;
     
-} */
-/* .link{
+} 
+.adminLinkBtn{
     text-decoration: none;
+    color: black;
 }
-.ButtonTD{
+#adminBtntd{
+    width: 13%;
+    padding:5px
+}
+#adminBtntd2{
     width: 10%;
     padding:5px
 }
-table {
+.adminTable {
     text-align: center;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
-  
-th,
-td {
+
+.adminThead tr th, .adminTbody tr td{
     text-align: center;
     border: 1px solid #d0d3d8;
     padding: 10px;
 }
-  
-th {
+
+
+.adminThead tr th{
     text-align: center;
     background-color: #f2f2f2;
-} */
-/* tbody{
-    height: 462.667px;
-} */
-/* tr{ height: 46.26; }
-tr:nth-child(odd) { background-color: #ddd; }
-tr:nth-child(even) { background-color: #f2f2f2; } */
+}
+
+.adminTbody tr, .adminThead tr {
+    height: 42;
+}
+.adminTbody tr:nth-child(odd), .adminThead tr:nth-child(odd){
+    background-color: #ddd;
+}
+.adminTbody tr:nth-child(even), .adminThead tr:nth-child(even){
+    background-color: #f2f2f2; 
+}
+#adminTableContentLength{
+    text-align: left;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 400px;
+}
+
+
+
 
 
 

@@ -21,6 +21,7 @@ function MemberList({id,statecode,totalreportnum,finalaccess, count, getMemberLi
         }
     }
 
+    
     return(
             <tr >
                 <td>{count}</td>
