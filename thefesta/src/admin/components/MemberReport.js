@@ -66,12 +66,12 @@ function MemberReport(props){
                     <div className="adminDetailReportNum">신고번호  :  {reportid} 번</div>
                     <div className="adminDetailReportContent">신고내용</div>
                 </div>
-                <div className="adminDetailOut"><Link to={{ pathname:`/memberDetail/${id}`}}  state ={{statecode: statecode}} className="adminLinkBtn">X</Link></div>
+                <div className="adminDetailOut"><Link to={{ pathname:`/admin/memberDetail/${id}`}}  state ={{statecode: statecode}} className="adminLinkBtn">X</Link></div>
             </div>
                 <div className="adminReportContent">{memberReport}</div>
                 <div className="adminDetailBtn">
-                <Link to={{ pathname:`/memberDetail/${id}`}}  state ={{statecode: statecode}}><button onClick={handleChange} className="adminApprove-button">승인</button></Link>
-                <Link to={{ pathname:`/memberDetail/${id}`}}  state ={{statecode: statecode}}><button onClick={()=>deleteClick(reportid)} className="adminDelete-button">삭제</button></Link>
+                <Link to={{ pathname:`/admin/memberDetail/${id}`}}  state ={{statecode: statecode}}><button onClick={handleChange} className="adminApprove-button">승인</button></Link>
+                <Link to={{ pathname:`/admin/memberDetail/${id}`}}  state ={{statecode: statecode}}><button onClick={()=>deleteClick(reportid)} className="adminDelete-button">삭제</button></Link>
             </div>
         </div>
     );

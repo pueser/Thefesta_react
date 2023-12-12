@@ -38,16 +38,17 @@ function App() {
         <Route path='/festival/detail/:contentid/:page?' element={<Detail />} />
         <Route path='/food/detail/:contentid' element={<Detailfood />} />
         <Route path='/scheduler' element={<Scheduler />} />
-        <Route path='/member' element={<Member />} />
-        <Route path='/report' element={<Report />} />
-        <Route path='/festa' element={<Festa />} />
-        <Route path='/board' element={<Board />} />
-        <Route path='/memberDetail/:id' element={<MemberDetail />} />
-        <Route path='/memberReport/:reportid' element={<MemberReport />} />
-        <Route path='/reportDetail/:reportid' element={<ReportDetail />} />
-        <Route path='/Question/:contentid' element={<Question />} />
-        <Route path='/QuestionDetail/:contentid' element={<QuestionDetail />} />
-        <Route path='/QuestionRegister' element={<QuestionRegister />} />
+
+        <Route path='/admin/member' element={<Member />} />
+        <Route path='/admin/report' element={<Report />} />
+        <Route path='/admin/festa' element={<Festa />} />
+        <Route path='/admin/board' element={<Board />} />
+        <Route path='/admin/memberDetail/:id' element={<MemberDetail />} />
+        <Route path='/admin/memberReport/:reportid' element={<MemberReport />} />
+        <Route path='/admin/reportDetail/:reportid' element={<ReportDetail />} />
+        <Route path='/admin/Question/:contentid' element={<Question />} />
+        <Route path='/admin/QuestionDetail/:contentid' element={<QuestionDetail />} />
+        <Route path='/admin/QuestionRegister' element={<QuestionRegister />} />
       </Routes>
       <Footer />
     </BrowserRouter>

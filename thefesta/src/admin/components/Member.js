@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import MemberList from "./MemberList";
 import Pagenation from "./Pagenation";
 import { array } from "prop-types";
 import { Link } from "react-router-dom";
@@ -148,7 +147,7 @@ console.log("memberlist = ", memberList)
                     <td>{item.statecode}</td>
                     <td>{item.totalreportnum}</td>
                     <td>{item.finalaccess}</td>
-                    <td id="adminBtntd2"><button className="adminRgister-button" ><Link to={{ pathname:`/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess}} className="adminLinkBtn" >수정</Link></button></td>
+                    <td id="adminBtntd2"><button className="adminRgister-button" ><Link to={{ pathname:`/admin/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess}} className="adminLinkBtn" >수정</Link></button></td>
                   </tr>
                 )
               )
