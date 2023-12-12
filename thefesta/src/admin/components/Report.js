@@ -152,7 +152,7 @@ function Report() {
               (item, idx)=>(
                 <tr key={idx}>
                   <td className="adminTableTr">{item.reportid}</td>
-                  <td><Link to={{ pathname:`/reportDetail/${item.reportid}`}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
+                  <td><Link to={{ pathname:`/admin/reportDetail/${item.reportid}`}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>

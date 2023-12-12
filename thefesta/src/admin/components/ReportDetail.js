@@ -61,12 +61,12 @@ import '../css/Button.css';
                     <div className="adminDetailReportNum">신고번호  :  {reportid} 번</div>
                     <div className="adminDetailReportContent">신고내용</div>
                 </div>
-                <div className="adminDetailOut"><Link to='/report' className="adminLinkBtn">X</Link></div>
+                <div className="adminDetailOut"><Link to='/admin/report' className="adminLinkBtn">X</Link></div>
             </div>
             <div className="adminReportContent">{reportDetail}</div>
             <div className="adminDetailBtn">
-                <Link to='/report'><button onClick={()=>approveClick(reportid)} className="adminApprove-button">승인</button></Link>
-                <Link to='/report'><button onClick={()=>deleteClick(reportid)} className="adminDelete-button">반려</button></Link>
+                <Link to='/admin/report'><button onClick={()=>approveClick(reportid)} className="adminApprove-button">승인</button></Link>
+                <Link to='/admin/report'><button onClick={()=>deleteClick(reportid)} className="adminDelete-button">반려</button></Link>
             </div>
         </div>
     );

@@ -107,7 +107,7 @@ function Question (){
 
     return(
       <div className="adminMain">
-      <div className="adminDetailOut" style={{textAlign: 'right'}}><Link to='/festa' className="adminLinkBtn">X</Link></div> 
+      <div className="adminDetailOut" style={{textAlign: 'right'}}><Link to='/admin/festa' className="adminLinkBtn">X</Link></div> 
           <table className="adminTable">
             <thead className="adminThead">
               <tr>
@@ -124,7 +124,7 @@ function Question (){
                   (item, idx)=>(
                     <tr key={idx}>
                       <td>{item.questionid}</td>
-                      <td><Link to={{ pathname:`/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}   className="adminLinkBtn" id="adminTableContentLength">{item.questioncontent}</Link></td>
+                      <td><Link to={{ pathname:`/admin/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}   className="adminLinkBtn" id="adminTableContentLength">{item.questioncontent}</Link></td>
                       <td>{item.id}</td>
                       <td>{item.questiondate}</td>
                       <td id="adminBtntd2"><button onClick={()=>deleteClick(item.questionid)} className="adminApprove-button">확인</button></td>

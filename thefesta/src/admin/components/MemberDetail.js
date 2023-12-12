@@ -288,7 +288,7 @@ const approveClick = (data)=>{
               <span style={{marginRight: '5px', textAlign: 'left'}}>신고 누적횟수 : </span>
               <span >최근 접속일 : {finalaccess}</span>
           </div>
-          <div className="adminDetailOut"><Link to='/member' className="adminLinkBtn">X</Link></div>
+          <div className="adminDetailOut"><Link to='/admin/member' className="adminLinkBtn">X</Link></div>
       </div>
       <table className="adminTable" style={{marginTop: '10px'}}>
         <thead className="adminThead">
@@ -308,7 +308,7 @@ const approveClick = (data)=>{
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
-                  <td ><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
+                  <td ><Link to={{ pathname:`/admin/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>
@@ -335,7 +335,7 @@ const approveClick = (data)=>{
         </div>
       <section>
         <button onClick={SaveClick} className="adminApprove-button">저장</button>
-        <Link to='/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
+        <Link to='/admin/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
       </section>
     </div>
   );
