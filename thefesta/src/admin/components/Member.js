@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Pagenation from "./Pagenation";
 import { array } from "prop-types";
 import { Link } from "react-router-dom";
 import '../css/Table.css';
 import '../css/Button.css';
+import { Button, NotesContext } from "./MemberDetail";
+
+
 
 function Member() {
   let newMemberList = [];
@@ -122,10 +125,28 @@ function Member() {
         })
   }
 
+
+
+  // const user = useContext(Button);
+  // console.log("user", user.name)
+  // //컴포넌트 실행
+  // function ConponentReloading (data){
+  //   console.log("reloading 전달 받은 값 = ", data)
+    
+  // }
+  // const {value} = useContext(NotesContext)
+  // console.log("text = ", value)
+
+//   if(text === "Y"){
+//   console.log("부모컴포넌트에서 text값이 변경되었다! = ", text)
+//   this.forceUpdate();
+
+// }
+ 
  
 console.log("memberlist = ", memberList)
     return (
-      <div className="adminMain">
+      <div className="adminMain" id="adminapp">
         <table className="adminTable" >
           <thead className="adminThead">
             <tr>
