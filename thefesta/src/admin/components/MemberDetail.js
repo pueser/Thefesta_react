@@ -1,10 +1,22 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
+import Member from "./Member";
+import App from "../../App";
+
+
+//export const NotesContext = createContext("N");
 
 function MemberDetail(){
+ 
+   
+  const [text, setText] = useState("N");
+
+  
   //member(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
   const {id} = useParams();
   const location = useLocation();
@@ -21,6 +33,9 @@ function MemberDetail(){
   let newMemberList =[]; //회원 신고대상 및 상태코드(0번일 때)
   const [reportnum, setReportnum] = useState();
 
+  
+
+
   console.log("location statecode",statecode)
 
   //회원 상세페이지 정보 저장 useState
@@ -32,7 +47,9 @@ function MemberDetail(){
   
   
   useEffect(
-      ()=>{getMemberrDetail()
+      ()=>{
+        getMemberrDetail()
+        
   },[]);
   
   //회원 상세페이지 get
@@ -141,6 +158,7 @@ function MemberDetail(){
     }
   }
 
+  //저장 눌렀을 때
   //회원 상태코드 변경 및  (회원 controller)
   const SaveClick =  (e) => {
     e.preventDefault();
@@ -165,7 +183,7 @@ function MemberDetail(){
       ).then((response) => {
           console.log(response.data[0])
           alert("변경사항이 저장되었습니다.")
-
+          
       })
       .catch((error)=>{
       console.log(error.data[0])
@@ -180,12 +198,26 @@ function MemberDetail(){
 const confirmAction = (data) => {
   if (window.confirm(message)) {
     noConfirm(data);
+    //setText("Y");
   } else {
     alert("승인이 취소되었습니다.")
     return;
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+const container = document.getElementById('adminapp');
+//const root = ReactDOMClient.createRoot(container);
 //회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
@@ -193,7 +225,10 @@ const noConfirm = (data) =>{
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
     // StateChange("강퇴");
-
+    ReactDOM.render(<Member/>, container);
+ 
+    //root.render(<Member/>);
+    //alert("리렌더링")
 
   }).catch((error)=>{
     console.log("error", error.data)
@@ -201,6 +236,8 @@ const noConfirm = (data) =>{
   })
 }
 
+// console.log("변경 text =", text)
+// alert("text값 변경?")
 
 //회원 승인 버튼 눌렀을 때(신고누적 4회 이상X)
 const onConfirm = (data) => {
@@ -231,7 +268,7 @@ const onConfirm = (data) => {
 //승인버튼 누를때
 const approveClick = (data)=>{
   console.log("data = ", data)
-
+  //setText("Y")
    console.log("승인 data.reported = ", data.reported);
   axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
     }).then((response)=> {
@@ -246,6 +283,9 @@ const approveClick = (data)=>{
       }
 
       alert(response.data)
+      
+      
+      
     }).catch((error)=>{
       console.log("error", error.data)
       alert(error.data)
@@ -278,13 +318,19 @@ const approveClick = (data)=>{
       })
   }
  
+  // const value =(text)=>{
+  //   console.log("text값====", text)
+  //   return text
+  // }
+  
   console.log("setMemberDetail = ", memberDetail)
   return(
-    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}}>
+    //<NotesContext.Provider value={value(text)}>
+    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}} id="app">
       <div className="adminDetailMemeberDisplay">
           <div className="adminDetailReportLeft">
               <div style={{textAlign: 'left' ,marginBottom: '5px', fontWeight: 'bold'}}>신고대상 : {id}</div>
-              <span style={{marginRight: '5px', textAlign: 'left'}}>회원상태 : <MemberSelectBox  defaultValue={statecodeChange} statecodeChange={StateChange} ></MemberSelectBox></span>
+              <span style={{marginRight: '5px', textAlign: 'left'}}>회원상태 : <MemberSelectBox  defaultValue={statecodeChange} stateCode={statecode} statecodeChange={StateChange} ></MemberSelectBox></span>
               <span style={{marginRight: '5px', textAlign: 'left'}}>신고 누적횟수 : </span>
               <span >최근 접속일 : {finalaccess}</span>
           </div>
@@ -302,7 +348,7 @@ const approveClick = (data)=>{
             <th>삭제</th>
           </tr>
         </thead>
-        <tbody className="adminTbody">
+        <tbody className="adminTbody" >
           {
             memberDetail&&memberDetail.map(
               (item, idx)=>(
@@ -338,6 +384,7 @@ const approveClick = (data)=>{
         <Link to='/admin/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
       </section>
     </div>
+    //</NotesContext.Provider>
   );
 }
 
