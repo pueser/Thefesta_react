@@ -13,6 +13,10 @@
 	font-size: 14px;
 }
 
+.header_logo h1 {
+	color: black;
+}
+
 .header_menu {
 	width: 50%;
 	display: flex;
@@ -52,7 +56,9 @@
 	list-style: none;
 }
 
-
+.loginBtn {
+	margin-right: 30px;
+}
 .hover {
 	cursor: pointer;
 }
@@ -95,4 +101,18 @@
 	.header_hbgBtn {
 		display: none;
 	}
+}
+
+.highlight {
+	background-color: rgb(0, 116, 44);
+	color: white;
+}
+
+.highlight2 {
+	background-color: rgb(138, 190, 158);
+	color: white;
+}
+
+.header a {
+	text-decoration: none;
 }
