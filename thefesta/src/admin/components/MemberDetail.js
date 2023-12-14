@@ -1,10 +1,22 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
+import Member from "./Member";
+import App from "../../App";
 
-function MemberDetail(props){
+
+//export const NotesContext = createContext("N");
+
+function MemberDetail(){
+ 
+   
+  const [text, setText] = useState("N");
+
+  
   //member(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
   const {id} = useParams();
   const location = useLocation();
@@ -21,6 +33,9 @@ function MemberDetail(props){
   let newMemberList =[]; //회원 신고대상 및 상태코드(0번일 때)
   const [reportnum, setReportnum] = useState();
 
+  
+
+
   console.log("location statecode",statecode)
 
   //회원 상세페이지 정보 저장 useState
@@ -32,7 +47,9 @@ function MemberDetail(props){
   
   
   useEffect(
-      ()=>{getMemberrDetail()
+      ()=>{
+        getMemberrDetail()
+        
   },[]);
   
   //회원 상세페이지 get
@@ -65,6 +82,13 @@ function MemberDetail(props){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+20) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "20px";
+        }
         
       })
       .catch((error)=>{
@@ -105,6 +129,13 @@ function MemberDetail(props){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+20) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "20px";
+        }
         
       })
       .catch((error)=>{
@@ -127,6 +158,7 @@ function MemberDetail(props){
     }
   }
 
+  //저장 눌렀을 때
   //회원 상태코드 변경 및  (회원 controller)
   const SaveClick =  (e) => {
     e.preventDefault();
@@ -151,7 +183,7 @@ function MemberDetail(props){
       ).then((response) => {
           console.log(response.data[0])
           alert("변경사항이 저장되었습니다.")
-
+          
       })
       .catch((error)=>{
       console.log(error.data[0])
@@ -166,12 +198,26 @@ function MemberDetail(props){
 const confirmAction = (data) => {
   if (window.confirm(message)) {
     noConfirm(data);
+    //setText("Y");
   } else {
     alert("승인이 취소되었습니다.")
     return;
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+const container = document.getElementById('adminapp');
+//const root = ReactDOMClient.createRoot(container);
 //회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
@@ -179,7 +225,10 @@ const noConfirm = (data) =>{
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
     // StateChange("강퇴");
-
+    ReactDOM.render(<Member/>, container);
+ 
+    //root.render(<Member/>);
+    //alert("리렌더링")
 
   }).catch((error)=>{
     console.log("error", error.data)
@@ -187,6 +236,8 @@ const noConfirm = (data) =>{
   })
 }
 
+// console.log("변경 text =", text)
+// alert("text값 변경?")
 
 //회원 승인 버튼 눌렀을 때(신고누적 4회 이상X)
 const onConfirm = (data) => {
@@ -215,10 +266,10 @@ const onConfirm = (data) => {
 }
 
 //승인버튼 누를때
-function approveClick(data){
+const approveClick = (data)=>{
   console.log("data = ", data)
-
-  console.log("승인 data.reported = ", data.reported);
+  //setText("Y")
+   console.log("승인 data.reported = ", data.reported);
   axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
     }).then((response)=> {
 
@@ -232,6 +283,9 @@ function approveClick(data){
       }
 
       alert(response.data)
+      
+      
+      
     }).catch((error)=>{
       console.log("error", error.data)
       alert(error.data)
@@ -264,21 +318,26 @@ function approveClick(data){
       })
   }
  
+  // const value =(text)=>{
+  //   console.log("text값====", text)
+  //   return text
+  // }
+  
   console.log("setMemberDetail = ", memberDetail)
   return(
-    <div>
-      <p><Link to='/member'>X</Link></p>
-      <p>
-        <span>{id}</span>
-        <span >회원상태 : <MemberSelectBox  defaultValue={statecodeChange} statecodeChange={StateChange}></MemberSelectBox></span>
-        <span>신고 누적횟수 : </span>
-        <span>최근 접속일 : {finalaccess}</span>
-      </p>
-      <div>
-      신고내역
+    //<NotesContext.Provider value={value(text)}>
+    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}} id="app">
+      <div className="adminDetailMemeberDisplay">
+          <div className="adminDetailReportLeft">
+              <div style={{textAlign: 'left' ,marginBottom: '5px', fontWeight: 'bold'}}>신고대상 : {id}</div>
+              <span style={{marginRight: '5px', textAlign: 'left'}}>회원상태 : <MemberSelectBox  defaultValue={statecodeChange} stateCode={statecode} statecodeChange={StateChange} ></MemberSelectBox></span>
+              <span style={{marginRight: '5px', textAlign: 'left'}}>신고 누적횟수 : </span>
+              <span >최근 접속일 : {finalaccess}</span>
+          </div>
+          <div className="adminDetailOut"><Link to='/admin/member' className="adminLinkBtn">X</Link></div>
       </div>
-      <table>
-        <thead>
+      <table className="adminTable" style={{marginTop: '10px'}}>
+        <thead className="adminThead">
           <tr>
             <th>신고번호</th>
             <th>신고내용</th>
@@ -289,29 +348,26 @@ function approveClick(data){
             <th>삭제</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="adminTbody" >
           {
             memberDetail&&memberDetail.map(
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
-                  <td><Link to={{ pathname:`/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} approveClick={approveClick()}>{item.reportcontent}</Link></td>
+                  <td ><Link to={{ pathname:`/admin/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>
-                  <td><button onClick={()=>approveClick(item)}>승인</button></td>
-                  <td><button onClick={()=>deleteClick(item.reportid)}>삭제</button></td>
+                  <td id="adminBtntd2"><button onClick={()=>approveClick(item)} className="adminApprove-button">승인</button></td>
+                  <td id="adminBtntd2"><button onClick={()=>deleteClick(item.reportid)} className="adminDelete-button">삭제</button></td>
                 </tr>
               )
             )
           }
         </tbody>
+        
       </table> 
-      <section>
-        <button onClick={SaveClick}>저장</button>
-        <Link to='/member'><button onClick={()=>getMemberrDetail()}>취소</button></Link>
-      </section>
-      <div>
+      <div >
           <Pagenation
             page={curPage}
             startPage={startPage}
@@ -321,9 +377,14 @@ function approveClick(data){
             next={next}
             prev ={prev}
             amount={amount}
-          />
+            />
         </div>
+      <section>
+        <button onClick={SaveClick} className="adminApprove-button">저장</button>
+        <Link to='/admin/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
+      </section>
     </div>
+    //</NotesContext.Provider>
   );
 }
 

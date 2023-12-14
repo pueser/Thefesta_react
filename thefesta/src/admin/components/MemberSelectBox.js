@@ -1,7 +1,10 @@
 import { useState } from "react";
 
+
 function MemberSelectBox(props){
     console.log("디폴트 옵션 : ", props.defaultValue)
+    //회원 상태코드(변경전)
+    const stateChangeBefore= [props.stateCode]
 
     //회원 상태 코드
     const OPTIONS = [
@@ -12,9 +15,9 @@ function MemberSelectBox(props){
     ];
     //회원 select값 disabled변경 useState 저장
     const [memberSelectBox] = useState(OPTIONS);
-
+    console.log("변경전 = ")
     //회원 상태에 따라 변경할 수 있는 select값 disabled 변경
-    if(props.defaultValue === '일반'){
+    if(props.defaultValue === '일반' || props.stateCode === "일반"){
         memberSelectBox.map((item)=>{
             if(item.name === "강퇴" || item.name === "일반"){
                 item.disabled = false;
@@ -42,15 +45,16 @@ function MemberSelectBox(props){
 	};
 
     return(
-        <select defaultValue={props.defaultValue} onClick={handleChange} >
-            {
-                memberSelectBox.map(
-                (item, idx)=>(
-                  <option key={idx} value={item.name} disabled = {item.disabled} >{item.name}</option>
+            <select  defaultValue={props.defaultValue} onClick={handleChange} >
+                {
+                    memberSelectBox.map(
+                    (item, idx)=>(
+                    <option key={idx} value={item.name} disabled = {item.disabled} >{item.name}</option>
+                    )
                 )
-              )
-            }
-		</select>
+                }
+            </select >
     );
 }
+
 export default MemberSelectBox;

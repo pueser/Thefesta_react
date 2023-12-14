@@ -1,5 +1,8 @@
-#boardBno{
+#adminBoardTd{
     width: 11%;
+    
 }
-
-#windowBtn:hover { cursor: pointer; }
+#adminWindowCursor:hover { 
+    cursor: pointer; 
+    
+}

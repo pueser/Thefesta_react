@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Pagenation from "./Pagenation";
+import '../css/Table.css';
+import '../css/Button.css';
 
 function Festa() {
   let festaListCopy = [];
@@ -26,7 +28,7 @@ function Festa() {
         .get(`http://localhost:9090/admin/festaList?pageNum=${curPage}&amount=${amount}`)
       
         .then((response)=> {
-          console.log("setReportList", response.data)
+          console.log("response", response.data)
           //alert("list 불러오기 성공")
 
           response.data.questionDto.forEach(element=>{
@@ -42,6 +44,12 @@ function Festa() {
           setTotal(response.data.pageMaker.total);
           setNext(response.data.pageMaker.next)
           setPrev(response.data.pageMaker.prev)
+          if(response.data.questionDto.length!=10){
+            document.getElementById("adminPagination").style.marginTop = ((10-(response.data.questionDto.length%10))*42+75) + "px";
+          }
+          else{
+            document.getElementById("adminPagination").style.marginTop = "75px";
+          }
         })
         .catch((error)=>{
           console.log("error", error)
@@ -56,7 +64,7 @@ function Festa() {
     axios.get(`http://localhost:9090/admin/festaList?pageNum=${page}&amount=${amount}`)
       
       .then((response)=> {
-        console.log("setReportList", response.data)
+        console.log("response", response.data)
         //alert("list 불러오기 성공")
         
         response.data.questionDto.forEach(element=>{
@@ -72,6 +80,12 @@ function Festa() {
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+        if(response.data.questionDto.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.questionDto.length%10))*42+75) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "75px";
+        }
         
       })
       .catch((error)=>{
@@ -109,9 +123,9 @@ function Festa() {
   }
     
     return (
-      <div>
-        <table>
-          <thead>
+      <div className="adminMain">
+        <table className="adminTable">
+          <thead className="adminThead">
             <tr>
               <th>축제번호</th>
               <th>축제제목</th>
@@ -122,23 +136,22 @@ function Festa() {
               <th>삭제</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="adminTbody">
             {
               festaList&&festaList.map(
                 (item, idx)=>(
                   <tr key={idx}>
                     <td>{item.contentid}</td>
-                    <td>{item.title}</td>
+                    <td ><span id="adminTableContentLength">{item.title}</span></td>
                     <td>{item.addr1}</td>
                     <td>{item.eventstartdate}</td>
                     <td>{item.eventenddate}</td>
-                    <td><button type="button" ><Link to={{ pathname:`/Question/${item.contentid}`}}>{item.questioncount}</Link></button></td>
-                    <td><button onClick={()=>deleteClick(item.contentid)}>삭제</button></td>
+                    <td id="adminBtntd"><Link to={{ pathname:`/admin/Question/${item.contentid}`}} className="adminLinkBtn" >{item.questioncount}</Link></td>
+                    <td id="adminBtntd"><button onClick={()=>deleteClick(item.contentid)} className="adminDelete-button">삭제</button></td>
                   </tr>
                 )
               )
             }
-            
           </tbody>
         </table>
         <div>

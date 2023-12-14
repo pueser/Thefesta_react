@@ -1,5 +1,5 @@
 import axios from "axios";
-//import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Question.css';
@@ -10,59 +10,61 @@ function QuestionRegister (){
     const contentid = location.state.contentid
     const title = location.state.title
     const [questioncontent, setQuestioncontent] = useState("");
+    const [questioncontentlength, setQuestioncontentlength] = useState("0");
     const [id, setId] = useState("");
     const [member, setMember] = useState([]);
     const message = "건의글 등록을 취소하시겠습니까?";
 
 
-    // useEffect(() => {
-    //     getUserInfo();
-    // }, []);
+    useEffect(() => {
+        getUserInfo();
+    }, []);
 
-    // 회원 정보 가져오기
-    // const getUserInfo = () => {
-    //     const loginInfo = Cookies.get('loginInfo');
-    //     if (loginInfo) {
-    //         try {
-    //             const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
-    //             console.log('logininfo',loginInfo);
-    //             //setUserId(parsedLoginInfo.id);
-    //             console.log('id:', parsedLoginInfo.id);
-    //             console.log('userId:', parsedLoginInfo.id);
-    //             setId(parsedLoginInfo.id)
-    //             getNickName(parsedLoginInfo.id)
-    //         } catch (error) {
-    //             console.error('Error parsing loginInfo:', error);
-    //         }
-    //     }
-    // };
+    //회원 정보 가져오기
+    const getUserInfo = () => {
+        const loginInfo = Cookies.get('loginInfo');
+        if (loginInfo) {
+            try {
+                const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
+                console.log('logininfo',loginInfo);
+                setId(parsedLoginInfo)
+                getNickName(parsedLoginInfo)
+            } catch (error) {
+                console.error('Error parsing loginInfo:', error);
+            }
+        }
+    };
 
     //회원 닉네임 가져오기
-    // function getNickName(data){
-    //     console.log("userId 넘겨받은 = ", data)
-    //      axios.get(`http://localhost:9090/admin/memberNickName?id=${data}`)
+    function getNickName(data){
+        console.log("userId 넘겨받은 = ", data)
+         axios.get(`http://localhost:9090/admin/memberNickName?id=${data}`)
             
-    //         .then((response)=> {
-    //           console.log("response", response)
-    //           //alert("list 불러오기 성공")
-    //           setMember(response.data)
-    //         })
-    //         .catch((error)=>{
-    //           console.log("error", error)
-    //           //alert("list 불러오기 실패")
-    //         })
-    // }
+            .then((response)=> {
+              console.log("response", response)
+              //alert("list 불러오기 성공")
+              setMember(response.data)
+            })
+            .catch((error)=>{
+              console.log("error", error)
+              //alert("list 불러오기 실패")
+            })
+    }
 
    
-    const handlecontent = (evnet) => {
-        evnet.preventDefault()
-        setQuestioncontent(evnet.target.value)
-    }
+
 
     const navigate = useNavigate();
 
     //글 등록
     const questionRegister = (e) => {
+        
+        //글자수 script 확인
+        if(questioncontentlength === "0"){
+            alert("내용을 입력하지 않았습니다.")
+            return false;
+        }
+
         e.preventDefault();
         const formData = new FormData();
         
@@ -98,21 +100,34 @@ function QuestionRegister (){
         }
     };
 
-    console.log("member", member)
+
+    //입력값
+    const handlecontent = (evnet) => {
+        evnet.preventDefault()
+        console.log("글자수 길이 = ", evnet.target.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length )
+        if(evnet.target.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length > 3000){
+            alert("글자수는 1000글자까지 입력 가능합니다.")
+        }
+        setQuestioncontent(evnet.target.value)
+        setQuestioncontentlength(evnet.target.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length)
+        
+    }
+
     return(
-     
         <div className="Question-container">
             <h1 className="Question-title">건의하기</h1>
             <div className="Question-info">
                 <h2>{title}</h2>
-                <div className="Question-userinfo">
+            </div>
+            <div className="Question-userinfo">
+                <div className="Question-info">
                     <img className="Question-profileimg" src={`${member.profileImg}`}></img>
-                    <h3 className="Question-nickname">{member.nickname}</h3>
+                    <span className="Question-nickname">{member.nickname}</span>
                 </div>
             </div>
-            <form className="Question-form">
+            <form className="Question-form" >
                 <div className="Question-content">
-                    <textarea rows='20'  cols='50'  name="questioncontent" placeholder="내용을 입력해주세요(1500자 이내)" onChange={handlecontent}></textarea>
+                <textarea rows='20'  cols='50'  name="questioncontent" placeholder="내용을 입력해주세요(1000자 이내)" maxLength={1000} onChange={handlecontent}></textarea>
                 </div>
                 <div className="Question-button">
                     <input type="button" value="등록" onClick={questionRegister}/>
@@ -123,4 +138,5 @@ function QuestionRegister (){
         
     );
 }
+
 export default QuestionRegister

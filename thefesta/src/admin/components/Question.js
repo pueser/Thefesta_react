@@ -33,7 +33,12 @@ function Question (){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
-
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+34) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "34px";
+        }
         })
 
         .catch((error)=>{
@@ -57,6 +62,12 @@ function Question (){
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+34) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "34px";
+        }
         
       })
       .catch((error)=>{
@@ -95,34 +106,34 @@ function Question (){
   }
 
     return(
-        <div>
-            <p><Link to='/festa'>X</Link></p> 
-            <table>
-          <thead>
-            <tr>
-              <th>건의 번호</th>
-              <th>건의 내용</th>
-              <th>작성자</th>
-              <th>작성일자</th>
-              <th>확인</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              questList.list&&questList.list.map(
-                (item, idx)=>(
-                  <tr key={idx}>
-                    <td>{item.questionid}</td>
-                    <td><Link to={{ pathname:`/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}>{item.questioncontent}</Link></td>
-                    <td>{item.id}</td>
-                    <td>{item.questiondate}</td>
-                    <td><button onClick={()=>deleteClick(item.questionid)}>확인</button></td>
-                  </tr>
+      <div className="adminMain">
+      <div className="adminDetailOut" style={{textAlign: 'right'}}><Link to='/admin/festa' className="adminLinkBtn">X</Link></div> 
+          <table className="adminTable">
+            <thead className="adminThead">
+              <tr>
+                <th>건의 번호</th>
+                <th>건의 내용</th>
+                <th>작성자</th>
+                <th>작성일자</th>
+                <th>확인</th>
+              </tr>
+            </thead>
+            <tbody className="adminTbody">
+              {
+                questList.list&&questList.list.map(
+                  (item, idx)=>(
+                    <tr key={idx}>
+                      <td>{item.questionid}</td>
+                      <td><Link to={{ pathname:`/admin/QuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}   className="adminLinkBtn" id="adminTableContentLength">{item.questioncontent}</Link></td>
+                      <td>{item.id}</td>
+                      <td>{item.questiondate}</td>
+                      <td id="adminBtntd2"><button onClick={()=>deleteClick(item.questionid)} className="adminApprove-button">확인</button></td>
+                    </tr>
+                  )
                 )
-              )
-            }
-          </tbody>
-        </table>
+              }
+            </tbody>
+          </table>
         <div>
           <Pagenation
             page={curPage}
@@ -135,7 +146,8 @@ function Question (){
             amount={amount}
           />
         </div>
-        </div>
+      </div>
     );
 }
+
 export default Question;
