@@ -4,15 +4,38 @@ import Reply from './Reply';
 import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
 import ReplySection from './ReplySection';
+import Cookies from 'js-cookie';
 
 function ReplyList({ contentid }) {
+  const loginInfoString = Cookies.get('loginInfo');
+  const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
   const [replies, setReplies] = useState([]);
   const [pageMaker, setPageMaker] = useState({});
   const [page, setPage] = useState(1);
+  const [user, setUser] = useState({});
+
+  // useEffect(() => {
+  //   // getUserInfo()를 호출하여 user 값을 업데이트
+
+  // }, [loginInfo]);
 
   useEffect(() => {
     replyList();
+    if (loginInfo) {
+      console.log('loginInfo : ', loginInfo);
+      getUserInfo();
+    }
   }, [page]);
+
+  const getUserInfo = () => {
+    axios
+      .post(`/member/selMember`, { id: loginInfo })
+      .then((res) => {
+        console.log('selMember res.data : ', res.data);
+        setUser(res.data);
+      })
+      .catch((e) => console.log(e));
+  };
 
   const replyList = () => {
     axios
@@ -52,13 +75,17 @@ function ReplyList({ contentid }) {
           frcontent={reply.frcontent}
           frregist={reply.frregist}
           fredit={reply.fredit}
+          profileImg={reply.profileImg}
           replyList={replyList}
+          userInfo={user}
+          replyUpdate={replyList}
         ></Reply>
       ))}
       <Pagination pageMaker={pageMaker} handlePageChange={handlePageChange} />
       <ReplySection
         contentid={contentid}
-        handlePageChange={handleReplySubmit}
+        handleReplySubmit={handleReplySubmit}
+        userInfo={user}
       ></ReplySection>
     </div>
   );
