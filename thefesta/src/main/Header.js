@@ -15,7 +15,6 @@ function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [getNickname, setGetNickname] = useState('');
     const [getStatecode, setStatecode] = useState('');
-
     const id = Cookies.get('loginInfo');
     const parsedId = id ? JSON.parse(id) : '';
     console.log(parsedId);
