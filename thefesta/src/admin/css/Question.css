@@ -57,6 +57,18 @@
     outline: none;
     height: 415px;
 }
+.adminQuestion-content {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: sans-serif;
+    width: 100%;
+    margin-top: 5px;
+    height: 400px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    text-align: left;
+    padding: 5px;
+}
 
 .Question-button input {
     width: 80px;

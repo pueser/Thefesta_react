@@ -1,27 +1,24 @@
 import axios from "axios";
-import * as ReactDOM from 'react-dom';
-import * as ReactDOMClient from 'react-dom/client';
-import React, { createContext, useEffect, useRef, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import * as ReactDOM from 'react-dom/client';
+import React, { Component, createContext, useEffect, useRef, useState } from "react";
+import { BrowserRouter, Link, Route, Routes, useLocation, useNavigation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
 import Member from "./Member";
 import App from "../../App";
+import { useNavigate } from "react-router-dom";
 
 
-//export const NotesContext = createContext("N");
 
 function MemberDetail(){
- 
    
-  const [text, setText] = useState("N");
-
   
   //member(부모 컴포넌트)에서 값(아이디, statecode) 전달 받음
   const {id} = useParams();
   const location = useLocation();
   const statecode = location.state.statecode
   const finalaccess = location.state.finalaccess
+  const reportnum = location.state.reportnum
   const [curPage, setCurPage] = useState(1); //현재 페이지 세팅
   const [startPage, setStartPage] = useState(""); //startPage
   const [endPage, setEndPage] = useState(""); //endPage
@@ -29,14 +26,16 @@ function MemberDetail(){
   const [next, setNext] = useState("")//이전 페이지
   const [prev, setPrev] = useState("")//다음 페이지
   const [amount, setAmount] = useState("10");//한 페이지당 보여질 list개수
+  const navigate = useNavigate();
   let userData = []; // 회원 상태코드변경 
   let newMemberList =[]; //회원 신고대상 및 상태코드(0번일 때)
-  const [reportnum, setReportnum] = useState();
 
+  
   
 
 
   console.log("location statecode",statecode)
+  console.log("location reportnum",reportnum)
 
   //회원 상세페이지 정보 저장 useState
   const [memberDetail, setMemberDetail] = useState([]);
@@ -105,7 +104,7 @@ function MemberDetail(){
      axios.get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${page}&amount=${amount}`)
       
       .then((response)=> {
-        console.log("response", response)
+        console.log("MEmberDetail response", response)
         
         response.data.list.forEach(element=>{
           
@@ -198,7 +197,6 @@ function MemberDetail(){
 const confirmAction = (data) => {
   if (window.confirm(message)) {
     noConfirm(data);
-    //setText("Y");
   } else {
     alert("승인이 취소되었습니다.")
     return;
@@ -216,19 +214,19 @@ const confirmAction = (data) => {
 
 
 
-const container = document.getElementById('adminapp');
-//const root = ReactDOMClient.createRoot(container);
+// const container = document.getElementById('adminroot')
+
+
 //회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
   }).then((response)=> {
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
-    // StateChange("강퇴");
-    ReactDOM.render(<Member/>, container);
- 
-    //root.render(<Member/>);
-    //alert("리렌더링")
+    
+    // ReactDOM.createRoot(container).render(<BrowserRouter><MemberDetail/></BrowserRouter>);
+    navigate(-1);
+
 
   }).catch((error)=>{
     console.log("error", error.data)
@@ -236,8 +234,6 @@ const noConfirm = (data) =>{
   })
 }
 
-// console.log("변경 text =", text)
-// alert("text값 변경?")
 
 //회원 승인 버튼 눌렀을 때(신고누적 4회 이상X)
 const onConfirm = (data) => {
@@ -273,7 +269,7 @@ const approveClick = (data)=>{
   axios.get(`http://localhost:9090/admin/memberReportnumRead?reportid=${data.reportid}&id=${data.reported}`, {
     }).then((response)=> {
 
-      console.log("reportnum = ", response.data)
+      console.log("response = ", response.data)
 
       //회원 reportnum이 4회인 경우 alert(확인 or 취소)
       if(response.data === 4){
@@ -317,22 +313,15 @@ const approveClick = (data)=>{
           alert(error.data)
       })
   }
- 
-  // const value =(text)=>{
-  //   console.log("text값====", text)
-  //   return text
-  // }
-  
   console.log("setMemberDetail = ", memberDetail)
   return(
-    //<NotesContext.Provider value={value(text)}>
-    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}} id="app">
+    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}} id="adminroot">
       <div className="adminDetailMemeberDisplay">
           <div className="adminDetailReportLeft">
-              <div style={{textAlign: 'left' ,marginBottom: '5px', fontWeight: 'bold'}}>신고대상 : {id}</div>
-              <span style={{marginRight: '5px', textAlign: 'left'}}>회원상태 : <MemberSelectBox  defaultValue={statecodeChange} stateCode={statecode} statecodeChange={StateChange} ></MemberSelectBox></span>
-              <span style={{marginRight: '5px', textAlign: 'left'}}>신고 누적횟수 : </span>
-              <span >최근 접속일 : {finalaccess}</span>
+              <div style={{textAlign: 'left' ,marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>신고대상</span> : {id}</div>
+              <span style={{marginRight: '5px', textAlign: 'left'}}><span style={{fontWeight: 'bold'}}>회원상태</span> : <MemberSelectBox  defaultValue={statecodeChange} stateCode={statecode} statecodeChange={StateChange} ></MemberSelectBox></span>
+              <span style={{marginRight: '5px', textAlign: 'left'}}><span style={{fontWeight: 'bold'}}>강퇴누적</span> : {reportnum} 번 </span>
+              <span><span style={{fontWeight: 'bold'}}>최근 접속일</span> : {finalaccess}</span>
           </div>
           <div className="adminDetailOut"><Link to='/admin/member' className="adminLinkBtn">X</Link></div>
       </div>
@@ -384,8 +373,9 @@ const approveClick = (data)=>{
         <Link to='/admin/member'><button onClick={()=>getMemberrDetail()} className="adminDelete-button">취소</button></Link>
       </section>
     </div>
-    //</NotesContext.Provider>
   );
-}
 
-export default MemberDetail;
+
+  
+}
+export default MemberDetail

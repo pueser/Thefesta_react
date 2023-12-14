@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Question.css';
 
-function QuestionRegister (){
+function FestaQuestionRegister (){
     //축제Detail에서 contentid 전달받음
     const location = useLocation();
     const contentid = location.state.contentid
@@ -139,4 +139,4 @@ function QuestionRegister (){
     );
 }
 
-export default QuestionRegister
+export default FestaQuestionRegister
