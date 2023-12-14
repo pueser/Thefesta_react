@@ -64,11 +64,12 @@ function MyPage() {
         console.log("memData : " + memData.profileImg);
 
         if (memData.profileImg) {
-          setImageUrl(memData.profileImg);
+          
+          setTimeout(() => {
+            setImageUrl(memData.profileImg);
+          }, 4000);
         }
       }
-
-      console.log(imageUrl);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
