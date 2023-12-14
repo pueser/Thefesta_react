@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import { json } from 'react-router-dom';
 import Food from './components/Food';
 import './Listfood.css';
 
 function Listfood({ contentid }) {
-    const id = contentid;
-    // console.log('id', id);
+    const festaId = contentid;
+    // console.log('festaId', festaId);
     const [foods, setFoods] = useState([]);
     // console.log(foods);
     const [areacode, setAreacode] = useState("");
@@ -13,16 +14,42 @@ function Listfood({ contentid }) {
     const [showMoreFoods, setShowMoreFoods] = useState(
         localStorage.getItem('showMoreFoods') === 'true' || false
     );
+    const [id, setId] = useState("");
+
+    // 회원 정보 가져오기
+    const getUserInfo = () => {
+        const loginInfo = Cookies.get('loginInfo');
+        if (loginInfo) {
+            try {
+                const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
+                setId(parsedLoginInfo);
+                console.log('id', parsedLoginInfo);
+            } catch (error) {
+                console.error('Error parsing loginInfo:', error);
+            }
+        }
+    };
 
     // 음식점 목록 가져오기
     const getFoods = async () => {
         try {
-            const response = await fetch(`/food/list?contentid=${id}`);
+            
+            let url = `/food/list?contentid=${festaId}`;
+            
+            if (id) {
+                url += `&id=${id}`;
+            }
+            console.log("sendId", id);
+
+            const response = await fetch(url, {
+                method: 'GET',
+            });
+
             if (!response.ok) {
                 throw new Error(`HTTP 오류 상태: ${response.status}`);
             }
             const data = await response.json();
-            // console.log(data);
+            console.log('data', data);
 
             setFoods(data.recommendDTOList);
             setAreacode(data.areacodeDTO)
@@ -32,8 +59,9 @@ function Listfood({ contentid }) {
     }
 
     useEffect(() => {
+        getUserInfo();
         getFoods();
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         localStorage.setItem('showMoreFoods', showMoreFoods);
