@@ -146,7 +146,7 @@ function Festa() {
                     <td>{item.addr1}</td>
                     <td>{item.eventstartdate}</td>
                     <td>{item.eventenddate}</td>
-                    <td id="adminBtntd"><Link to={{ pathname:`/admin/Question/${item.contentid}`}} className="adminLinkBtn" >{item.questioncount}</Link></td>
+                    <td id="adminBtntd"><Link to={{ pathname:`/admin/festaQuestion/${item.contentid}`}} className="adminLinkBtn" >{item.questioncount}</Link></td>
                     <td id="adminBtntd"><button onClick={()=>deleteClick(item.contentid)} className="adminDelete-button">삭제</button></td>
                   </tr>
                 )

@@ -24,7 +24,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-  }
+}
 
 .adminThead tr th, .adminTbody tr td{
     text-align: center;
@@ -55,8 +55,14 @@
     white-space: nowrap;
     width: 400px;
 }
-
-  
+#adminTableContentLengthQuestion{
+    text-align: left;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
 
 
 

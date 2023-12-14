@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-function QuestionDetail (){
+function FestaQuestionDetail (){
     const {contentid} = useParams();
     const location = useLocation();
     const questioncontent = location.state.questioncontent
@@ -32,14 +32,14 @@ function QuestionDetail (){
         <div className="adminDetailMain" style={{marginTop: '75px'}}>
             <div className="adminDetailDisplay">
                 <div className="adminDetailReportContent">건의내용</div>
-                <div className="adminDetailOut"><Link to={{pathname:`/admin/Question/${contentid}`}} className="adminLinkBtn">X</Link></div>
+                <div className="adminDetailOut"><Link to={{pathname:`/admin/festaQuestion/${contentid}`}} className="adminLinkBtn">X</Link></div>
             </div>
             <div className="adminReportContent">{questioncontent}</div>
             <div className="adminDetailBtn">
-                <Link to={`/admin/Question/${contentid}`}><button onClick={()=>deleteClick(questionid)} className="adminApprove-button">확인</button></Link>
+                <Link to={`/admin/festaQuestion/${contentid}`}><button onClick={()=>deleteClick(questionid)} className="adminApprove-button">확인</button></Link>
             </div>
         </div>
     );
 }
 
-export default QuestionDetail;
+export default FestaQuestionDetail;

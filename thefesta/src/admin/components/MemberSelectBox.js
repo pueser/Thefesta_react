@@ -45,7 +45,7 @@ function MemberSelectBox(props){
 	};
 
     return(
-            <select  defaultValue={props.defaultValue} onClick={handleChange} >
+            <select  defaultValue={props.defaultValue} onClick={handleChange}>
                 {
                     memberSelectBox.map(
                     (item, idx)=>(

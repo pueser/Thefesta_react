@@ -25,7 +25,7 @@ function Board() {
   const getBoardList = async() =>{
     
     await axios
-      .get(`http://localhost:9090/board/list?pageNum=${curPage}&amount=${amount}&type=${""}&keyword=${""}`)
+      .get(`http://localhost:9090/admin/boardlist?pageNum=${curPage}&amount=${amount}`)
         
       .then((response)=> {
         //setBoardList(response.data)
@@ -99,7 +99,7 @@ function Board() {
     const curPageChange =(page) =>{
       setCurPage(page);
       
-      axios.get(`http://localhost:9090/board/list?pageNum=${page}&amount=${amount}&type=${""}&keyword=${""}`)
+      axios.get(`http://localhost:9090/admin/boardlist?pageNum=${page}&amount=${amount}`)
         
       .then((response)=> {
         console.log("response",response.data)
@@ -109,12 +109,12 @@ function Board() {
           console.log("element.bno = ", element.bno)
           let code;
           let date = element.bregist.substr(0,10);
-          console.log("date=", date)
+         
           
-          if(element.bno === 1){
+          if(element.bno === 1 && element.bno !== 3){
             code = "자유게시판";
             newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
-          }else if(element.bno === 2){
+          }else if(element.bno === 2 && element.bno !== 3){
             code = "리뷰게시판";
             newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
           }
@@ -138,6 +138,8 @@ function Board() {
         console.log("error", error)
       })
     }
+
+    console.log("boardList=", boardList)
     
     return (
       <div className="adminMain">

@@ -34,7 +34,7 @@ function Member() {
         .get(`http://localhost:9090/admin/memberList?pageNum=${curPage}&amount=${amount}`)
         
         .then((response)=> {
-          console.log("response", response)
+          console.log("MEmberresponse", response)
           
           response.data.list.forEach(element=>{
             let code;
@@ -126,34 +126,17 @@ function Member() {
   }
 
 
-
-  // const user = useContext(Button);
-  // console.log("user", user.name)
-  // //컴포넌트 실행
-  // function ConponentReloading (data){
-  //   console.log("reloading 전달 받은 값 = ", data)
-    
-  // }
-  // const {value} = useContext(NotesContext)
-  // console.log("text = ", value)
-
-//   if(text === "Y"){
-//   console.log("부모컴포넌트에서 text값이 변경되었다! = ", text)
-//   this.forceUpdate();
-
-// }
- 
- 
 console.log("memberlist = ", memberList)
     return (
-      <div className="adminMain" id="adminapp">
+      <div className="adminMain" id="adminID">
         <table className="adminTable" >
           <thead className="adminThead">
             <tr>
               <th>번호</th>
               <th>아이디</th>
               <th>상태</th>
-              <th>신고누적현황</th>
+              <th>신고누적</th>
+              <th>강퇴누적</th>
               <th>최근 접속일</th>
               <th>수정</th>
             </tr>
@@ -165,10 +148,11 @@ console.log("memberlist = ", memberList)
                   <tr key={indx} className="adminTableTr">
                     <td>{item.rn}</td>
                     <td>{item.id}</td>
-                    <td>{item.statecode}</td>
+                    <td >{item.statecode}</td>
                     <td>{item.totalreportnum}</td>
+                    <td>{item.reportnum}</td>
                     <td>{item.finalaccess}</td>
-                    <td id="adminBtntd2"><button className="adminRgister-button" ><Link to={{ pathname:`/admin/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess}} className="adminLinkBtn" >수정</Link></button></td>
+                    <td id="adminBtntd2"><button className="adminRgister-button" ><Link to={{ pathname:`/admin/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess, reportnum: item.reportnum}} className="adminLinkBtn" >수정</Link></button></td>
                   </tr>
                 )
               )
