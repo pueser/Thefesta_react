@@ -11,7 +11,6 @@ import MemberDetail from './admin/components/MemberDetail';
 import MemberReport from './admin/components/MemberReport';
 import Report from './admin/components/Report';
 import ReportDetail from './admin/components/ReportDetail';
-<<<<<<< HEAD
 import Detail from './festival/routes/Detail';
 import Detailfood from './food/Detailfood';
 import Footer from './main/Footer';
@@ -24,12 +23,7 @@ import MyPage from './member/MyPage';
 import PwReset from './member/PwReset';
 import Withdrawal from './member/Withdrawal';
 import Scheduler from './scheduler/scheduler';
-=======
-import Question from './admin/components/Question';
-import QuestionDetail from './admin/components/QuestionDetail';
-import QuestionRegister from './admin/components/QuestionRegister';
-import './App.css';
->>>>>>> 175b06042dc89b6925d2c9276fe30c40ac019dd4
+
 
 function App() {
   return (
