@@ -1,11 +1,23 @@
+.body {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.table a,
+.festivalReport a {
+  text-decoration: none;
+  color: black;
+}
+
+.table a:hover,
+.festivalReport a:hover {
+  text-decoration: underline;
+}
+
 .bar {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   margin-bottom: 35px;
-}
-
-.imgAndInfo {
-  margin-bottom: 80px;
 }
 
 .datailImg {
@@ -15,17 +27,19 @@
 }
 
 .imgAndInfo {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 80px;
 }
 
-/* .table {
-  width: 600px;
-} */
+.table {
+  width: 60%;
+}
 
 .table table {
-  width: 600px;
+  width: 100%;
   border: 1px solid #fafafa;
   border-radius: 15px;
 }
@@ -61,7 +75,7 @@
 .table2 th,
 .table2 td {
   padding: 16px 15px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -87,4 +101,50 @@
 
 .table2 th {
   text-align: left;
+}
+
+.festivalReport {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .bar {
+    margin-bottom: 25px;
+  }
+
+  .imgAndInfo {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .table {
+    width: 100%;
+  }
+
+  .table th,
+  .table td,
+  .table2 th,
+  .table2 td {
+    font-size: 18px;
+  }
+
+  .table2 {
+    margin-bottom: 50px;
+  }
+
+  .festivalReport {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .festivalReport a {
+    font-size: 16px;
+  }
 }

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import './ReplySection.css';
 
-function ReplySection({ contentid, handlePageChange }) {
+function ReplySection({ contentid, handleReplySubmit, userInfo }) {
   const loginInfoString = Cookies.get('loginInfo');
   const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
   const [content, setContent] = useState('');
@@ -14,21 +14,26 @@ function ReplySection({ contentid, handlePageChange }) {
 
   const onClickInsertReply = (e) => {
     e.preventDefault();
+
+    if (content.length === 0) {
+      alert('내용을 입력해 주세요.');
+    }
+
     if (!loginInfo) {
       alert('로그인 후 이용 가능합니다.');
-    } else {
+    } else if (loginInfo && content.length > 0) {
       let data = {
         frcontent: content,
         contentid: contentid,
-        id: loginInfo.id,
-        nickname: loginInfo.nickname,
+        id: userInfo.id,
+        nickname: userInfo.nickname,
       };
 
       axios
         .post('/festival/insertReply', data)
         .then((res) => {
           console.log('res : ', res.data);
-          handlePageChange();
+          handleReplySubmit();
           setContent('');
           console.log('content : ', content);
         })
@@ -41,12 +46,16 @@ function ReplySection({ contentid, handlePageChange }) {
   return (
     <div className='replyForm'>
       <div className='replyUser'>
-        {loginInfo && loginInfo.img ? (
-          <img src={loginInfo.img} alt={loginInfo.id}></img>
+        {userInfo ? (
+          <img
+            src={userInfo.profileImg}
+            alt={userInfo.id}
+            className='userImg'
+          ></img>
         ) : (
-          <div className='userImg' />
+          <div className='defaultUserImg' />
         )}
-        <strong>{loginInfo ? loginInfo.nickname : ''}</strong>
+        <strong>{userInfo ? userInfo.nickname : ''}</strong>
       </div>
       <form method='POST' action='/festival/insertReply'>
         <textarea
@@ -54,6 +63,7 @@ function ReplySection({ contentid, handlePageChange }) {
           placeholder='댓글을 입력하세요'
           onChange={handleContent}
           value={content}
+          maxLength={1000}
         ></textarea>
         <button type='submit' onClick={onClickInsertReply}>
           등록
