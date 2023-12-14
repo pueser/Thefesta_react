@@ -136,7 +136,7 @@ function Header() {
                             ) : (
                                 <>
                                     <Link to='/login' className='member'>Login</Link>
-                                    <Link to='/join' className='member'>Join</Link>
+                                    <Link to='/AgreementPage' className='member'>Join</Link>
                                 </>
                             )}
                         </div>
@@ -183,7 +183,7 @@ function Header() {
                                 <Link to='/login'>
                                     <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                 </Link>
-                                <Link to='/join'>
+                                <Link to='/AgreementPage'>
                                     <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                 </Link>
                             </>
