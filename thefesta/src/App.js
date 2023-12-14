@@ -21,6 +21,7 @@ import ReportDetail from './admin/components/ReportDetail';
 import Question from './admin/components/Question';
 import QuestionDetail from './admin/components/QuestionDetail';
 import QuestionRegister from './admin/components/QuestionRegister';
+import './App.css';
 
 function App() {
   return (
