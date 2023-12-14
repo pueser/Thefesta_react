@@ -10,7 +10,6 @@ function PwReset() {
   const [idError, setIdError] = useState('');
   const [idCheckResult, setIdCheckResult] = useState('');
   const [verificationCodeError, setVerificationCodeError] = useState('');
-  const [verificationCodeResult, setVerificationCodeResult] = useState('');
   const [serverVerificationCode, setServerVerificationCode] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [rePasswordError, setRePasswordError] = useState('');
@@ -87,7 +86,7 @@ function PwReset() {
 
     console.log(userData.verificationCode + " 비교 " + serverVerificationCode);
     if (parseInt(userData.verificationCode) === serverVerificationCode) {
-      setVerificationCodeResult('인증이 완료되었습니다.');
+      setVerificationCodeError('인증이 완료되었습니다.');
       setCodeCheck(true);
       setVerificationCodeError('');
     } else if (serverVerificationCode == '') {
@@ -193,7 +192,7 @@ function PwReset() {
   
     return (
       <div className='PwReset-container'>
-      <h1>비밀번호 재설정</h1>
+      <h1 className='PwReset-title'>비밀번호 재설정</h1>
       <form className='PwReset-form'>
         <label className='PwReset-label'>
           <input
@@ -202,10 +201,10 @@ function PwReset() {
             value={userData.id}
             onChange={handleInputChange}
             placeholder="이메일"
-            className='PwReset-input'
+            className='PwReset-id'
           />
         </label><br/>
-        <div className="error-message">{idError}</div>
+        <div className="PwReset-errorMsg">{idError}</div>
         <label className='PwReset-randomCode-label'>
           <input
             type="text"
@@ -213,17 +212,16 @@ function PwReset() {
             value={userData.verificationCode}
             onChange={handleInputChange}
             placeholder="인증번호"
-            className='PwReset-input'
+            className='PwReset-verificationCode'
           />
         </label>
-        <button type="button" onClick={verificationCodeSubmit} className='PwReset-button'>
+        <button type="button" onClick={verificationCodeSubmit} className='PwReset-verificationCode-button'>
           인증번호 전송
         </button>
-        <button type="button" onClick={codeCheckSubmit} className='PwReset-button'>
+        <button type="button" onClick={codeCheckSubmit} className='PwReset-code-check-button'>
           확인
-        </button><br/>
-        <div className="error-message">{verificationCodeError}</div>
-        <div className="error-message">{verificationCodeResult}</div>
+        </button>
+        <div className="PwReset-errorMsg">{verificationCodeError}</div>
         <label>
           <input
             type="password"
@@ -231,10 +229,10 @@ function PwReset() {
             value={userData.password}
             onChange={handleInputChange}
             placeholder="새 비밀번호"
-            className='PwReset-input'
+            className='PwReset-password'
           />
         </label><br/>
-        <div className="error-message">{passwordError}</div>
+        <div className="PwReset-errorMsg">{passwordError}</div>
         <label>
           <input
             type="password"
@@ -242,14 +240,14 @@ function PwReset() {
             value={userData.rePassword}
             onChange={handleInputChange}
             placeholder="비밀번호 확인"
-            className='PwReset-input'
+            className='PwReset-rePassword'
           />
         </label><br/>
-        <div className="error-message">{rePasswordError}</div>
-        <button type="button" onClick={pwResetSubmit} className='PwReset-button'>
+        <div className="PwReset-errorMsg">{rePasswordError}</div>
+        <button type="button" onClick={pwResetSubmit} className='PwReset-check-button'>
           확인
         </button>
-        <button type="button" onClick={cencel} className='PwReset-button'>
+        <button type="button" onClick={cencel} className='PwReset-cencel-button'>
           취소
         </button>
       </form>

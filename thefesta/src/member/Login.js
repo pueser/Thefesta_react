@@ -58,20 +58,19 @@ function Login() {
       
       console.log(idCheck)
       
+      // 아이디 유효성 검사
+      if (!userData.id.trim()) {
+        setIdError('*아이디를 입력해주세요.');
+        document.getElementById('idInput').style.borderColor = 'red';
+        return;
+      }
+
       if (idCheck == '') {
         setIdError('*미가입 된 아이디입니다. 회원가입 후 로그인해주세요.')
         setPasswordError('')
         document.getElementById('passwordInput').style.borderColor = '';
         document.getElementById('idInput').style.borderColor = 'red';
       } else if (idCheck != '') {
-        
-        
-        // 아이디 유효성 검사
-        if (!userData.id.trim()) {
-          setIdError('*아이디를 입력해주세요.');
-          document.getElementById('idInput').style.borderColor = 'red';
-          return;
-        }
         
         // 비밀번호 유효성 검사
         if (!userData.password.trim()) {
@@ -130,7 +129,7 @@ function Login() {
               document.getElementById('idInput').style.borderColor = 'red';
 
             } else if (String(statecode) == 4) {
-              window.alert("영구 차단된 계정입니다.")
+              window.alert("영구 차단된 계정입니다. 관리자에게 연락해주세요.")
             }
               
             
@@ -149,7 +148,7 @@ function Login() {
     
     return (
       <div className="login-container">
-      <h1>로그인</h1>
+      <h1 className='login-title'>로그인</h1>
       <form className="login-form">
         <label className="login-label">
           <input
@@ -159,9 +158,9 @@ function Login() {
             value={userData.id}
             onChange={handleInputChange}
             placeholder="아이디"
-            className="input-style"
+            className="login-id"
             />
-          <div className="error-message">{idError}</div>
+          <div className="login-errorMsg">{idError}</div>
         </label>
         <br />
         <label className="login-label">
@@ -172,32 +171,32 @@ function Login() {
             value={userData.password}
             onChange={handleInputChange}
             placeholder="비밀번호"
-            className="input-style"
+            className="login-password"
             />
-          <div className="error-message">{passwordError}</div>
+          <div className="login-errorMsg">{passwordError}</div>
         </label>
         <br />
         <button type="button" name="login" onClick={handleSubmit} className="login-button">
           로그인
         </button>
-        <div className="error-message">{error}</div>
+        <div className="login-errorMsg">{error}</div>
         <br />
-        <label className="label-container">
+        <label className="login-label2">
           <input
             type="checkbox"
             name="saveId"
             checked={rememberId}
             onChange={handleRememberIdChange}
-            className="checkbox"
+            className="login-checkbox"
             />
             <span className='login-span'>아이디 저장</span>
         </label>
-      <label className='link-label'>
-        <Link to="/join" className="link-container">
+      <label className='login-label3'><br/>
+        <Link to="/AgreementPage" className="login-link-container">
           회원가입
         </Link>
           {' | '}
-        <Link to="/pwreset" className="link-container">
+        <Link to="/pwreset" className="login-link-container">
           비밀번호 찾기
         </Link>
       </label>

@@ -66,38 +66,40 @@ function Withdrawal() {
   };
 
   return (
-    <div>
-      <h1>회원탈퇴</h1>
-      <form>
-        <label>
+    <div className='Withdrawal-container'>
+      <h1 className='Withdrawal-title'>회원 탈퇴</h1>
+      <form className='Withdrawal-form'>
+        <label className='Withdrawal-label'>
           <input
+            className='Withdrawal-id'
             type="text"
             name="id"
             value={userData.id}
             onChange={handleInputChange}
-            placeholder="아이디"
-          />
-        </label><br />
-        {idError && <div className="error-message">{idError}</div>}
-        <label>
+            placeholder="아이디" />
+          <div className="Withdrawal-errorMsg">{idError}</div>
+        </label>
+        <label className='Withdrawal-label'>
           <input
+            className='Withdrawal-pw'
             type="password"
             name="password"
             value={userData.password}
             onChange={handleInputChange}
-            placeholder="비밀번호"
-          />
+            placeholder="비밀번호" />
+          <div className="Withdrawal-errorMsg">{passwordError}{errorMessage}</div>
+          {/* <div className="Withdrawal-errorMsg">{errorMessage}</div> */}
         </label>
-        <br />
-        {passwordError && <div className="error-message">{passwordError}</div>}
-        <button type="button" onClick={handleSubmit}>
-          확인
-        </button>
-        <button type="button" onClick={() => window.location.href = '/'}>
-          취소
-        </button>
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        <div className='Withdrawal-button'>
+          <button type="button" className='Withdrawal-confirmBtn' onClick={handleSubmit}>확인</button>
+          <button type="button" className='Withdrawal-cancelBtn' onClick={() => window.location.href = '/'}>취소</button>
+        </div>
       </form>
+      <div className='Withdrawal-info'>
+        <p>*개인정보는 6개월간 보관됩니다.</p>
+        <p>*본인이 작성한 게시물, 댓글은 삭제되지 않습니다.</p>
+        <p>*동일한 아이디로 재가입은 일주일 후에 가능합니다. .</p>
+      </div>
     </div>
   );
 }

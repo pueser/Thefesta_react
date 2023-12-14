@@ -1,76 +1,78 @@
-  .login-container {
-    background-color: #fff;
-    padding: 32px;
-    width: 380px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin: auto;
-  }
-  
-  .login-h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .login-label {
-    margin-bottom: 10px;
-    position: relative;
-    height: 38px;
-  }
+.login-container {
+  width: 80%;
+  margin: 146px auto 150px;
+  text-align: center;
+  font-family: 'noto sans kr'
+}
 
-  .input-style {
-    width: 100%;
-    padding: 12px 10px;
-    margin-top: 2px;
-    border: 1px solid #242424;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+.login-title {
+  width: 63%;
+  margin: 0 auto 50px auto;
+  font-size: 1.5em;
+}
 
-  .checkbox {
-    width: 18px;
-  }
+.login-label input {
+  width: 270px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 13px;
+}
 
-  .login-span {
-    margin-top: 0px;
-    font-weight: bold;
-  }
-  
-  .login-button {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    border: 1px solid #000;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  .login-button:hover {
-    background-color: #c8c8c8;
-  }
-  
-  .label-container {
-    display: flex;
-    margin-top: 10px;
-    white-space: nowrap;
-    float: left;
-  }
+.login-button {
+  width: 278px;
+  height: 38px;
+  margin: 0 3px 0 3px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: 600;
+}
 
-  .link-label {
-    text-align: center;
-    margin-top: 10px;
-  }
+.login-button:hover {
+  background-color: black;
+  color: white;
+}
 
-  .error-message {
-    font-size: 11px;
-    color: red;
-    font-weight: bold;
-  }
+.login-label {
+  margin-bottom: 10px;
+  position: relative;
+  height: 38px;
+}
 
+.login-label2 {
+  width: 300px;
+  height: 50px;
+  padding-right: 180px;
+  margin-bottom: 60px;
+}
+
+.login-label3 {
+  width: 300px;
+  margin-top: 100px;
+}
+
+.login-checkbox {
+  width: 18px;
+}
+
+.login-span {
+  font-weight: bold;
+  width: 700px;
+}
+
+.label-container {
+  display: flex;
+  margin-top: 60px;
+  white-space: nowrap;
+  float: left;
+}
+
+.login-errorMsg {
+  width: 270px;
+  height: 5px;
+  color: red;
+  font-size: 0.6em;
+  font-weight: 600;
+  text-align: left;
+  margin: 0 auto;
+}
