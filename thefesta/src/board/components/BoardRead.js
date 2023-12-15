@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Reply from './BoardReply';
-import '../css/boardRead.css';
+import './css/boardRead.css';
 
 const BoardRead = () => {
 
