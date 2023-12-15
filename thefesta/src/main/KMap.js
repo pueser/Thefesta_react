@@ -12,16 +12,14 @@ function KMap() {
   }, [])
 
   const getApi = (key) => {
-    axios.get("/festival/list", {
+    axios.get("/festival/listAll", {
       params: {
-        pageNum: 1,
-        amount: 9,
         keyword: key || (key ? key : ''),
       },
     })
       .then((res) => {
-        console.log("getApi res.data", res.data)
-        setPositions(res.data.list)
+        console.log("getApi: ", res.data)
+        setPositions(res.data)
       })
       .catch((error) => { console.log("error", error) })
   }
