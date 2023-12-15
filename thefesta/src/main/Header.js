@@ -41,6 +41,22 @@ function Header() {
             setSelMenu('login')
         } else if (pathname === '/join') {
             setSelMenu('join')
+        } else if (pathname === '/admin/member') {
+            console.log('test');
+            console.log('setSelMenu admin member : ', selMenu);
+            setSelMenu('adminMember')
+        } else if (pathname === '/admin/report') {
+            console.log('setSelMenu adminReport : ', selMenu);
+            setSelMenu('adminReport')
+        } else if (pathname === '/admin/festa') {
+            console.log('setSelMenu adminFesta : ', selMenu);
+            setSelMenu('adminFesta')
+        } else if (pathname === '/admin/board') {
+            console.log('setSelMenu adminBoard : ', selMenu);
+            setSelMenu('adminBoard')
+        } else if (pathname === '/admin/adminQuestion') {
+            console.log('setSelMenu adminQuestion : ', selMenu);
+            setSelMenu('adminQuestion')
         }
     }, [location.pathname]);
 
@@ -93,7 +109,7 @@ function Header() {
         }
     };
 
-    if (getStatecode === "0") {
+    if (getStatecode === "0")  {
         return (
             <H isToggled={isToggled} userToggled={userToggled}>
                 <div className='header'>
@@ -111,37 +127,53 @@ function Header() {
                     <div className='header_logo hover' >
                         <h1>THE<br />FESTA</h1>
                     </div>
-
-                    <div className='header_menu hover header__menulist'>
                         {loggedIn ? (
                             <>
-                                <Link className='menu' to='/admin/member'><li className='menu'>회원</li></Link>
-                                <Link className='menu' to='/admin/report'><li className='menu menu_scheduler'>신고</li></Link>
-                                <Link className='menu' to='/admin/festa'><li className='menu'>축제</li></Link>
-                                <Link className='menu' to='/admin/board'><li className='menu'>게시판</li></Link>
-                                <Link className='menu' to='/admin/adminQuestion'><li className='menu'>문의사항</li></Link>
+                                <div className='header_menu hover'>
+                                    <Link to={'/admin/member'}>
+                                        <p className={`menu ${selMenu === 'adminMember' ? 'highlight' : ''}`}>회원</p>
+                                    </Link>
+                                    <Link to={'/admin/report'}>
+                                        <p className={`menu  ${selMenu === 'adminReport' ? 'highlight' : ''}`}>신고</p>
+                                    </Link>
+                                    <Link to={'/admin/festa'}>
+                                        <p className={`menu ${selMenu === 'adminFesta' ? 'highlight' : ''}`}>축제</p>
+                                    </Link>
+                                    <Link to={'/admin/board'}>
+                                        <p className={`menu ${selMenu === 'adminBoard' ? 'highlight' : ''}`}>게시판</p>
+                                    </Link>
+                                    <Link to={'/admin/adminQuestion'}>
+                                        <p className={`menu ${selMenu === 'adminQuestion' ? 'highlight' : ''}`}>문의사항</p>
+                                    </Link>
+                                </div>
+                                <div className='header_member hover'>
+                                    <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
+                                </div>
                             </>
                         ) : (
                             <>
-                                <Link className='menu' to='/'><li className='menu'>축제</li></Link>
-                                <Link className='menu' to='/scheduler'><li className='menu menu_scheduler'>스케줄러</li></Link>
-                                <Link className='menu' to='/board'><li className='menu'>톡톡</li></Link>
+                                <div className='header_menu hover'>
+                                    <Link to={'/'}>
+                                        <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
+                                    </Link>
+                                    <Link to={'/scheduler'}>
+                                        <p className={`menu  ${selMenu === 'scheduler' ? 'highlight' : ''}`}>스케줄러</p>
+                                    </Link>
+                                    <Link to={'/board'}>
+                                        <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
+                                    </Link>
+                                </div>
+                                <div className='header_member hover'>
+                                    <Link to='/login'>
+                                        <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
+                                    </Link>
+                                    <Link to='/AgreementPage'>
+                                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                    </Link>
+                                </div>
                             </>
+                            
                         )}
-                    </div>
-
-                    <div className='header_member hover'>
-                        {loggedIn ? (
-                            <>
-                                <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to='/login' className='member'>Login</Link>
-                                <Link to='/AgreementPage' className='member'>Join</Link>
-                            </>
-                        )}
-                    </div>
                 </div>
             </H>
         )
