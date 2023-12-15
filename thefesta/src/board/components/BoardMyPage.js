@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
-import './css/boardList.css';
+import '../css/boardList.css';
 
 const BoardMyPage = () => {
     const [data, setData] = useState([]);
