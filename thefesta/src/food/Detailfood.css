@@ -9,9 +9,6 @@
     margin: 10px auto;
     padding-top: 30px;
     text-align: center;
-    border-top: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9;
-    /* background-color: aliceblue; */
 }
 
 .Detail-food-flex {
@@ -20,7 +17,6 @@
     margin-left: 18px;
     justify-content: left;
     height: 500px;
-    /* background-color: antiquewhite; */
 }
 
 .Detail-food-image img {
@@ -33,7 +29,6 @@
     text-align: start;
     margin-left: 30px;
     margin-right: 10px;
-    /* background-color: aqua; */
 }
 
 .Detail-food-data-flex1 {
