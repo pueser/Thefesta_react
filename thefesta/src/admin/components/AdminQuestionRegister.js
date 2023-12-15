@@ -74,8 +74,10 @@ function AdminQuestionRegister (){
 
             console.log(response);
             if (response != null) {
-                alert("게시글이 성공적으로 등록되었습니다.");
+                alert("문의답변이 등록되었습니다.");
             };
+
+            
 
         } catch (error) {
             alert("게시글 등록에 실패하였습니다. 관리자에게 문의하십시오.");

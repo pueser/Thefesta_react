@@ -36,7 +36,8 @@ function FestaQuestionDetail (){
             </div>
             <div className="adminReportContent">{questioncontent}</div>
             <div className="adminDetailBtn">
-                <Link to={`/admin/festaQuestion/${contentid}`}><button onClick={()=>deleteClick(questionid)} className="adminApprove-button">확인</button></Link>
+                <Link to={`/admin/festaQuestion/${contentid}`}><button onClick={()=>deleteClick(questionid)} className="adminApprove-button">확인완료</button></Link>
+                <Link to={`/admin/festaQuestion/${contentid}`}><button  className="adminApprove-button">확인취소</button></Link>
             </div>
         </div>
     );
