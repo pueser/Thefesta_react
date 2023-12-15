@@ -9,7 +9,6 @@ function Like({ contentid }) {
 
   // 좋아요 DB 데이터 가져오기
   const likeInfo = async (id) => {
-    // 비동기 함수로 변경
     let lDto = {
       contentid: contentid,
       id: id,

@@ -24,16 +24,17 @@ const SimpleSlider = ({ images }) => {
         className='slider-container'
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
-        {images.slice(0, 10).map((img, index) => (
-          <div
-            key={index}
-            className={`slide ${index === currentSlide ? 'active' : ''}`}
-            style={{
-              backgroundImage: `url(${img.originimgurl || defaultImageUrl})`,
-            }}
-          ></div>
-        ))}
-        {images.length === 0 && (
+        {images &&
+          images.slice(0, 10).map((img, index) => (
+            <div
+              key={index}
+              className={`slide ${index === currentSlide ? 'active' : ''}`}
+              style={{
+                backgroundImage: `url(${img.originimgurl || defaultImageUrl})`,
+              }}
+            ></div>
+          ))}
+        {(!images || images.length === 0) && (
           <div
             className='slide default-slide'
             style={{ backgroundImage: `url(${defaultImageUrl})` }}
@@ -41,21 +42,28 @@ const SimpleSlider = ({ images }) => {
         )}
       </div>
       <div className='slider-dots'>
-        {images.slice(0, 10).map((_, index) => (
-          <div
-            key={index}
-            className={`dot ${index === currentSlide ? 'active' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-          ></div>
-        ))}
+        {images &&
+          images
+            .slice(0, 10)
+            .map((_, index) => (
+              <div
+                key={index}
+                className={`dot ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+              ></div>
+            ))}
       </div>
       <button
         onClick={goToPrevSlide}
-        className={`slider-button prev ${images.length <= 1 ? 'hidden' : ''}`}
+        className={`slider-button prev ${
+          images && images.length <= 1 ? 'hidden' : ''
+        }`}
       ></button>
       <button
         onClick={goToNextSlide}
-        className={`slider-button next ${images.length <= 1 ? 'hidden' : ''}`}
+        className={`slider-button next ${
+          images && images.length <= 1 ? 'hidden' : ''
+        }`}
       ></button>
     </div>
   );
