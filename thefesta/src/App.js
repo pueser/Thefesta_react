@@ -25,6 +25,12 @@ import MyPage from './member/MyPage';
 import PwReset from './member/PwReset';
 import Withdrawal from './member/Withdrawal';
 import Scheduler from './scheduler/scheduler';
+import BoardPage from "./board/BoardPage";
+import BoardRead from "./board/components/BoardRead";
+import BoardRegister from "./board/components/BoardRegister";
+import BoardModify from "./board/components/BoardModify";
+import ReportPage from "./board/components/ReportPage";
+import BoardMyPage from "./board/components/BoardMyPage";
 
 function App() {
   return (
@@ -79,6 +85,13 @@ function App() {
             path='/admin/adminQuestionRegister'
             element={<AdminQuestionRegister />}
           />
+
+          <Route path='/board' element={<BoardPage/>}/>
+          <Route path='/board/register' element={<BoardRegister/>}/>
+          <Route path="/board/read" element={<BoardRead/>} />
+          <Route path="/board/modify" element={<BoardModify/>}/>
+          <Route path="/board/mypage" element={<BoardMyPage/>}/>
+          <Route path="/reportpage" element={<ReportPage/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

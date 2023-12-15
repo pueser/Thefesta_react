@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Reply from './BoardReply';
-import '../css/BoardRead.css';
+import '../css/boardRead.css';
 
 const BoardRead = () => {
 
@@ -119,6 +119,7 @@ const BoardRead = () => {
       const handleCommentModify = async (brno, modifiedContent) => {
         try {
           await axios.put(`http://localhost:9090/replies/${brno}`, {
+            bid: bid,
             brcontent: modifiedContent,
           });
     

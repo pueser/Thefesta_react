@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../css/BoardRegister.css';
+import '../css/boardRegister.css';
 import { Link, useNavigate } from 'react-router-dom'
-import Dropzone from 'react-dropzone'
 
 
 
@@ -105,16 +104,7 @@ const BoardRegister = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="file">파일첨부</label>
-                <Dropzone onDrop={(acceptedFiles) => handleFileChange(acceptedFiles)}>
-                    {({getRootProps, getInputProps}) => (
-                        <section style={{border:'solid 1px #D9D9D9', borderRadius:'8px'}}>
-                        <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <p style={{marginLeft:'10px', textAlign:'center'}}>Drag and Click</p>
-                        </div>
-                        </section>
-                    )}
-                </Dropzone>
+                
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <button style={{backgroundColor:'white', color:'black', border: '1px solid #D9D9D9'}}type="submit">등록</button>

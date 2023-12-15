@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
-import '../css/BoardList.css';
-import { hover } from '@testing-library/user-event/dist/hover';
+import '../css/boardList.css';
 
 const BoardList = () => {
     const [data, setData] = useState([]);
@@ -13,62 +12,34 @@ const BoardList = () => {
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
     const [pageNum, setPageNum] = useState(1);
     const [pageInfo, setPageInfo] = useState({});
-    const [bno, setBno] = useState(1);
+    const [bno, setBno] = useState(0);
     const [user, setUser] = useState({
         nickname: "user1",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
         id: "user1@naver.com"
     });
-    const [boardTitle, setBoardTitle] = useState('');
 
     useEffect(() => {
         if (data.length === 0) {
             fetchData();
-
-            switch (bno) {
-                case 0:
-                  setBoardTitle('톡톡');
-                  break;
-                case 1:
-                  setBoardTitle('자유');
-                  break;
-                case 2:
-                  setBoardTitle('리뷰');
-                  break;
-                case 3:
-                  setBoardTitle('문의');
-                  break;
-                default:
-                  setBoardTitle('톡톡'); // 기본값 설정
-                  break;
-              }
         }
         
-    }, [bno]);
+    }, []);
 
     const fetchData = async () => {
         try {
-            let url = '';
-            if (bno === 0) {
-                url = 'http://localhost:9090/board/list';
-            } else if (bno === 1) {
-                url = 'http://localhost:9090/board/listFree';
-            } else if (bno === 2) {
-                url = 'http://localhost:9090/board/listReview';
-            } else if (bno === 3) {
-                url = 'http://localhost:9090/board/listQuiry';
-            }
-        
-            const response = await axios.get(url);
-            setData(response.data.list);
-            setPageInfo(response.data.pageMaker);
-        
-            console.log("list data:", response.data.list);
+          const response = await axios.get(
+            `http://localhost:9090/board/list`
+          );
 
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-      };
+          setData(response.data.list);
+          setPageInfo(response.data.pageMaker);
+          
+          console.log("list data:", response.data.list);
 
+        } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+    };
 
     const handleWrite = () => {
 
@@ -89,18 +60,9 @@ const BoardList = () => {
             keyword: text,
         }
         try {
-            let url = '';
-            if (bno === 0) {
-                url = 'http://localhost:9090/board/list';
-            } else if (bno === 1) {
-                url = 'http://localhost:9090/board/listFree';
-            } else if (bno === 2) {
-                url = 'http://localhost:9090/board/listReview';
-            } else if (bno === 3) {
-                url = 'http://localhost:9090/board/listQuiry';
-            }
-        
-            const response = await axios.get(url + `?pageNum=${params.pageNum}&amount=${params.amount}&type=${params.type}&keyword=${params.keyword}`);
+            const response = await axios.get(
+                `http://localhost:9090/board/list?pageNum=${params.pageNum}&amount=${params.amount}&type=${params.type}&keyword=${params.keyword}`
+                );
             setData(response.data.list);
             setAmount(params.amount);
             setType(params.type);
@@ -130,7 +92,7 @@ const BoardList = () => {
 
     const handlePageChange = async (pageNum) => {
         try {
-            const response = await axios.get(`http://localhost:9090/board/list`);
+            const response = await axios.get(`http://localhost:9090/board/list?pageNum=${pageNum}&amount=${amount}&type=${type}&keyword=${text}`);
             setData(response.data.list);
             setPageInfo(response.data.pageMaker);
             setPageNum(pageNum);
@@ -143,7 +105,7 @@ const BoardList = () => {
       
     return (
         <div className="board-container">
-            <h2>{boardTitle} 게시판</h2>
+            <h2>톡톡 게시판</h2>
             <div style={{ height: '40px', display: 'flex', justifyContent: 'space-between', gap: '1px' }}>
                 <div style={{ display: 'flex', alignItems: 'end' }}>
                     <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '10px'}} onClick={() => navigate(`/board`)}>등록순</button>
