@@ -25,11 +25,11 @@ function Board() {
   const getBoardList = async() =>{
     
     await axios
-      .get(`http://localhost:9090/board/list?pageNum=${curPage}&amount=${amount}&type=${""}&keyword=${""}`)
+      .get(`http://localhost:9090/admin/boardlist?pageNum=${curPage}&amount=${amount}`)
         
       .then((response)=> {
         //setBoardList(response.data)
-        console.log("setBoardList = ", response.data)
+        console.log("response = ", response.data)
 
           //게시판 종류 이름 지정 및 작성일자 변경(yyyy.MM.dd)
           response.data.list.forEach(element=>{
@@ -47,12 +47,17 @@ function Board() {
             setBoardList(newBoardList)
           })
 
-          
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
           setTotal(response.data.pageMaker.total);
           setNext(response.data.pageMaker.next)
           setPrev(response.data.pageMaker.prev)
+          if(response.data.list.length!=10){
+            document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
+          }
+          else{
+            document.getElementById("adminPagination").style.marginTop = "75px";
+          }
       })
 
       .catch((error)=>{
@@ -94,22 +99,22 @@ function Board() {
     const curPageChange =(page) =>{
       setCurPage(page);
       
-      axios.get(`http://localhost:9090/board/list?pageNum=${page}&amount=${amount}&type=${""}&keyword=${""}`)
+      axios.get(`http://localhost:9090/admin/boardlist?pageNum=${page}&amount=${amount}`)
         
       .then((response)=> {
-        console.log(response.data)
+        console.log("response",response.data)
 
         //게시판 종류 이름 지정 및 작성일자 변경(yyyy.MM.dd)
         response.data.list.forEach(element=>{
           console.log("element.bno = ", element.bno)
           let code;
           let date = element.bregist.substr(0,10);
-          console.log("date=", date)
+         
           
-          if(element.bno === 1){
+          if(element.bno === 1 && element.bno !== 3){
             code = "자유게시판";
             newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
-          }else if(element.bno === 2){
+          }else if(element.bno === 2 && element.bno !== 3){
             code = "리뷰게시판";
             newBoardList.push({bno :code, bcontent : element.bcontent, bid: element.bid, bregist: date, btitle : element.btitle, id : element.id})
           }
@@ -122,36 +127,44 @@ function Board() {
         setTotal(response.data.pageMaker.total);
         setNext(response.data.pageMaker.next)
         setPrev(response.data.pageMaker.prev)
+        if(response.data.list.length!=10){
+          document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
+        }
+        else{
+          document.getElementById("adminPagination").style.marginTop = "75px";
+        }
       })
       .catch((error)=>{
         console.log("error", error)
       })
     }
+
+    console.log("boardList=", boardList)
     
     return (
-      <div className="main">
-        <table>
-          <thead>
+      <div className="adminMain">
+        <table className="adminTable">
+          <thead className="adminThead">
             <tr>
               <th>게시판 종류</th>
-              <th id="boardBno">게시글번호</th>
+              <th id="adminBoardTd">게시글번호</th>
               <th>게시글제목</th>
               <th>작성자</th>
               <th>작성일자</th>
               <th>삭제</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="adminTbody">
             {
               boardList&&boardList.map(
                 (item, idx)=>(
                   <tr key={idx}>
-                    <td id="boardBno">{item.bno}</td>
+                    <td id="adminBoardTd">{item.bno}</td>
                     <td>{item.bid}</td>
-                    <td id="windowBtn" onClick={() => window.open(`/board/read?bid=${item.bid}`, '_blank')}>{item.btitle}</td>
+                    <td id="adminWindowCursor" onClick={() => window.open(`/board/read?bid=${item.bid}`, '_blank')}><span id="adminTableContentLength">{item.btitle}</span></td>
                     <td>{item.id}</td>
                     <td>{item.bregist}</td>
-                    <td className="ButtonTD"><button onClick={()=>deleteClick(item.bid)} className="Delete-button">삭제</button></td>
+                    <td id="adminBtntd"><button onClick={()=>deleteClick(item.bid)} className="adminDelete-button">삭제</button></td>
                   </tr>
                 )
               )
@@ -159,6 +172,7 @@ function Board() {
           </tbody>
         </table>
         <div>
+          
           <Pagenation
             page={curPage}
             startPage={startPage}

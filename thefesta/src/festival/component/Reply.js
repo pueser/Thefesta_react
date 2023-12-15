@@ -2,6 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import './Reply.css';
+import Like from './Like';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Reply({
   frno,
@@ -12,7 +14,11 @@ function Reply({
   frregist,
   fredit,
   replyList,
+  profileImg,
+  userInfo,
+  replyUpdate,
 }) {
+  const navigate = useNavigate();
   const loginInfoString = Cookies.get('loginInfo');
   const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
   const [isEditMode, setIsEditMode] = useState(false);
@@ -30,8 +36,9 @@ function Reply({
     axios
       .patch('/festival/reply/modify', data)
       .then((res) => {
-        console.log('res : ', res.data);
+        console.log('reply modify res : ', res.data);
         setIsEditMode(false);
+        replyUpdate();
       })
       .catch((e) => console.log(e));
   };
@@ -54,14 +61,24 @@ function Reply({
     }
   };
 
+  const onClickReport = () => {
+    if (!loginInfoString) {
+      alert('로그인 후 이용 가능합니다.');
+    } else {
+      navigate('/festival/replyReport', {
+        state: {
+          id: userInfo.id,
+          frno: frno,
+          reported: id,
+        },
+      });
+    }
+  };
+
   return (
     <div className='reply'>
       <div className='userInfo'>
-        {loginInfo && loginInfo.img ? (
-          <img src={loginInfo.img} alt={loginInfo.id}></img>
-        ) : (
-          <div className='userImg' />
-        )}
+        <img src={profileImg} alt={id} className='userImg'></img>
         <strong>{nickname}</strong>
       </div>
       {isEditMode ? (
@@ -69,16 +86,22 @@ function Reply({
           <textarea
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
+            maxLength={1000}
           />
-          <button type='button' onClick={onSaveEdit}>
-            저장
-          </button>
+          <div className='editBtn'>
+            <button type='button' onClick={onSaveEdit}>
+              저장
+            </button>
+            <button type='button' onClick={() => setIsEditMode(false)}>
+              취소
+            </button>
+          </div>
         </>
       ) : (
         <p>{editedContent}</p>
       )}
       <span>{fredit}</span>
-      {loginInfo && loginInfo.id === id ? (
+      {userInfo && userInfo.id === id ? (
         <div className='replyBtn'>
           <button type='button' onClick={onClickModify}>
             수정
@@ -88,7 +111,11 @@ function Reply({
           </button>
         </div>
       ) : (
-        ''
+        <div className='reportBtn'>
+          <button type='button' onClick={onClickReport}>
+            신고
+          </button>
+        </div>
       )}
     </div>
   );

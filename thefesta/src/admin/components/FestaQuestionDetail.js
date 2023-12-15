@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-function QuestionDetail (){
+function FestaQuestionDetail (){
     const {contentid} = useParams();
     const location = useLocation();
     const questioncontent = location.state.questioncontent
@@ -29,24 +29,19 @@ function QuestionDetail (){
 
 
     return(
-        <div>
-            <p><Link to={{pathname:`/Question/${contentid}`}}>X</Link></p> 
-            <table>
-                <thead>
-                    <tr>
-                        <th>건의내용</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr >
-                        <td>{questioncontent}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <button onClick={()=>deleteClick(questionid)}>확인</button>
+        <div className="adminDetailMain" style={{marginTop: '75px'}}>
+            <div className="adminDetailDisplay">
+                <div className="adminDetailReportContent">건의내용</div>
+                <div className="adminDetailOut"><Link to={{pathname:`/admin/festaQuestion/${contentid}`}} className="adminLinkBtn">X</Link></div>
+            </div>
+            <div className="adminReportContent">{questioncontent}</div>
+            <div className="adminDetailBtn">
+                <Link to={`/admin/festaQuestion/${contentid}`}><button onClick={()=>deleteClick(questionid)} className="adminApprove-button">확인완료</button></Link>
+                <Link to={`/admin/festaQuestion/${contentid}`}><button  className="adminApprove-button">확인취소</button></Link>
             </div>
         </div>
     );
 }
-export default QuestionDetail;
+
+
+export default FestaQuestionDetail;

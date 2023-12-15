@@ -1,0 +1,38 @@
+.adminDetailMain{
+    font-family: 'noto sans kr';
+    border-left-color: black;
+    text-align: center;
+    margin: 58px auto 57px;
+    width: 90%;
+}
+.adminDetailDisplay{
+    width: 101%;
+    display: flex;
+    justify-content: space-between;
+}
+.adminDetailMemeberDisplay{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminDetailReportNum, .adminDetailReportContent{
+    text-align: left;
+    font-weight: bold;
+}
+.adminReportContent{
+    width: 100%;
+    margin-top: 5px;
+    height: 400px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    text-align: left;
+    padding: 5px;
+}
+
+.adminDetailBtn{
+    text-align: center;
+    margin-top: 75px;
+    margin-bottom: 45px;
+}
+   

@@ -50,7 +50,7 @@ function Main() {
     navigate(`/festival/${page}/${keyword}`);
   };
   return (
-    <div>
+    <div className='div'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
       <KMap></KMap>
       {festivals.length > 0 ? (

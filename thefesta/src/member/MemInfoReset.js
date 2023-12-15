@@ -164,78 +164,76 @@ function MemInfoReset() {
     }
   
     return (
-      <div>
-      <h1>회원 정보 수정</h1>
+      <div className="MemInfoReset-container">
+      <h1 className="MemInfoReset-title">회원 정보 수정</h1>
       <form className='MemInfoReset-form'>
-        <label className='MemInfoReset-label'>
-          아이디  
-          <input
-            type="text"
-            name="id"
-            value={userData.id}
-            onChange={handleInputChange}
-            style={{ border: 'none', outline: 'none', background: 'transparent' }}
+        <label className='MemInfoReset-label-id'>
+          아이디
+          <input 
             className='MemInfoReset-input'
-          />
-        </label><br/>
-        <label className='MemInfoReset-label'>
-          닉네임  
-          <input
-            type="text"
-            name="nickname"
-            value={userData.nickname}
-            onChange={handleInputChange}
-            className='MemInfoReset-input'
-          />
+            type="text" 
+            name="id" 
+            value={userData.id} 
+            disabled 
+            onChange={handleInputChange} />
         </label>
-        <button type="button" onClick={nicknameCheckSubmit} className='MemInfoReset-button'>
-          중복체크
-        </button><br/>
-        <div className="error-message">{nicknameError}</div>
-        <div className="error-message">{nicknameCheckResult}</div>
-        <label className='MemInfoReset-label'>
-          현재 비밀번호  
-          <input
-            type="password"
-            name="originalPassword"
-            value={userData.originalPassword}
-            onChange={handleInputChange}
+        <label className='MemInfoReset-label-nickname'>
+          닉네임
+          <input 
             className='MemInfoReset-input'
-          />
-        </label><br/>
-        <div className="error-message">{passwordError1}</div>
-        <label className='MemInfoReset-label'>
-          새 비밀번호  
-          <input
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleInputChange}
-            className='MemInfoReset-input'
-          />
-        </label><br/>
-        <div className="error-message">{passwordError2}</div>
-        <label className='MemInfoReset-label'>
-          새 비밀번호 확인  
-          <input
-            type="password"
-            name="rePassword"
-            value={userData.rePassword}
-            onChange={handleInputChange}
-            className='MemInfoReset-input'
-          />
+            type="text" 
+            name="nickname" 
+            value={userData.nickname} 
+            onChange={handleInputChange} />
+          <button className='MemInfoReset-checkBtn' type="button" onClick={nicknameCheckSubmit} >중복체크</button>
+          <div className="MemInfoReset-errorMsg-nickname">
+            <div>{nicknameError}</div>
+            <div>{nicknameCheckResult}</div>
+          </div>
         </label>
-        <div className="error-message">{passwordError3}</div>
-        <br />
-        <button type="button" onClick={handleSubmit} className='MemInfoReset-button'>
-          저장
-        </button>
-        <button type="button" onClick={cencel} className='MemInfoReset-button'>
-          취소
-        </button>
+        <label className='MemInfoReset-label-currentPw'>
+          현재 비밀번호
+          <input
+            className='MemInfoReset-input'
+            type="password" 
+            name="originalPassword" 
+            value={userData.originalPassword} 
+            onChange={handleInputChange} />
+          <div className="MemInfoReset-errorMsg-currentPw">
+            <div>{passwordError1}</div>
+          </div>
+        </label>
+        <label className='MemInfoReset-label-newPw'>
+          새 비밀번호
+          <input 
+            className='MemInfoReset-input'
+            type="password" 
+            name="password" 
+            value={userData.password} 
+            onChange={handleInputChange} />
+          <div className="MemInfoReset-errorMsg-newPw">
+            <div>{passwordError2}</div>
+          </div>
+        </label>
+        <label className='MemInfoReset-label-checkPw'>
+          새 비밀번호 확인
+          <input
+          className='MemInfoReset-input'
+          type="password" 
+          name="rePassword" 
+          value={userData.rePassword} 
+          onChange={handleInputChange} />
+          <div className="MemInfoReset-errorMsg-checkPw">
+            <div>{passwordError3}</div>
+          </div>
+        </label>
+        <div className="MemInfoReset-formButton">
+          <button className='MemInfoReset-saveBtn' type="button" onClick={handleSubmit} >저장</button>
+          <button className='MemInfoReset-cancelBtn' type="button" onClick={cencel} >취소</button>
+        </div>
       </form>
     </div>
-    );
+  );
 }
 
 export default MemInfoReset;

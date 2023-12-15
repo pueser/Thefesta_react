@@ -49,7 +49,6 @@ function Join() {
   
   const idCheckSubmit = () => {
     setIdError('');
-    setIdCheckResult('');
     setNicknameError('');
 
     // 공백 유효성 검사
@@ -75,14 +74,19 @@ function Join() {
     .then(response => {
       const memInfo = response.data;
       const statecode = memInfo.statecode;
+      console.log("테스트 테스트 " + response.data);
+      console.log("response" , response.data);
+
+      if (response.data == "") {
+        setIdError('사용 가능한 아이디입니다.');
+      }
 
       if (String(statecode) == 0) {
         setIdError("유효한 아이디가 이닙니다.");
         return;
         
       } else if (String(statecode) == 1) {
-        setIdError('');
-        setIdCheckResult('사용중인 아이디입니다. 다시 입력해주세요.');
+        setIdError('사용중인 아이디입니다. 다시 입력해주세요.');
         return;
         
       } else if (String(statecode) == 2) {
@@ -100,13 +104,12 @@ function Join() {
           console.log("user data : " + userData.statecode);
 
           setNicknameError('');
-          setIdError('');
           axios.post('http://localhost:9090/member/updateState', userData)
-          setIdCheckResult('사용 가능한 아이디입니다.');
+          setIdError('사용 가능한 아이디입니다.');
         }
         
       } else if (String(statecode) == 3) {
-        setIdCheckResult('사용 가능한 아이디입니다.');
+        setIdError('사용 가능한 아이디입니다.');
         
       } else if (String(statecode) == 4) {
         window.alert("이용이 제한된 아이디입니다. 관리자에게 문의해주세요.");
@@ -116,11 +119,9 @@ function Join() {
         .then(response => {
           console.log(response.data);
           if (response.data === 'success') {
-            setIdCheckResult('사용 가능한 아이디입니다.');
-            setIdError('');
+            setIdError('사용 가능한 아이디입니다.');
           } else if (response.data === 'fail') {
-            setIdCheckResult('사용중인 아이디입니다. 다시 입력해주세요.');
-            setIdError('');
+            setIdError('사용중인 아이디입니다. 다시 입력해주세요.');
           }
         })
         .catch(error => {
@@ -131,12 +132,10 @@ function Join() {
   };
   
   const nicknameCheckSubmit = () => {
-    setNicknameCheckResult('');
     setNicknameError('');
 
-    if (idCheckResult != '사용 가능한 아이디입니다.') {
+    if (idError != '사용 가능한 아이디입니다.') {
       setIdError('*중복체크를 진행해주세요.');
-      setIdCheckResult('');
       return;
     }
 
@@ -166,15 +165,14 @@ function Join() {
 
       if (String(statecode) == 3) {
         if (userData.nickname == memInfo.nickname) {
-          setNicknameCheckResult('사용 가능한 닉네임입니다.');
+          setNicknameError('사용 가능한 닉네임입니다.');
         } else {
           axios.post('http://localhost:9090/member/nicknameCheck', userData)
           .then(response => {
           if (response.data === 'success') {
-            setNicknameCheckResult('사용가능한 닉네임입니다.');
-            setNicknameError('')
+            setNicknameError('사용가능한 닉네임입니다.');
         } else if (response.data === 'fail') {
-            setNicknameCheckResult('사용중인 닉네임입니다. 다시 입력해주세요.');
+          setNicknameError('사용중인 닉네임입니다. 다시 입력해주세요.');
         }
         })
         .catch(error => {
@@ -186,10 +184,9 @@ function Join() {
         axios.post('http://localhost:9090/member/nicknameCheck', userData)
         .then(response => {
         if (response.data === 'success') {
-          setNicknameCheckResult('사용가능한 닉네임입니다.');
-          setNicknameError('')
+          setNicknameError('사용가능한 닉네임입니다.');
         } else if (response.data === 'fail') {
-          setNicknameCheckResult('사용중인 닉네임입니다. 다시 입력해주세요.');
+          setNicknameError('사용중인 닉네임입니다. 다시 입력해주세요.');
         }
         })
         .catch(error => {
@@ -202,9 +199,8 @@ function Join() {
 const verificationCodeSubmit = () => {
   setVerificationCodeError('');
 
-  if (idCheckResult != '사용 가능한 아이디입니다.') {
+  if (idError != '사용 가능한 아이디입니다.') {
     setIdError('*중복체크를 진행해주세요.');
-    setIdCheckResult('');
     return;
   }
 
@@ -226,9 +222,8 @@ const verificationCodeSubmit = () => {
 const codeCheckSubmit = () => {
   console.log(userData.verificationCode + " 비교 " + serverVerificationCode);
   if (parseInt(userData.verificationCode) === serverVerificationCode) {
-    setVerificationCodeResult('인증이 완료되었습니다.');
+    setVerificationCodeError('인증이 완료되었습니다.');
     setCodeCheck(true);
-    setVerificationCodeError('');
   } else if (serverVerificationCode == '') {
     setVerificationCodeError('*인증번호를 발급받아주세요.');
   } else {
@@ -263,7 +258,6 @@ const codeCheckSubmit = () => {
     
     if (idCheckResult != '사용 가능한 아이디입니다.') {
       setIdError('*중복체크를 진행해주세요.');
-      setIdCheckResult('');
       return;
     }
     
@@ -373,8 +367,8 @@ const codeCheckSubmit = () => {
   }
 
     return (
-      <div>
-      <h1>회원가입</h1>
+      <div className='join-container'>
+      <h1 className='join-title'>회원가입</h1>
       <form className='join-form'>
         <br />
           <input
@@ -383,65 +377,60 @@ const codeCheckSubmit = () => {
             value={userData.id}
             onChange={handleInputChange}
             placeholder='아이디'
-            className='join-input'
+            className='join-id'
           />
         <button type="button" onClick={idCheckSubmit} className='join-button'>
           중복체크
         </button>
-        <div className="error-message">{idError}</div>
-        <div className="error-message">{idCheckResult}</div>
+        <div className="join-errorMsg">{idError}</div>
           <input
             type="text"
             name="nickname"
             value={userData.nickname}
             onChange={handleInputChange}
             placeholder='닉네임'
-            className='join-input'
+            className='join-nickname'
           />
         <button type="button" onClick={nicknameCheckSubmit} className='join-button'>
           중복체크
         </button>
-        <div className="error-message">{nicknameError}</div>
-        <div className="error-message">{nicknameCheckResult}</div>
-        <br />
+        <div className="join-errorMsg">{nicknameError}</div>
           <input
             type="text"
             name="verificationCode"
             value={userData.verificationCode}
             onChange={handleInputChange}
             placeholder='인증번호'
-            className='join-input'
+            className='join-verificationCode'
           />
-        <button type="button" onClick={verificationCodeSubmit} className='join-button'>
+        <button type="button" onClick={verificationCodeSubmit} className='join-verificationCode-button'>
           인증번호 전송
         </button>
-        <button type="button" onClick={codeCheckSubmit} className='join-button'>
+        <button type="button" onClick={codeCheckSubmit} className='join-check-button'>
           확인
         </button>
-        <div className="error-message">{verificationCodeError}</div>
-        <div className="error-message">{verificationCodeResult}</div>
-        <br />
+        <div className="join-errorMsg">{verificationCodeError}</div>
           <input
             type="password"
             name="password"
             value={userData.password}
             onChange={handleInputChange}
             placeholder='비밀번호'
-            className='join-input'
+            className='join-password'
           />
-        <div className="error-message">{passwordError}</div>
+        <div className="join-errorMsg">{passwordError}</div>
           <input
             type="password"
             name="rePassword"
             onChange={handleInputChange}
             placeholder='비밀번호 재입력'
-            className='join-input'
+            className='join-rePassword'
           />
-        <div className="error-message">{rePasswordError}</div>
+        <div className="join-errorMsg">{rePasswordError}</div>
         <button type="button" className='join-button' onClick={handleSignUp}>
           가입
         </button>
-        <button type="button" onClick={cencel} className='join-button'>
+        <button type="button" onClick={cencel} className='join-cencel-button'>
           취소
         </button>
       </form>

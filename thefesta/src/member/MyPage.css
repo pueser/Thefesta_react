@@ -1,5 +1,161 @@
-    .mypageimage {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
+.MyPage-myPage {
+  width: 80%;
+  margin: 50px auto;
+}
+
+.MyPage-title {
+  width: fit-content;
+  font-size: 1.5em;
+  margin-left: 200px;
+}
+
+.MyPage-container {
+  position: relative;
+  background-color: #1F3172;
+  width: 450px;
+  height: 450px;
+  border-radius: 10px; 
+  margin: 70px auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.MyPage-kebabBtn {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-top: 5px;
+}
+
+/* .MyPage-logout {  // 로그아웃 글자로 했다가 쫌 별론거 같아서 아이콘으로 바꿨는데 혹시 몰라 주석처리 해놨어요 한번 봐보고 이상하면 지워요~ㅎㅎ
+  width: 100px;
+  height: 30px;
+  float: right;
+  margin-top: 5px;
+  padding-right: 8px;
+  color: red;
+  font-weight: 700;
+  font-size: 17px;
+  text-align: right;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+} */
+
+.MyPage-logoutImg {
+  float: right;
+  margin-top: 6px;
+  padding-right: 8px;
+  
+}
+
+
+.MyPage-selectMenu {
+  width: 160px;
+  height: 90px;
+  background-color: #ECECEC;
+  border: 0.1px solid #000000;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  z-index: 1;
+  display: grid;
+  columns: 1;
+}
+
+.MyPage-box {
+  width: 160px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.MyPage-box img{
+  width: 23px;
+  height: 23px;
+  margin: 0 10px 0 10px;
+}
+
+.MyPage-selectMenu a{
+  text-decoration: none;
+  font-size: 1.1em;
+  color: black;
+}
+
+
+.MyPage-image {
+  width: fit-content;
+  position: absolute;
+  top: 15%;
+  left: 39%;
+}
+
+.MyPage-profileImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  background-color: white;
+}
+
+.MyPage-nickname {
+  /* background-color: #ECECEC; */
+  width: 230px;
+  height: 30px;
+  position: absolute;
+  top: 39%;
+  left: 25%;
+}
+
+.MyPage-name {
+  color: white;
+  margin: 0 0;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.MyPage-activity {
+  /* background-color: aliceblue; */
+  width: 71%;
+  height: 30%;
+  position: absolute;
+  top: 62%;
+  left: 15%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.MyPage-festival {
+  /* background-color: bisque; */
+  width: 40%;
+}
+
+.MyPage-likeFesta {
+  width: 85px;
+  height: 85px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.MyPage-festival p {
+  color: white;
+  font-size: 1.1em;
+  margin: 0 0;
+}
+
+.MyPage-board {
+  /* background-color: lightpink; */
+  width: 40%;
+}
+
+.MyPage-talktalk {
+  width: 85px;
+  height: 85px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.MyPage-board p {
+  color: white;
+  font-size: 1.1em;
+  margin: 0 0;
+}

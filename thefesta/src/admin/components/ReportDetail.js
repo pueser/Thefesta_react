@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import '../css/DetailContent.css';
+import '../css/Button.css';
 
  function ReportDetail(){
     const {reportid} = useParams();
@@ -53,26 +55,22 @@ import { Link, useNavigate, useParams } from "react-router-dom";
     }  
 
     return(
-        <div>
-            <p><Link to='/report'>X</Link></p>
-            <div>신고번호 : {reportid}</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>신고내용</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{reportDetail}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <td>
-                <Link to='/report'><button onClick={()=>approveClick(reportid)}>승인</button></Link>
-                <Link to='/report'><button onClick={()=>deleteClick(reportid)}>반려</button></Link>
-            </td>
+        <div className="adminDetailMain">
+            <div className="adminDetailDisplay">
+                <div className="adminDetailReportLeft">
+                    <div className="adminDetailReportNum">신고번호  :  {reportid} 번</div>
+                    <div className="adminDetailReportContent">신고내용</div>
+                </div>
+                <div className="adminDetailOut"><Link to='/admin/report' className="adminLinkBtn">X</Link></div>
+            </div>
+            <div className="adminReportContent">{reportDetail}</div>
+            <div className="adminDetailBtn">
+                <Link to='/admin/report'><button onClick={()=>approveClick(reportid)} className="adminApprove-button">승인</button></Link>
+                <Link to='/admin/report'><button onClick={()=>deleteClick(reportid)} className="adminDelete-button">반려</button></Link>
+            </div>
         </div>
     );
 }
+
+
 export default ReportDetail;

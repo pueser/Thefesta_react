@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import MemberList from "./MemberList";
+import { useContext, useEffect, useState } from "react";
 import Pagenation from "./Pagenation";
 import { array } from "prop-types";
 import { Link } from "react-router-dom";
 import '../css/Table.css';
 import '../css/Button.css';
+import { Button, NotesContext } from "./MemberDetail";
+
+
 
 function Member() {
   let newMemberList = [];
@@ -32,7 +34,7 @@ function Member() {
         .get(`http://localhost:9090/admin/memberList?pageNum=${curPage}&amount=${amount}`)
         
         .then((response)=> {
-          console.log("response", response)
+          console.log("MEmberresponse", response)
           
           response.data.list.forEach(element=>{
             let code;
@@ -51,20 +53,22 @@ function Member() {
               newMemberList.push({rn : element.rn, statecode :code, id : element.id, finalaccess: element.finalaccess, reportnum: element.reportnum, totalreportnum : element.totalreportnum})
             }
             setMemberList(newMemberList);
-          }
-          )
+          })
           
           setStartPage(response.data.pageMaker.startPage);
           setEndPage(response.data.pageMaker.endPage)
           setTotal(response.data.pageMaker.total);
           setNext(response.data.pageMaker.next);
           setPrev(response.data.pageMaker.prev);
+
+          //테이블 css 행크기 유지
           if(response.data.list.length!=10){
-            document.getElementById("pagination").style.marginTop = ((10-(response.data.list.length%10))*42+60) + "px";
+            document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
           }
           else{
-            document.getElementById("pagination").style.marginTop = "60px";
+            document.getElementById("adminPagination").style.marginTop = "75px";
           }
+
         })
         .catch((error)=>{
           console.log("error", error)
@@ -107,11 +111,12 @@ function Member() {
           setTotal(response.data.pageMaker.total);
           setNext(response.data.pageMaker.next)
           setPrev(response.data.pageMaker.prev)
+
           if(response.data.list.length!=10){
-            document.getElementById("pagination").style.marginTop = ((10-(response.data.list.length%10))*42+60) + "px";
+            document.getElementById("adminPagination").style.marginTop = ((10-(response.data.list.length%10))*42+75) + "px";
           }
           else{
-            document.getElementById("pagination").style.marginTop = "60px";
+            document.getElementById("adminPagination").style.marginTop = "75px";
           }
         })
         .catch((error)=>{
@@ -120,58 +125,42 @@ function Member() {
         })
   }
 
-  //상태코드 변경값 저장 useState
-  //const [statecodeExpulsionChange, setStateExpulsioncodeChange] = useState(statecode);
 
-  //MemberSelectBox(하위 컴포넌트)에서 값 전달 받음
-  function StateExpulsionChange(){
-      // console.log("memberDetail statecode 전달받음= ", stateValue)
-      this.forceUpdate();
-      /* if(stateValue === "일반"){
-          setStateExpulsioncodeChange("일반");
-      }else if(stateValue === "탈퇴"){
-          setStateExpulsioncodeChange("탈퇴");
-      }else if(stateValue === "재가입 가능"){
-          setStateExpulsioncodeChange("재가입 가능");
-      }else if(stateValue === "강퇴"){
-          setStateExpulsioncodeChange("강퇴"); 
-      }*/
-  }
-
- 
 console.log("memberlist = ", memberList)
     return (
-      <div className="main">
-        <table >
-          <thead>
+      <div className="adminMain" id="adminID">
+        <table className="adminTable" >
+          <thead className="adminThead">
             <tr>
               <th>번호</th>
               <th>아이디</th>
               <th>상태</th>
-              <th>신고누적현황</th>
+              <th>신고누적</th>
+              <th>강퇴누적</th>
               <th>최근 접속일</th>
               <th>수정</th>
             </tr>
           </thead>
-          <tbody id="memtb">
+          <tbody className="adminTbody">
             {
               memberList&&memberList.map(
                 (item, indx)=>(
-                  <tr key={indx}>
+                  <tr key={indx} className="adminTableTr">
                     <td>{item.rn}</td>
                     <td>{item.id}</td>
-                    <td>{item.statecode}</td>
+                    <td >{item.statecode}</td>
                     <td>{item.totalreportnum}</td>
+                    <td>{item.reportnum}</td>
                     <td>{item.finalaccess}</td>
-                    <td className="ButtonTD"><button className="Rgister-button" ><Link to={{ pathname:`/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess}} expulsionchange ={StateExpulsionChange} className="link" >수정</Link></button></td>
+                    <td id="adminBtntd2"><button className="adminRgister-button" ><Link to={{ pathname:`/admin/memberDetail/${item.id}`}}  state ={{statecode: item.statecode, finalaccess: item.finalaccess, reportnum: item.reportnum}} className="adminLinkBtn" >수정</Link></button></td>
                   </tr>
                 )
               )
             }
+            
           </tbody>
         </table>
         <div>
-        
         </div>
         <div>
           <Pagenation

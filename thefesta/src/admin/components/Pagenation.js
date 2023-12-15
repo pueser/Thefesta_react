@@ -22,6 +22,7 @@ function Pagenation({page, startPage, endPage, curPageChange, total, next, prev,
         setClicked(e.target.value)
     }
 
+    
     //이전 페이지 클릭했을 때
     function prevbutton(e){
         e.preventDefault();
@@ -52,7 +53,7 @@ function Pagenation({page, startPage, endPage, curPageChange, total, next, prev,
     }
     console.log("넘겨받은 clicked = ", clicked)
     return(
-        <div  id="pagination" ref={paginationLine}>
+        <div  id="adminPagination" ref={paginationLine}>
             {
                 prev === true ? <input type="button" value="<<" onClick={startbutton} style={{ backgroundColor: 'white', color: 'black', marginLeft: '5px' }}/> : null
             }
@@ -76,4 +77,5 @@ function Pagenation({page, startPage, endPage, curPageChange, total, next, prev,
         </div>
     );
 }
+
 export default Pagenation;

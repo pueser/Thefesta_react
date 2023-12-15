@@ -130,8 +130,8 @@ function Detailfood() {
         if (loginInfo) {
             try {
                 const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
-                setUserId(parsedLoginInfo.id);
-                console.log('id:', parsedLoginInfo.id);
+                setUserId(parsedLoginInfo);
+                console.log('id:', parsedLoginInfo);
             } catch (error) {
                 console.error('Error parsing loginInfo:', error);
             }
