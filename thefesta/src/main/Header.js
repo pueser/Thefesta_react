@@ -107,39 +107,40 @@ function Header() {
                         >
                             <img className='header_hbgBtn' src="/images/hbgBtn.svg" alt='hamburger button' />
                         </div>
-                        <div className='header_logo hover' >
-                            <h1>THE<br />FESTA</h1>
-                        </div>
+                    </div>
+                    <div className='header_logo hover' >
+                        <h1>THE<br />FESTA</h1>
+                    </div>
 
-                        <div className='header_menu hover header__menulist'>
-                            {loggedIn ? (
-                                <>
-                                    <Link className='menu' to='/admin/member'><li className='menu'>회원</li></Link>
-                                    <Link className='menu' to='/admin/report'><li className='menu menu_scheduler'>신고</li></Link>
-                                    <Link className='menu' to='/admin/festa'><li className='menu'>축제</li></Link>
-                                    <Link className='menu' to='/admin/board'><li className='menu'>게시판</li></Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Link className='menu' to='/'><li className='menu'>축제</li></Link>
-                                    <Link className='menu' to='/scheduler'><li className='menu menu_scheduler'>스케줄러</li></Link>
-                                    <Link className='menu' to='/board'><li className='menu'>톡톡</li></Link>
-                                </>
-                            )}
-                        </div>
+                    <div className='header_menu hover header__menulist'>
+                        {loggedIn ? (
+                            <>
+                                <Link className='menu' to='/admin/member'><li className='menu'>회원</li></Link>
+                                <Link className='menu' to='/admin/report'><li className='menu menu_scheduler'>신고</li></Link>
+                                <Link className='menu' to='/admin/festa'><li className='menu'>축제</li></Link>
+                                <Link className='menu' to='/admin/board'><li className='menu'>게시판</li></Link>
+                                <Link className='menu' to='/admin/adminQuestion'><li className='menu'>문의사항</li></Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link className='menu' to='/'><li className='menu'>축제</li></Link>
+                                <Link className='menu' to='/scheduler'><li className='menu menu_scheduler'>스케줄러</li></Link>
+                                <Link className='menu' to='/board'><li className='menu'>톡톡</li></Link>
+                            </>
+                        )}
+                    </div>
 
-                        <div className='header_member hover header__right'>
-                            {loggedIn ? (
-                                <>
-                                    <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
-                                </>
-                            ) : (
-                                <>
-                                    <Link to='/login' className='member'>Login</Link>
-                                    <Link to='/AgreementPage' className='member'>Join</Link>
-                                </>
-                            )}
-                        </div>
+                    <div className='header_member hover'>
+                        {loggedIn ? (
+                            <>
+                                <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to='/login' className='member'>Login</Link>
+                                <Link to='/AgreementPage' className='member'>Join</Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </H>
@@ -162,7 +163,7 @@ function Header() {
                     <div className='header_logo hover' >
                         <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
                     </div>
-                    <div className='header_menu hover header__menulist'>
+                    <div className='header_menu hover'>
                         <Link to={'/'}>
                             <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
                         </Link>
@@ -173,9 +174,10 @@ function Header() {
                             <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
                         </Link>
                     </div>
-                    <div className='header_member hover header__right'>
+                    <div className='header_member hover'>
                         {loggedIn ? (
                             <>
+                                <p className='member-logout' onClick={handleLogout}>Logout</p>
                                 <Link to='/mypage' className='mypage'>{getNickname}</Link>
                             </>
                         ) : (
@@ -190,6 +192,23 @@ function Header() {
                         )}
 
                     </div>
+                </div>
+                <div className='header__menulist'>
+                    <Link to={'/'}>
+                        <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
+                    </Link>
+                    <Link to={'/scheduler'}>
+                        <p className={`menu  ${selMenu === 'scheduler' ? 'highlight' : ''}`}>스케줄러</p>
+                    </Link>
+                    <Link to={'/board'}>
+                        <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
+                    </Link>
+                    <Link to='/login'>
+                        <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
+                    </Link>
+                    <Link to='/AgreementPage'>
+                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                    </Link>
                 </div>
             </H>
         )
@@ -238,8 +257,16 @@ const H = styled.div`
     padding: 1rem 1rem;
   }
 
+  .header__menulist {
+    display: none;
+  }
+
   @media screen and (max-width: 768px) {
     flex-wrap: wrap;
+
+    .header_hbgBtn {
+      cursor: pointer;
+    }
 
     .header__right {
       display: ${(props) => (props.userToggled ? 'flex' : 'none')};
@@ -254,12 +281,22 @@ const H = styled.div`
       width: 100%;
       background-color: white;
       color: black;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    .header__menulist li,
-    .header__right li {
+    .header__menulist p {
       margin: 1rem 0;
       padding: 0;
+      
+    }
+
+    .header__menulist a {
+      text-decoration: none;
+    }
+
+    .loginBtn {
+        margin-right: 0;
     }
 
     .toggle {
