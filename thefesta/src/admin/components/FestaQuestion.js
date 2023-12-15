@@ -127,7 +127,7 @@ function FestaQuestion (){
                       <td><Link to={{ pathname:`/admin/festaQuestionDetail/${item.contentid}`}} state ={{questioncontent: item.questioncontent, questionid : item.questionid}}   className="adminLinkBtn" id="adminTableContentLength">{item.questioncontent}</Link></td>
                       <td>{item.id}</td>
                       <td>{item.questiondate}</td>
-                      <td id="adminBtntd2"><button onClick={()=>deleteClick(item.questionid)} className="adminApprove-button">확인</button></td>
+                      <td id="adminBtntd2"><button onClick={()=>deleteClick(item.questionid)} className="adminApprove-button">확인완료</button></td>
                     </tr>
                   )
                 )
@@ -149,5 +149,6 @@ function FestaQuestion (){
       </div>
     );
 }
+
 
 export default FestaQuestion;

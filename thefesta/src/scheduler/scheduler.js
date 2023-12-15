@@ -67,13 +67,6 @@ function Scheduler(){
       <div id='filterLine'>
         <div id='selectLine'>
           <div className='selectMenu' id='countyMenu'>
-            {/* 광역시／
-            <Icon icon="fad:digital-colon"/> */}
-            {/* <select className="selectOptions" id="countyOptions">
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-            </select> */}
             <CountySelectBox 
               setSelectedCountyvalue={setSelectedCountyvalue} 
               setSelectedDistrictvalue={setSelectedDistrictvalue} 
@@ -81,13 +74,6 @@ function Scheduler(){
             />
           </div>
           <div className='selectMenu' id='districtMenu' >
-            {/* 축제 종류
-            <Icon icon="fad:digital-colon"/> */}
-            {/* <select className="selectOptions" id="districtOptions" >
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-            </select> */}
             <DistrictSelectBox 
               selectedCountyValue={selectedCountyValue} 
               setSelectedDistrictvalue={setSelectedDistrictvalue} 

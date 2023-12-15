@@ -111,13 +111,17 @@ function Detail() {
                   </td>
                 </tr>
               )}
-              {festival.homepage && (
+              {(festival.homepage ||
+                (festivalInfo && festivalInfo.homepage)) && (
                 <tr>
                   <th>홈페이지</th>
                   <td>
-                    <Link to={fm(festival.homepage)}>
-                      {fm(festival.homepage)}
-                    </Link>
+                    <a
+                      href={fm(festival.homepage || festivalInfo.homepage)}
+                      target='_blank'
+                    >
+                      {fm(festival.homepage || festivalInfo.homepage)}
+                    </a>
                   </td>
                 </tr>
               )}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import './FestaListModal.css';
 import axios from "axios";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 function FestaListModal(props){
     let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
@@ -56,17 +57,82 @@ function FestaListModal(props){
                 {festaList&&festaList.map((data, index)=>{
                     if(props.date===data.eventstartdate){
                         return(
-                            <li className="festaTitle" key={data.contentid}><Icon icon="clarity:circle-line"></Icon>{data.title}</li>
+                            <li className="festaTitle" key={data.contentid}>
+                            <Link to={"/festival/detail/"+data.contentid}
+                            state={{
+                                contentid:          data.contentid,
+                                title:              data.title,
+                                startDate:          data.startDate,
+                                endDate:            data.endDate,
+                                addr1:              data.addr1,
+                                eventintro:         data.eventintro,
+                                eventtext:          data.eventtext,
+                                homepage:           data.homepage,
+                                agelimit:           data.agelimit,
+                                sponsor1:           data.sponsor1,
+                                sponsor1tel:        data.sponsor1tel,
+                                sponsor2:           data.sponsor2,
+                                sponsor2tel:        data.sponsor2tel,
+                                usetimefestival:    data.usetimefestival,
+                                playtime:           data.playtime
+                            }}>
+                                <Icon icon="clarity:circle-line"></Icon>{data.title}
+                              </Link>
+                          </li>
                         );
                     }
                     else if(props.date===data.eventenddate){
                         return(
-                            <li className="festaTitle" key={data.contentid}><Icon icon="ri:square-line"></Icon>{data.title}</li>
+                            <li className="festaTitle" key={data.contentid}>
+                                <Link to={"/festival/detail/"+data.contentid}
+                                state={{
+                                    contentid:          data.contentid,
+                                    title:              data.title,
+                                    startDate:          data.startDate,
+                                    endDate:            data.endDate,
+                                    addr1:              data.addr1,
+                                    eventintro:         data.eventintro,
+                                    eventtext:          data.eventtext,
+                                    homepage:           data.homepage,
+                                    agelimit:           data.agelimit,
+                                    sponsor1:           data.sponsor1,
+                                    sponsor1tel:        data.sponsor1tel,
+                                    sponsor2:           data.sponsor2,
+                                    sponsor2tel:        data.sponsor2tel,
+                                    usetimefestival:    data.usetimefestival,
+                                    playtime:           data.playtime
+                                }}>
+                                    <Icon icon="ri:square-line"></Icon>{data.title}
+                                </Link>
+                            </li>
                         );
                     }
-                    return(
-                        <li className="festaTitle" key={data.contentid}><Icon icon="iconamoon:star"></Icon>{data.title}</li>
-                    );
+                    else{
+                        return(
+                            <li className="festaTitle" key={data.contentid}>
+                                <Link to={`/festival/detail/${data.contentid}`}
+                                state={{
+                                    contentid:          data.contentid,
+                                    title:              data.title,
+                                    startDate:          data.startDate,
+                                    endDate:            data.endDate,
+                                    addr1:              data.addr1,
+                                    eventintro:         data.eventintro,
+                                    eventtext:          data.eventtext,
+                                    homepage:           data.homepage,
+                                    agelimit:           data.agelimit,
+                                    sponsor1:           data.sponsor1,
+                                    sponsor1tel:        data.sponsor1tel,
+                                    sponsor2:           data.sponsor2,
+                                    sponsor2tel:        data.sponsor2tel,
+                                    usetimefestival:    data.usetimefestival,
+                                    playtime:           data.playtime
+                                }}>
+                                    <Icon icon="iconamoon:star"></Icon>{data.title}
+                                </Link>
+                            </li>
+                        );
+                    }
                 })}
             </ul>
         </div>

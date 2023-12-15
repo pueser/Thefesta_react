@@ -73,6 +73,7 @@ function KMap() {
         // 지도의 크기
         width: "60%",
         height: "450px",
+        marginBottom: "50px"
       }}
       level={14} // 지도의 확대 레벨
       onZoomChanged={(map) => setLevel(map.getLevel())}

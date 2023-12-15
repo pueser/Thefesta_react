@@ -48,6 +48,7 @@ function MemberReport(props){
         
     }  
 
+    
     //select box 변경시 값 취득후 memberDetail(부모 컴포넌트)전달
     function handleChange (e)  {
         e.preventDefault();
