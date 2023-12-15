@@ -60,6 +60,7 @@ function Header() {
         }
     }, [location.pathname]);
 
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
