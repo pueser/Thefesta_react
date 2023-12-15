@@ -5,3 +5,46 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  .commentForm {
+    display: flex;
+    justify-content: space-between;
+    min-width: 768px;
+    min-height: 300px;
+  }
+  
+  .commentContainer {
+    border: 2px solid #D9D9D9;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .commentHeader {
+    padding: 10px;
+    background-color: #EEEEEE;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .commentInput {
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background-color: transparent;
+    margin-top: 10px;
+  }
+  
+  .submitButton {
+    background-color: #D9D9D9;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    margin-right: 10px;
+  }
