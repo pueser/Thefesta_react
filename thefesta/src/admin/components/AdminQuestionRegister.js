@@ -96,6 +96,7 @@ function AdminQuestionRegister (){
           return;
         }
     };
+    
 
     //입력값
     const handlecontent = (evnet) => {

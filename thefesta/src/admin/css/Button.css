@@ -41,5 +41,6 @@
         color: red;
     }
 }
+
 .adminRgister-button:hover { cursor: pointer;}
 .adminDelete-button:hover { cursor: pointer; }

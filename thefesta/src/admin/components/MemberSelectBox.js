@@ -44,6 +44,7 @@ function MemberSelectBox(props){
         props.statecodeChange(e.target.value)
 	};
 
+    
     return(
             <select  defaultValue={props.defaultValue} onClick={handleChange}>
                 {

@@ -43,4 +43,5 @@ function FestaQuestionDetail (){
     );
 }
 
+
 export default FestaQuestionDetail;

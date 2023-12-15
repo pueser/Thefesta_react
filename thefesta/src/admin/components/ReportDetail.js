@@ -72,4 +72,5 @@ import '../css/Button.css';
     );
 }
 
+
 export default ReportDetail;
