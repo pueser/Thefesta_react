@@ -36,7 +36,11 @@ function ReplyReport() {
         };
         axios
           .post('/admin/festaReplyReport', data)
-          .then((res) => console.log('res : ', res))
+          .then((res) => {
+            console.log('res : ', res);
+            alert('신고가 완료되었습니다.');
+            navigate(-1);
+          })
           .catch((error) => console.log(error));
       } else {
         alert('취소되었습니다.');
