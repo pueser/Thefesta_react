@@ -60,6 +60,7 @@ function Header() {
         }
     }, [location.pathname]);
     
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -124,11 +125,9 @@ function Header() {
                             <img className='header_hbgBtn' src="/images/hbgBtn.svg" alt='hamburger button' />
                         </div>
                     </div>
-                    <div className='header_logo' >
+                    <div className='header_logo hover' >
                         <h1>THE<br />FESTA</h1>
                     </div>
-
-                    <div className='header_menu'>
                         {loggedIn ? (
                             <>
                                 <div className='header_menu hover'>
@@ -194,10 +193,10 @@ function Header() {
                             <img className='header_hbgBtn' src="/images/hbgBtn.svg" alt='hamburger button' />
                         </div>
                     </div>
-                    <div className='header_logo' >
+                    <div className='header_logo hover' >
                         <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
                     </div>
-                    <div className='header_menu'>
+                    <div className='header_menu hover'>
                         <Link to={'/'}>
                             <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
                         </Link>
@@ -208,7 +207,7 @@ function Header() {
                             <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
                         </Link>
                     </div>
-                    <div className='header_member'>
+                    <div className='header_member hover'>
                         {loggedIn ? (
                             <>
                                 <p className='member-logout' onClick={handleLogout}>Logout</p>
@@ -220,7 +219,7 @@ function Header() {
                                     <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                 </Link>
                                 <Link to='/AgreementPage'>
-                                    <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                    <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                 </Link>
                             </>
                         )}
@@ -252,6 +251,11 @@ function Header() {
 export default Header;
 
 const H = styled.div`
+  .logo {
+    margin: 0 1rem;
+    font-size: 2rem;
+  }
+
   .header__menulist {
     list-style: none;
     display: flex;
@@ -261,6 +265,15 @@ const H = styled.div`
     display: flex;
   }
 
+  .header__right {
+    list-style: none;
+    display: flex;
+  }
+
+  .header__right div {
+    margin: 0 1rem;
+  }
+
   li {
     padding: 0 1rem;
   }
@@ -268,7 +281,13 @@ const H = styled.div`
   .toggle {
     display: none;
     font-size: 1.5rem;
-    /* padding: 1rem 1rem; */
+    padding: 1rem 1rem;
+  }
+
+  .user {
+    display: none;
+    font-size: 1.5rem;
+    padding: 1rem 1rem;
   }
 
   .header__menulist {
@@ -302,6 +321,7 @@ const H = styled.div`
     .header__menulist p {
       margin: 1rem 0;
       padding: 0;
+      
     }
 
     .header__menulist a {
@@ -313,6 +333,10 @@ const H = styled.div`
     }
 
     .toggle {
+      display: block;
+    }
+
+    .user {
       display: block;
     }
 
