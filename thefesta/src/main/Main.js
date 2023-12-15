@@ -52,7 +52,7 @@ function Main() {
   return (
     <div className='div'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
-      <KMap></KMap>
+      <KMap keyword={keyword}></KMap>
       {festivals.length > 0 ? (
         <div>
           <div className='festivals'>
