@@ -35,6 +35,7 @@ function FestaQuestionRegister (){
         }
     };
 
+    
     //회원 닉네임 가져오기
     function getNickName(data){
         console.log("userId 넘겨받은 = ", data)

@@ -172,6 +172,7 @@ function Board() {
           </tbody>
         </table>
         <div>
+          
           <Pagenation
             page={curPage}
             startPage={startPage}

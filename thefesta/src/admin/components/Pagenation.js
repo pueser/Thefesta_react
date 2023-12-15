@@ -22,6 +22,7 @@ function Pagenation({page, startPage, endPage, curPageChange, total, next, prev,
         setClicked(e.target.value)
     }
 
+    
     //이전 페이지 클릭했을 때
     function prevbutton(e){
         e.preventDefault();

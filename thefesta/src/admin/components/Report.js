@@ -105,6 +105,7 @@ function Report() {
  
   }
 
+  
 
   //반려버튼 누를때
   const deleteClick =(data) =>{
