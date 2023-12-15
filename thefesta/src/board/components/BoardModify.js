@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import './css/boardModify.css';
+import '../css/boardModify.css';
 
 const BoardModify = () => {
     const location = useLocation();
