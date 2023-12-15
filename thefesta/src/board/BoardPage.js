@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BoardList from '../board/BoardList';
+import BoardList from './components/BoardList';
 
 const BoardPage = () => {
 
