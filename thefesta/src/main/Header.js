@@ -59,7 +59,6 @@ function Header() {
             setSelMenu('adminQuestion')
         }
     }, [location.pathname]);
-
     
     useEffect(() => {
         const fetchData = async () => {
