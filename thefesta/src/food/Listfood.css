@@ -41,3 +41,24 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
+
+/* 768px 이하를 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* 768px보다 큰 화면을 위한 미디어 쿼리 */
+@media (min-width: 769px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 1024px보다 큰 화면을 위한 미디어 쿼리 */
+@media (min-width: 1024px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
