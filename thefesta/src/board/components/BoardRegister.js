@@ -73,46 +73,65 @@ const BoardRegister = () => {
 
     return (
         <div className="board-register-container">
-            <h2>게시글 작성</h2>
-            <form onSubmit={handleSubmit}>
+          <h2 className="board-register-title">게시글 작성</h2>
+          <form onSubmit={handleSubmit}>
             <label>
-            게시판 유형:
-                <select style={{margin: '10px'}} value={bno} onChange={(e) => setBno(e.target.value)}>
-                    <option value={1}>자유게시판</option>
-                    <option value={2}>리뷰게시판</option>
-                    <option value={3}>문의게시판</option>
-                </select>
+              게시판 유형:
+              <select
+                className="board-register-select"
+                value={bno}
+                onChange={(e) => setBno(e.target.value)}
+              >
+                <option value={1}>자유게시판</option>
+                <option value={2}>리뷰게시판</option>
+                <option value={3}>문의게시판</option>
+              </select>
             </label>
-                <div className="form-group">
-                    <label htmlFor="btitle">제목</label>
-                    <input style={{minHeight: '40px'}}
-                        type="text"
-                        id="btitle"
-                        name="btitle"
-                        value={boardData.btitle}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="bcontent">내용</label>
-                    <textarea style={{minHeight:'200px'}}
-                        id="bcontent"
-                        name="bcontent"
-                        value={boardData.bcontent}
-                        onChange={handleInputChange}
-                    ></textarea>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="file">파일첨부</label>
-                
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <button style={{backgroundColor:'white', color:'black', border: '1px solid #D9D9D9'}}type="submit">등록</button>
-                    <button style={{backgroundColor:'white', color:'black', border: '1px solid #D9D9D9'}}onClick={handlecansle}>취소</button>
-                </div>
-            </form>
+            <div className="board-register-form-group">
+              <label className="board-register-label" htmlFor="btitle">제목</label>
+              <input
+                className="board-register-input"
+                type="text"
+                id="btitle"
+                name="btitle"
+                value={boardData.btitle}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="board-register-form-group">
+              <label className="board-register-label" htmlFor="bcontent">내용</label>
+              <textarea
+                className="board-register-textarea"
+                id="bcontent"
+                name="bcontent"
+                value={boardData.bcontent}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            <div className="board-register-form-group">
+              <label  className="board-register-label" htmlFor="file">파일첨부</label>
+              
+            </div>
+            <div
+              className="board-register-buttons"
+              style={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+              <button
+                className="board-register-btn"
+                type="submit"
+              >
+                등록
+              </button>
+              <button
+                className="board-register-btn"
+                onClick={handlecansle}
+              >
+                취소
+              </button>
+            </div>
+          </form>
         </div>
-    );
-};
-
-export default BoardRegister;
+      );
+    };
+    
+    export default BoardRegister;

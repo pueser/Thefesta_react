@@ -1,43 +1,109 @@
 .board-container {
-    min-width: 1024px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .board-item {
-    min-width: 768px;
-    max-width: 968px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .reply-item {
-    min-width: 768px;
-    max-width: 968px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
+  min-width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.board-item {
+  min-width: 768px;
+  max-width: 968px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.reply-item {
+  min-width: 768px;
+  max-width: 968px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.board-table th,
+.board-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.board-table th {
+  background-color: #f2f2f2;
+}
+
+.board-th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+.board-td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.board-buttons {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1px;
+}
+
+.board-btn {
+  border: 1px solid #000;
+  padding: 10px 20px;
+  color: #000;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.board-options {
+  text-align: end;
+  margin: 10px 0 0 0;
+}
+
+.board-search {
+  display: flex;
+  justify-content: start;
+  height: 40px;
+  margin-top: 10px;
+}
+
+.board-input {
+  margin: 0 10px;
+  max-width: 200px;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.pagination-btn {
+  background-color: white;
+  color: black;
+  margin: 0 2px;
+}
+
+.pagination-btn:hover {
+  background-color: #f2f2f2;
+}
+
+.active {
+  font-weight: bold;
+}

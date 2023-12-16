@@ -77,69 +77,74 @@ const BoardMyPage = () => {
 
     return (
         <div className="board-container">
-            <h2>마이페이지</h2>
-            <div className='board-item'>
-                <h3>내가 쓴 게시글</h3>
-                <div>
-                    <table>
+      <h2 className="board-title">마이페이지</h2>
+
+      {/* 내가 쓴 게시글 */}
+      <div className="board-item">
+        <h3 className="board-subtitle">내가 쓴 게시글</h3>
+        <div>
+          <table className="board-table">
                         <thead>
                             <tr>
-                                <th style={{minWidth: '50px'}}>#번호</th>
-                                <th style={{minWidth: '400px'}}>제목</th>
-                                <th style={{minWidth: '50px'}}>작성자</th>
-                                <th style={{minWidth: '120px'}}>작성일</th>
-                                <th style={{minWidth: '50px'}}>조회수</th>
+                                <th className="board-th" style={{minWidth: '50px'}}>#번호</th>
+                                <th className="board-th" style={{minWidth: '400px'}}>제목</th>
+                                <th className="board-th" style={{minWidth: '50px'}}>작성자</th>
+                                <th className="board-th" style={{minWidth: '120px'}}>작성일</th>
+                                <th className="board-th" style={{minWidth: '50px'}}>조회수</th>
                             </tr>
                         </thead>
                         <tbody>
                         {currentPosts.map(item => (
                             <tr key={item.bid} onClick={() => handlePostClick(item.bid)}>
-                            <td>{item.bid}</td>
-                            <td>
+                            <td className="board-td">{item.bid}</td>
+                            <td className="board-td">
                                 {item.btitle} <a style={{ color: 'red' }}> [{item.breplycnt}] </a>
                             </td>
-                            <td>{item.nickname}</td>
-                            <td>{item.bregist}</td>
-                            <td>{item.bviewcnt}</td>
+                            <td className="board-td">{item.nickname}</td>
+                            <td className="board-td">{item.bregist}</td>
+                            <td className="board-td">{item.bviewcnt}</td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                 </div>
             </div>    
-            <div className="pagination" style={{ textAlign: 'center', margin: '10px' }}>
-                <button onClick={() => setCurrentPagePosts(prevPage => Math.max(prevPage - 1, 1))}>{'<'}</button>
-                <span>{`Page ${currentPagePosts} of ${totalPagesPosts}`}</span>
-                <button onClick={() => setCurrentPagePosts(prevPage => Math.min(prevPage + 1, totalPagesPosts))}>{'>'}</button>
-            </div>
-        <div className="reply-item">
-            <h3>내가 쓴 댓글</h3>
-            <div>
-                <table>
+            {/* 게시글 페이징 */}
+      <div className="pagination" style={{ textAlign: 'center', margin: '10px' }}>
+        <button className="pagination-btn" onClick={() => setCurrentPagePosts(prevPage => Math.max(prevPage - 1, 1))}>{'<'}</button>
+        <span>{`Page ${currentPagePosts} of ${totalPagesPosts}`}</span>
+        <button className="pagination-btn" onClick={() => setCurrentPagePosts(prevPage => Math.min(prevPage + 1, totalPagesPosts))}>{'>'}</button>
+      </div>
+         {/* 내가 쓴 댓글 */}
+      <div className="reply-item">
+        <h3 className="board-subtitle">내가 쓴 댓글</h3>
+        <div>
+          <table className="board-table">
                     <thead>
                         <tr>
-                            <th style={{ minWidth: '50px' }}>#번호</th>
-                            <th style={{ minWidth: '600px' }}>댓글내용</th>
-                            <th style={{ minWidth: '150px' }}>작성일</th>
+                            <th className="board-th" style={{ minWidth: '50px' }}>#번호</th>
+                            <th className="board-th" style={{ minWidth: '600px' }}>댓글내용</th>
+                            <th className="board-th" style={{ minWidth: '150px' }}>작성일</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentReplies.map(reply => (
                             <tr key={reply.brno} onClick={() => handlePostClick(reply.brno)}>
-                                <td>{reply.brno}</td>
-                                <td>{reply.brcontent}</td>
-                                <td>{reply.brregist}</td>
+                                <td className="board-td">{reply.brno}</td>
+                                <td className="board-td">{reply.brcontent}</td>
+                                <td className="board-td">{reply.brregist}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div className="pagination" style={{ textAlign: 'center', margin: '10px' }}>
-            <button onClick={() => setCurrentPageReplies(prevPage => Math.max(prevPage - 1, 1))}>{'<'}</button>
-            <span>{`Page ${currentPageReplies} of ${totalPagesReplies}`}</span>
-            <button onClick={() => setCurrentPageReplies(prevPage => Math.min(prevPage + 1, totalPagesReplies))}>{'>'}</button>
-        </div>
+        {/* 댓글 페이징 */}
+      <div className="pagination" style={{ textAlign: 'center', margin: '10px' }}>
+        <button className="pagination-btn" onClick={() => setCurrentPageReplies(prevPage => Math.max(prevPage - 1, 1))}>{'<'}</button>
+        <span>{`Page ${currentPageReplies} of ${totalPagesReplies}`}</span>
+        <button className="pagination-btn" onClick={() => setCurrentPageReplies(prevPage => Math.min(prevPage + 1, totalPagesReplies))}>{'>'}</button>
+      </div>
     </div>
   );
 };
