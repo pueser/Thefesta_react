@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import '../css/boardRegister.css';
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -9,10 +10,39 @@ const BoardRegister = () => {
 
     const navigate = useNavigate();
     const [bno, setBno] = useState(1); // 초기값을 1로 설정
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
-        nickname: "user1",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
-        id: "user1@naver.com"
+        nickname: "",
+        id: ""
     });
+
+
+    useEffect(() => {
+
+          selMember();
+
+  }, []);
+
+  const selMember = async () => {
+    try {
+        const id = Cookies.get('loginInfo');
+        const parsedId = id ? JSON.parse(id) : '';
+        
+        if (parsedId !== '') {
+            const response = await axios.post('http://localhost:9090/member/selMember', {
+            id: parsedId
+            });
+    
+            setUser({
+            id: response.data.id,
+            nickname: response.data.nickname
+            });
+        }
+      } catch (error) {
+          console.error('Error fetching member data:', error);
+      }
+  };
 
     const [boardData, setBoardData] = useState({
         bno: bno,
@@ -30,7 +60,7 @@ const BoardRegister = () => {
 
     const handleFileChange = (e) => {
         const files = e.target.files;
-        setBoardData({ ...boardData, attachList: files });
+        setBoardData({ ...boardData, attachList: files ? Array.from(files) : [] });
     };
 
     const handlecansle = (e) => {
@@ -40,31 +70,35 @@ const BoardRegister = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        boardData.bno = bno;    
+    
+        boardData.bno = bno;
+    
         try {
-
             const formData = new FormData();
             formData.append('bno', boardData.bno);
             formData.append('btitle', boardData.btitle);
             formData.append('bcontent', boardData.bcontent);
             formData.append('nickname', user.nickname);
             formData.append('id', user.id);
-
-            boardData.attachList.forEach((file, index) => {
-                formData.append(`attachList[${index}]`, file);
-            });
-
+    
+            if (Array.isArray(boardData.attachList)) {
+                boardData.attachList.forEach((file, index) => {
+                    formData.append(`attachList[${index}]`, file);
+                });
+            }
+    
             const response = await axios.post('http://localhost:9090/board/register', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
+    
             console.log(response);
+    
             if (response != null) {
                 alert("게시글이 성공적으로 등록되었습니다.");
                 navigate(`/board`);
-            };
+            }
         } catch (error) {
             alert("게시글 등록에 실패하였습니다. 관리자에게 문의하십시오.");
             console.log(error);
@@ -109,9 +143,16 @@ const BoardRegister = () => {
               ></textarea>
             </div>
             <div className="board-register-form-group">
-              <label  className="board-register-label" htmlFor="file">파일첨부</label>
-              
-            </div>
+                    <label className="board-register-label" htmlFor="file">파일첨부</label>
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        multiple  // Allow multiple file selection
+                    />
+                </div>
             <div
               className="board-register-buttons"
               style={{ display: 'flex', justifyContent: 'space-between' }}

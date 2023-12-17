@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Reply from './BoardReply';
+import Cookies from 'js-cookie';
 import '../css/boardRead.css';
 
 const BoardRead = () => {
@@ -14,9 +15,11 @@ const BoardRead = () => {
     const queryParams = new URLSearchParams(location.search);
     const bid = queryParams.get('bid');
     const [brcontent, setBrcontent] = useState('');
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
-        nickname: "user1",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
-        id: "user1@naver.com"
+        nickname: "",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
+        id: ""
     });
     
 
@@ -24,6 +27,26 @@ const BoardRead = () => {
         navigate(`/board/modify?bid=${bid}`);
     };
 
+
+    const selMember = async () => {
+        try {
+            const id = Cookies.get('loginInfo');
+            const parsedId = id ? JSON.parse(id) : '';
+            
+            if (parsedId !== '') {
+                const response = await axios.post('http://localhost:9090/member/selMember', {
+                id: parsedId
+                });
+        
+                setUser({
+                id: response.data.id,
+                nickname: response.data.nickname
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching member data:', error);
+        }
+    };
     const fetchPost = async (bided) => {
         try {
             const response = await axios.get(`http://localhost:9090/board/read?bid=${bided}`);
@@ -68,14 +91,17 @@ const BoardRead = () => {
 
     useEffect(() => {
         if (bid) {
+            selMember();
             fetchPost(bid);
         }
     }, [bid]);
 
-    const handleCommentSubmit = async () => {
+    const handleCommentSubmit = async (e) => {
+      
         try {
             // formData 초기화
             const formData = new FormData();
+            
     
             // 필드 추가
             formData.append('bid', bid);
@@ -86,12 +112,13 @@ const BoardRead = () => {
             const response = await axios.post(`http://localhost:9090/replies/new`, formData, {
                 headers: {
                     'Content-Type': 'application/json' // 폼 데이터 전송시에는 'multipart/form-data'를 사용
-                },
+                }
             });
+            alert("댓글이 등록되었습니다.");
             console.log(response);
+          
 
-            getRepliesId(bid);
-            navigate(`/board/read`);
+            navigate(`/board/read/${bid}`);
 
         } catch (error) {
             console.error('Error submitting comment:', error);
