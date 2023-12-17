@@ -192,7 +192,7 @@ const BoardRead = () => {
 
     return (
         <div className="board-read">
-            <h2 style={{padding: '10px 20px'}}>자유 게시판</h2>
+            <h2 style={{padding: '10px 20px'}}>톡톡 게시판</h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
                 <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
                 <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
