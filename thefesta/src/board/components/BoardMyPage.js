@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import '../css/boardList.css';
+import Cookies from 'js-cookie';
 
 const BoardMyPage = () => {
     const [data, setData] = useState([]);
     const [replies, setReplies] = useState([])
     const [viewCnt, setViewCnt] = useState(0);
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
-        nickname: "user1",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
-        id: "user1@naver.com"
+        nickname: "",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
+        id: ""
     });
-    
+
     const [currentPagePosts, setCurrentPagePosts] = useState(1);
     const [currentPageReplies, setCurrentPageReplies] = useState(1);
     const itemsPerPage = 5;
@@ -36,10 +39,31 @@ const BoardMyPage = () => {
 
     useEffect(() => {
         if (data.length === 0) {
+            selMember();
             fetchData();
         }
         
     }, []);
+
+    const selMember = async () => {
+        try {
+            const id = Cookies.get('loginInfo');
+            const parsedId = id ? JSON.parse(id) : '';
+            
+            if (parsedId !== '') {
+                const response = await axios.post('http://localhost:9090/member/selMember', {
+                id: parsedId
+                });
+        
+                setUser({
+                id: response.data.id,
+                nickname: response.data.nickname
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching member data:', error);
+        }
+    };
 
     const fetchData = async () => {
         try {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom'
 import '../css/boardList.css';
 
@@ -13,17 +14,42 @@ const BoardList = () => {
     const [pageNum, setPageNum] = useState(1);
     const [pageInfo, setPageInfo] = useState({});
     const [bno, setBno] = useState(0);
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
-        nickname: "user1",
-        id: "user1@naver.com"
+        nickname: "",
+        id: ""
     });
 
     useEffect(() => {
         if (data.length === 0) {
             fetchData();
+            selMember();
         }
+
+        
     }, []);
 
+    const selMember = async () => {
+        try {
+            const id = Cookies.get('loginInfo');
+            const parsedId = id ? JSON.parse(id) : '';
+            
+            if (parsedId !== '') {
+                const response = await axios.post('http://localhost:9090/member/selMember', {
+                id: parsedId
+                });
+        
+                setUser({
+                id: response.data.id,
+                nickname: response.data.nickname
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching member data:', error);
+        }
+    };
+    
     const fetchData = async () => {
         try {
             const response = await axios.get(
@@ -34,13 +60,16 @@ const BoardList = () => {
             setPageInfo(response.data.pageMaker);
 
             console.log("list data:", response.data.list);
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+
+
     const handleWrite = () => {
-        if (user != null) {
+        if (user.id != "") {
             navigate("/board/register")
         } else {
             alert("로그인이 필요한 기능입니다.")
