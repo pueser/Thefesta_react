@@ -32,20 +32,23 @@ const BoardList = () => {
 
     const selMember = async () => {
         try {
+            const id = Cookies.get('loginInfo');
+            const parsedId = id ? JSON.parse(id) : '';
+            
             if (parsedId !== '') {
                 const response = await axios.post('http://localhost:9090/member/selMember', {
-                    id: parsedId
+                id: parsedId
                 });
-                const memData = response.data;
-
-                user.id = memData.id;
-                user.nickname = memData.nickname;
+        
+                setUser({
+                id: response.data.id,
+                nickname: response.data.nickname
+                });
             }
-            console.log(user.nickname);
         } catch (error) {
             console.error('Error fetching member data:', error);
         }
-    }
+    };
     
     const fetchData = async () => {
         try {
@@ -66,8 +69,8 @@ const BoardList = () => {
 
 
     const handleWrite = () => {
-        if (user != null) {
-            navigate("/board/register", user)
+        if (user.id != "") {
+            navigate("/board/register")
         } else {
             alert("로그인이 필요한 기능입니다.")
             navigate('/login');

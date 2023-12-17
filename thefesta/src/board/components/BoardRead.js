@@ -97,32 +97,37 @@ const BoardRead = () => {
     }, [bid]);
 
     const handleCommentSubmit = async (e) => {
-      
+      if (user.id != "") {
+
         try {
-            // formData 초기화
-            const formData = new FormData();
-            
-    
-            // 필드 추가
-            formData.append('bid', bid);
-            formData.append('brcontent', brcontent);
-            formData.append('nickname', user.nickname);
-            formData.append('id', user.id);
-    
-            const response = await axios.post(`http://localhost:9090/replies/new`, formData, {
-                headers: {
-                    'Content-Type': 'application/json' // 폼 데이터 전송시에는 'multipart/form-data'를 사용
-                }
-            });
-            alert("댓글이 등록되었습니다.");
-            console.log(response);
+          // formData 초기화
+          const formData = new FormData();
           
+  
+          // 필드 추가
+          formData.append('bid', bid);
+          formData.append('brcontent', brcontent);
+          formData.append('nickname', user.nickname);
+          formData.append('id', user.id);
+  
+          const response = await axios.post(`http://localhost:9090/replies/new`, formData, {
+              headers: {
+                  'Content-Type': 'application/json' // 폼 데이터 전송시에는 'multipart/form-data'를 사용
+              }
+          });
+          alert("댓글이 등록되었습니다.");
+          console.log(response);
+        
 
-            navigate(`/board/read/${bid}`);
+          navigate(`/board/read/${bid}`);
 
-        } catch (error) {
-            console.error('Error submitting comment:', error);
-        }
+      } catch (error) {
+          console.error('Error submitting comment:', error);
+      }
+    } else {
+        alert("로그인이 필요한 기능입니다.")
+        navigate('/login');
+    }
     };
 
       const handleCommentDelete = async (brno) => {
@@ -158,9 +163,12 @@ const BoardRead = () => {
       };
 
       const handleReport = () => {
-        // targetId는 게시글이나 댓글의 번호입니다.
-        // 이동할 경로를 생성하여 navigate 함수로 페이지 이동합니다.
-        navigate(`/reportpage`);
+          if (user.id != "") {
+            navigate(`/reportpage`);
+        } else {
+            alert("로그인이 필요한 기능입니다.")
+            navigate('/login');
+        }
       };
 
       const handleInputChange = (e) => {
@@ -173,13 +181,21 @@ const BoardRead = () => {
       };
     
 
+      const handleWrite = () => {
+        if (user.id != "") {
+            navigate("/board/register")
+        } else {
+            alert("로그인이 필요한 기능입니다.")
+            navigate('/login');
+        }
+    };
 
     return (
         <div className="board-read">
             <h2 style={{padding: '10px 20px'}}>자유 게시판</h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
                 <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
-                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board/register`)}>글쓰기</button>
+                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', backgroundColor: '#cdcdcd', padding: '10px' }}>
                 <div style={{ alignSelf: 'center'}}>

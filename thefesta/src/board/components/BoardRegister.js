@@ -26,9 +26,6 @@ const BoardRegister = () => {
 
   const selMember = async () => {
     try {
-        const id = Cookies.get('loginInfo');
-        const parsedId = id ? JSON.parse(id) : '';
-        
         if (parsedId !== '') {
             const response = await axios.post('http://localhost:9090/member/selMember', {
             id: parsedId
