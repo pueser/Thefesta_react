@@ -67,11 +67,8 @@ function PwReset() {
 
       } else if (String(statecode) == 1) {
         setIdCheckResult('success')
-      }
-    })
 
-    if (idCheckResult == 'success') { 
-      axios.post('http://localhost:9090/member/mailSend', userData)
+        axios.post('http://localhost:9090/member/mailSend', userData)
         .then(response => {
           console.log(response.data);
           setServerVerificationCode(response.data);
@@ -80,15 +77,15 @@ function PwReset() {
           console.error('Error:', error);
         });
       }
+    })
   };
 
   const codeCheckSubmit = () => {
 
     console.log(userData.verificationCode + " 비교 " + serverVerificationCode);
-    if (parseInt(userData.verificationCode) === serverVerificationCode) {
+    if (parseInt(userData.verificationCode) == serverVerificationCode) {
       setVerificationCodeError('인증이 완료되었습니다.');
       setCodeCheck(true);
-      setVerificationCodeError('');
     } else if (serverVerificationCode == '') {
       setVerificationCodeError('*인증번호를 발급받아주세요.');
     } else {
@@ -128,7 +125,7 @@ function PwReset() {
       }
     })
 
-    if (idCheckResult == 'succcess') {
+    if (idCheckResult == 'success') {
       if (!userData.verificationCode.trim()) {
         setVerificationCodeError('*인증번호를 입력해주세요.');
         return;
