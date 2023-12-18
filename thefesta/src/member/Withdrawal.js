@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './Withdrawal.css';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 function Withdrawal() {
@@ -9,6 +10,8 @@ function Withdrawal() {
     statecode: '2',
     password: ''
   });
+
+  const [cookies, setCookie, removeCookie] = useCookies(['loginInfo']);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [idError, setIdError] = useState('');
@@ -52,6 +55,9 @@ function Withdrawal() {
               console.log(response.data);
               navigate('/')
               window.alert("탈퇴 처리 되었습니다.")
+              removeCookie('loginInfo');
+              removeCookie('rememberedId');
+
             })
             .catch(error => {
               console.error('Error:', error);
@@ -88,7 +94,6 @@ function Withdrawal() {
             onChange={handleInputChange}
             placeholder="비밀번호" />
           <div className="Withdrawal-errorMsg">{passwordError}{errorMessage}</div>
-          {/* <div className="Withdrawal-errorMsg">{errorMessage}</div> */}
         </label>
         <div className='Withdrawal-button'>
           <button type="button" className='Withdrawal-confirmBtn' onClick={handleSubmit}>확인</button>

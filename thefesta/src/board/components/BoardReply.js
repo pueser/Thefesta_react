@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, handleReport, handleCommentSubmit, handleInputChange }) => {
   const [brno, setBrno] = useState(-1);
-  const [brcontent, setBrcontent] = useState();
-
-
+  const [brcontent, setBrcontent] = useState('');
 
   const handleEditClick = () => {
     setBrno(reply.brno);
@@ -12,13 +10,12 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
 
   const handleCancelClick = () => {
     setBrno(-1);
-    setBrcontent(reply.brcontent); // 취소할 때 기존 내용으로 복원
+    setBrcontent(reply.brcontent);
   };
 
   const handleModifySubmit = () => {
-    // 서버로 수정된 내용을 보낼 수 있는 로직 추가
     handleCommentModify(reply.brno, brcontent);
-    setBrno(-1); // 수정 후 다시 원래 화면으로 돌아가기
+    setBrno(-1);
   };
   
   return (
@@ -44,7 +41,7 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
                     <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleEditClick}>수정</button>
                     <button style={{ fontSize: 16, color: '#ff0000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
                   </>
-                ) : (
+                ) : user.statecode !== 0 && (
                   <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleReport(reply.brno)}>신고하기</button>
                 )
               }
@@ -55,7 +52,7 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
       <div style={{ padding: 20 }}>
         {reply.brno === brno ? (
           // 수정 중일 때는 수정할 수 있는 입력란 표시
-          <input style={{minHeight:'100px'}}
+          <input style={{Weight:'100%'}}
             type="text"
             name="brcontent"
             value={brcontent}
@@ -66,27 +63,6 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
           reply.brcontent
         )}
       </div>
-      {reply.brno === brno ? (
-        <form onSubmit={handleCommentSubmit} className="commentForm">
-          <div className="commentContainer">
-              <div className="commentHeader">
-              <span style={{ paddingLeft: '10px', paddingTop: '8px', fontSize: '16px' }}>
-                  {user.nickname}
-              </span>
-              <button type="submit" className="submitButton">등록</button>
-              </div>
-              <span style={{ textAlign: 'center', maxWidth: '1024px' }}>
-              <input
-                  id="brcontent"
-                  name="brcontent"
-                  value={brcontent}
-                  onChange={handleInputChange}
-                  className="commentInput"
-              />
-              </span>
-          </div>
-        </form>
-      ) : null}
       <div style={{ border: '1px solid #D9D9D9', margin: '20px 20px' }}></div>
     </div>
   );

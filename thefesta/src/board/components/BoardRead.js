@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Reply from './BoardReply';
+import Cookies from 'js-cookie';
 import '../css/boardRead.css';
 
 const BoardRead = () => {
@@ -14,9 +15,12 @@ const BoardRead = () => {
     const queryParams = new URLSearchParams(location.search);
     const bid = queryParams.get('bid');
     const [brcontent, setBrcontent] = useState('');
+    const id = Cookies.get('loginInfo');
+    const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
-        nickname: "user1",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
-        id: "user1@naver.com"
+        nickname: "",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
+        id: "",
+        statecode: ""
     });
     
 
@@ -24,6 +28,24 @@ const BoardRead = () => {
         navigate(`/board/modify?bid=${bid}`);
     };
 
+
+    const selMember = async () => {
+        try {
+            if (parsedId !== '') {
+                const response = await axios.post('http://localhost:9090/member/selMember', {
+                id: parsedId
+                });
+        
+                setUser({
+                id: response.data.id,
+                nickname: response.data.nickname,
+                statecode: response.data.statecode
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching member data:', error);
+        }
+    };
     const fetchPost = async (bided) => {
         try {
             const response = await axios.get(`http://localhost:9090/board/read?bid=${bided}`);
@@ -68,34 +90,43 @@ const BoardRead = () => {
 
     useEffect(() => {
         if (bid) {
+            selMember();
             fetchPost(bid);
         }
     }, [bid]);
 
-    const handleCommentSubmit = async () => {
+    const handleCommentSubmit = async (e) => {
+      if (user.id != "") {
+
         try {
-            // formData 초기화
-            const formData = new FormData();
-    
-            // 필드 추가
-            formData.append('bid', bid);
-            formData.append('brcontent', brcontent);
-            formData.append('nickname', user.nickname);
-            formData.append('id', user.id);
-    
-            const response = await axios.post(`http://localhost:9090/replies/new`, formData, {
-                headers: {
-                    'Content-Type': 'application/json' // 폼 데이터 전송시에는 'multipart/form-data'를 사용
-                },
-            });
-            console.log(response);
+          // formData 초기화
+          const formData = new FormData();
+          
+  
+          // 필드 추가
+          formData.append('bid', bid);
+          formData.append('brcontent', brcontent);
+          formData.append('nickname', user.nickname);
+          formData.append('id', user.id);
+  
+          const response = await axios.post(`http://localhost:9090/replies/new`, formData, {
+              headers: {
+                  'Content-Type': 'application/json' // 폼 데이터 전송시에는 'multipart/form-data'를 사용
+              }
+          });
+          alert("댓글이 등록되었습니다.");
+          console.log(response);
+        
 
-            getRepliesId(bid);
-            navigate(`/board/read`);
+          navigate(`/board/read/${bid}`);
 
-        } catch (error) {
-            console.error('Error submitting comment:', error);
-        }
+      } catch (error) {
+          console.error('Error submitting comment:', error);
+      }
+    } else {
+        alert("로그인이 필요한 기능입니다.")
+        navigate('/login');
+    }
     };
 
       const handleCommentDelete = async (brno) => {
@@ -131,9 +162,12 @@ const BoardRead = () => {
       };
 
       const handleReport = () => {
-        // targetId는 게시글이나 댓글의 번호입니다.
-        // 이동할 경로를 생성하여 navigate 함수로 페이지 이동합니다.
-        navigate(`/reportpage`);
+          if (user.id != "") {
+            navigate(`/reportpage`);
+        } else {
+            alert("로그인이 필요한 기능입니다.")
+            navigate('/login');
+        }
       };
 
       const handleInputChange = (e) => {
@@ -146,13 +180,21 @@ const BoardRead = () => {
       };
     
 
+      const handleWrite = () => {
+        if (user.id != "") {
+            navigate("/board/register")
+        } else {
+            alert("로그인이 필요한 기능입니다.")
+            navigate('/login');
+        }
+    };
 
     return (
         <div className="board-read">
-            <h2 style={{padding: '10px 20px'}}>자유 게시판</h2>
+            <h2 style={{padding: '10px 20px'}}>톡톡 게시판</h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
                 <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
-                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board/register`)}>글쓰기</button>
+                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', backgroundColor: '#cdcdcd', padding: '10px' }}>
                 <div style={{ alignSelf: 'center'}}>
@@ -164,12 +206,14 @@ const BoardRead = () => {
                     {
                         user.nickname === post.nickname ? (  // 사용자의 닉네임과 게시글 작성자의 닉네임 비교
                             <>
-                                <button style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
-                                <button style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
+                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
+                                <button className="board-btn" style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
                             </>
                         ) : (
-                            <button style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
-                        )
+                                user.statecode !== 0 && (
+                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
+                                )
+                            )
                     }
                 </div>
             </div>
@@ -199,14 +243,14 @@ const BoardRead = () => {
                     </span>
                     <button type="submit" className="submitButton">등록</button>
                     </div>
-                    <span style={{ textAlign: 'center', maxWidth: '1024px' }}>
-                    <input
-                        id="brcontent"
-                        name="brcontent"
-                        value={brcontent}
-                        onChange={handleInputChange}
-                        className="commentInput"
-                    />
+                    <span className="read-span"style={{ textAlign: 'center', maxWidth: '1024px' }}>
+                        <input
+                            id="brcontent"
+                            name="brcontent"
+                            value={brcontent}
+                            onChange={handleInputChange}
+                            className="commentInput"
+                        />
                     </span>
                 </div>
             </form>
