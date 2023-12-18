@@ -19,7 +19,8 @@ const BoardRead = () => {
     const parsedId = id ? JSON.parse(id) : '';
     const [user, setUser] = useState({
         nickname: "",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
-        id: ""
+        id: "",
+        statecode: ""
     });
     
 
@@ -30,9 +31,6 @@ const BoardRead = () => {
 
     const selMember = async () => {
         try {
-            const id = Cookies.get('loginInfo');
-            const parsedId = id ? JSON.parse(id) : '';
-            
             if (parsedId !== '') {
                 const response = await axios.post('http://localhost:9090/member/selMember', {
                 id: parsedId
@@ -40,7 +38,8 @@ const BoardRead = () => {
         
                 setUser({
                 id: response.data.id,
-                nickname: response.data.nickname
+                nickname: response.data.nickname,
+                statecode: response.data.statecode
                 });
             }
         } catch (error) {
@@ -207,12 +206,14 @@ const BoardRead = () => {
                     {
                         user.nickname === post.nickname ? (  // 사용자의 닉네임과 게시글 작성자의 닉네임 비교
                             <>
-                                <button style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
-                                <button style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
+                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
+                                <button className="board-btn" style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
                             </>
                         ) : (
-                            <button style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
-                        )
+                                user.statecode !== 0 && (
+                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
+                                )
+                            )
                     }
                 </div>
             </div>
@@ -242,14 +243,14 @@ const BoardRead = () => {
                     </span>
                     <button type="submit" className="submitButton">등록</button>
                     </div>
-                    <span style={{ textAlign: 'center', maxWidth: '1024px' }}>
-                    <input
-                        id="brcontent"
-                        name="brcontent"
-                        value={brcontent}
-                        onChange={handleInputChange}
-                        className="commentInput"
-                    />
+                    <span className="read-span"style={{ textAlign: 'center', maxWidth: '1024px' }}>
+                        <input
+                            id="brcontent"
+                            name="brcontent"
+                            value={brcontent}
+                            onChange={handleInputChange}
+                            className="commentInput"
+                        />
                     </span>
                 </div>
             </form>

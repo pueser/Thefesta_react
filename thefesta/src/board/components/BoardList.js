@@ -140,10 +140,18 @@ const BoardList = () => {
                 </thead>
                 <tbody>
                     {data.length !== 0 && data.map(item => (
-                        <tr key={item.bid} onClick={() => handlePostClick(item.bid)}>
-                            <td className="board-td">{item.bno}</td>
+                        <tr key={item.bid}>
+                            <td className="board-td">{
+                            item.bno === 1
+                                ? "자유"
+                                : item.bno === 2
+                                    ? "리뷰"
+                                    : item.bno === 3
+                                        ? "문의"
+                                        : "기타"
+                            }</td>
                             <td className="board-td">{item.bid}</td>
-                            <td className="board-td">{item.btitle} <a style={{ color: 'red'}}> [{item.breplycnt}] </a></td>
+                            <td className="board-td" style={{cursor:'pointer'}} onClick={() => handlePostClick(item.bid, pageNum)}>{item.btitle} <a style={{ color: 'red'}}> [{item.breplycnt}] </a></td>
                             <td className="board-td">{item.nickname}</td>
                             <td className="board-td">{item.bregist}</td>
                             <td className="board-td">{item.bviewcnt}</td>
@@ -174,7 +182,7 @@ const BoardList = () => {
                     </button>
                 )}
                 {Array.from({ length: pageInfo.endPage - pageInfo.startPage + 1}, (_, index) => index + pageInfo.startPage).map((page) => (
-                    <button key={page} onClick={() => handlePageChange(page)} className={page === pageNum ? 'active' : ''}>
+                    <button key={page} onClick={() => handlePageChange(page)} className={page === pageNum ? 'pagination-active' : 'pagination-btn'}>
                         {page}
                     </button>
                 ))}
