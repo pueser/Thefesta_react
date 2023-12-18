@@ -335,14 +335,5 @@ const H = styled.div`
     .toggle {
       display: block;
     }
-
-    .user {
-      display: block;
-    }
-
-    .icons {
-      display: flex;
-      flex-direction: row;
-    }
   }
 `;
