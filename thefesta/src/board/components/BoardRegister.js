@@ -116,6 +116,7 @@ const BoardRegister = () => {
                 <option value={1}>자유게시판</option>
                 <option value={2}>리뷰게시판</option>
                 <option value={3}>문의게시판</option>
+                <option value={10}>기타</option>
               </select>
             </label>
             <div className="board-register-form-group">
