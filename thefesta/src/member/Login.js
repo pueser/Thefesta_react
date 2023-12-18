@@ -87,8 +87,6 @@ function Login() {
           const memInfo = response.data;
           console.log("memInfo : " + memInfo);
           if (memInfo) {
-            Cookies.set('loginInfo', JSON.stringify(memInfo.id));
-            
             if (rememberId) {
               Cookies.set('rememberedId', userData.id);
             } else {
@@ -100,9 +98,11 @@ function Login() {
             
             if (String(statecode) == 0) {
               navigate('/admin/member')
+              Cookies.set('loginInfo', JSON.stringify(memInfo.id));
 
             } else if (String(statecode) == 1) {
               navigate('/')
+              Cookies.set('loginInfo', JSON.stringify(memInfo.id));
 
             } else if (String(statecode) == 2) {
               const updatedate = memInfo.updatedate;
