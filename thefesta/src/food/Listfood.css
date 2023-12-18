@@ -31,6 +31,7 @@
     font-size: 16px;
     padding-top: 10px;
     color: rgb(49, 49, 49);
+    cursor: pointer;
 }
 
 .List-food-container-bottom {
