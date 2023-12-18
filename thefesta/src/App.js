@@ -18,6 +18,7 @@ import Detailfood from './food/Detailfood';
 import Footer from './main/Footer';
 import Header from './main/Header';
 import Main from './main/Main';
+import AgreementPage from './member/AgreementPage';
 import Join from './member/Join';
 import Login from './member/Login';
 import MemInfoReset from './member/MemInfoReset';
@@ -40,7 +41,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/festival/:pageNum/:keyword?' element={<Main />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<Login />} />   
+          <Route path='/AgreementPage' element={<AgreementPage />} />   
           <Route path='/join' element={<Join />} />
           <Route path='/pwreset' element={<PwReset />} />
           <Route path='/mypage' element={<MyPage />} />

@@ -20,12 +20,10 @@ function Join() {
   const [nicknameError, setNicknameError] = useState('');
   const [idError, setIdError] = useState('');
   const [verificationCodeError, setVerificationCodeError] = useState('');
-  const [verificationCodeResult, setVerificationCodeResult] = useState('');
   const [serverVerificationCode, setServerVerificationCode] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [rePasswordError, setRePasswordError] = useState('');
   const [nicknameCheckResult, setNicknameCheckResult] = useState('');
-  const [idCheckResult, setIdCheckResult] = useState('');
 
   useEffect(() => {
     console.log(userData);
@@ -232,12 +230,6 @@ const codeCheckSubmit = () => {
 }
 
   const handleSignUp = () => {
-
-    setNicknameError('');
-    setIdError('');
-    setVerificationCodeError('');
-    setPasswordError('');
-    setRePasswordError('');
     
     
     if (!userData.id.trim()) {
@@ -256,7 +248,7 @@ const codeCheckSubmit = () => {
       return;
     }
     
-    if (idCheckResult != '사용 가능한 아이디입니다.') {
+    if (idError != '사용 가능한 아이디입니다.') {
       setIdError('*중복체크를 진행해주세요.');
       return;
     }
@@ -277,7 +269,7 @@ const codeCheckSubmit = () => {
       return;
     }
     
-    if (!nicknameCheckResult) {
+    if (!nicknameError) {
       setNicknameError('*중복체크를 진행해주세요.');
       return;
     }
@@ -330,6 +322,8 @@ const codeCheckSubmit = () => {
     .then(response => {
       const memInfo = response.data;
       const statecode = memInfo.statecode;
+
+      console.log("state", String(statecode));
       
       if (String(statecode) == 3) {
         userData.statecode = "1";
@@ -346,7 +340,7 @@ const codeCheckSubmit = () => {
         console.error('Error:', error);
       });
         
-    } else if (String(statecode) == null) {
+    } else if (String(statecode) == "undefined") {
         axios.post('http://localhost:9090/member/joinPost', userData)
         .then(response => {
           if (response.data != null) {
