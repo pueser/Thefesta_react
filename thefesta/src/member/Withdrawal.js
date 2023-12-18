@@ -94,7 +94,6 @@ function Withdrawal() {
             onChange={handleInputChange}
             placeholder="비밀번호" />
           <div className="Withdrawal-errorMsg">{passwordError}{errorMessage}</div>
-          {/* <div className="Withdrawal-errorMsg">{errorMessage}</div> */}
         </label>
         <div className='Withdrawal-button'>
           <button type="button" className='Withdrawal-confirmBtn' onClick={handleSubmit}>확인</button>
