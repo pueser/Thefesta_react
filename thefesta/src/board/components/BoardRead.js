@@ -193,8 +193,8 @@ const BoardRead = () => {
         <div className="board-read">
             <h2 style={{padding: '10px 20px'}}>톡톡 게시판</h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
-                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
-                <button style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
+                <button className="board-btn" style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
+                <button className="board-btn" style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', backgroundColor: '#cdcdcd', padding: '10px' }}>
                 <div style={{ alignSelf: 'center'}}>
@@ -241,7 +241,7 @@ const BoardRead = () => {
                     <span style={{ paddingLeft: '10px', paddingTop: '8px', fontSize: '16px' }}>
                         {user.nickname}
                     </span>
-                    <button type="submit" className="submitButton">등록</button>
+                    <button type="submit" className="board-btn">등록</button>
                     </div>
                     <span className="read-span"style={{ textAlign: 'center', maxWidth: '1024px' }}>
                         <input
