@@ -3,18 +3,22 @@ import { Map, MapMarker, MarkerClusterer, ZoomControl, useMap } from 'react-kaka
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 
-function KMap() {
+function KMap({keyword}) {
   const [positions, setPositions] = useState([]);
   const [level, setLevel] = useState();
 
   useEffect(() => {
-    getApi();
+    getApi(keyword);
   }, [])
+
+  useEffect(() => {
+    getApi(keyword);
+  }, [keyword])
 
   const getApi = (key) => {
     axios.get("/festival/listAll", {
       params: {
-        keyword: key || (key ? key : ''),
+        keyword: key || (keyword ? keyword : ''),
       },
     })
       .then((res) => {
@@ -64,8 +68,8 @@ function KMap() {
     className='map'
       center={{
         // 지도의 중심좌표
-        lat: 33.450701,
-        lng: 126.570667,
+        lat: 36.820555,
+        lng: 127.757751,
       }}
       style={{
         // 지도의 크기

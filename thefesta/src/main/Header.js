@@ -160,8 +160,10 @@ function Header() {
                             <img className='header_hbgBtn' src="/images/hbgBtn.svg" alt='hamburger button' />
                         </div>
                     </div>
-                    <div className='header_logo' >
-                        <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
+                    <div className='Header_logo'>
+                        <div className='header_logo' >
+                            <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
+                        </div>
                     </div>
                     <div className='header_menu'>
                         <Link to={'/'}>
@@ -280,11 +282,6 @@ const H = styled.div`
 
     .toggle {
       display: block;
-    }
-
-    .icons {
-      display: flex;
-      flex-direction: row;
     }
   }
 `;
