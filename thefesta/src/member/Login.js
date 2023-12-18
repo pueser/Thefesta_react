@@ -99,7 +99,7 @@ function Login() {
             console.log(statecode);
             
             if (String(statecode) == 0) {
-              navigate('/member')
+              navigate('/admin/member')
 
             } else if (String(statecode) == 1) {
               navigate('/')

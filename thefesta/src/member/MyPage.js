@@ -114,8 +114,8 @@ function MyPage() {
             <Link to={`/member/likeList/${parsedId}`}><p>좋아요</p></Link>
           </div>
           <div className='MyPage-board'>
-            <Link to='/member/talktalk'><img className='MyPage-talktalk' src='./images/ttalk.png' alt='톡톡' /></Link>
-            <Link to='/member/talktalk'><p>톡톡</p></Link>
+            <Link to='/board/mypage'><img className='MyPage-talktalk' src='./images/ttalk.png' alt='톡톡' /></Link>
+            <Link to='/board/mypage'><p>톡톡</p></Link>
           </div>
         </div>
       </div>
