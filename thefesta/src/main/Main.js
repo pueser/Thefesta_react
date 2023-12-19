@@ -13,6 +13,7 @@ function Main() {
   const [festivals, setFestivals] = useState([]);
   const [pageMaker, setPageMaker] = useState({});
   const [areaCode, setAreaCode] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,8 @@ function Main() {
   }, [pageNum, keyword]);
 
   const fetchData = (page, key) => {
+    setLoading(true);
+
     axios
       .get(`/festival/list`, {
         params: {
@@ -34,7 +37,10 @@ function Main() {
         setPageMaker(response.data.pageMaker);
         setAreaCode(response.data.areaCode);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handlePageChange = (pageNum) => {
@@ -49,44 +55,47 @@ function Main() {
     fetchData(page, keyword);
     navigate(`/festival/${page}/${keyword}`);
   };
+
   return (
     <div className='div'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
       <KMap keyword={keyword}></KMap>
-      {festivals.length > 0 ? (
-        <div>
-          <div className='festivals'>
-            {festivals.map((festival) => (
-              <Festival
-                key={festival.contentid}
-                contentid={festival.contentid}
-                title={festival.title}
-                eventstartdate={festival.eventstartdate}
-                eventenddate={festival.eventenddate}
-                addr1={festival.addr1}
-                eventintro={festival.eventintro}
-                eventtext={festival.eventtext}
-                homepage={festival.homepage}
-                agelimit={festival.agelimit}
-                sponsor1={festival.sponsor1}
-                sponsor1tel={festival.sponsor1tel}
-                sponsor2={festival.sponsor2}
-                sponsor2tel={festival.sponsor2tel}
-                usetimefestival={festival.usetimefestival}
-                playtime={festival.playtime}
-                firstimage={festival.firstimage}
-                firstimage2={festival.firstimage2}
-                acode={festival.acode}
-                scode={festival.scode}
-                areaCode={areaCode}
-              />
-            ))}
-          </div>
+      {loading ? (
+        <span>Loading...</span>
+      ) : festivals.length > 0 ? (
+        <div
+          className={`festivals ${
+            festivals.length === 1 ? 'singleFestival' : ''
+          } ${festivals.length === 2 ? 'doubleFestival' : ''}`}
+        >
+          {festivals.map((festival) => (
+            <Festival
+              key={festival.contentid}
+              contentid={festival.contentid}
+              title={festival.title}
+              eventstartdate={festival.eventstartdate}
+              eventenddate={festival.eventenddate}
+              addr1={festival.addr1}
+              eventintro={festival.eventintro}
+              eventtext={festival.eventtext}
+              homepage={festival.homepage}
+              agelimit={festival.agelimit}
+              sponsor1={festival.sponsor1}
+              sponsor1tel={festival.sponsor1tel}
+              sponsor2={festival.sponsor2}
+              sponsor2tel={festival.sponsor2tel}
+              usetimefestival={festival.usetimefestival}
+              playtime={festival.playtime}
+              firstimage={festival.firstimage}
+              firstimage2={festival.firstimage2}
+              acode={festival.acode}
+              scode={festival.scode}
+              areaCode={areaCode}
+            />
+          ))}
         </div>
       ) : (
-        <div>
-          <span>Loading...</span>
-        </div>
+        <span>검색 결과가 없습니다.</span>
       )}
       <Pagination pageMaker={pageMaker} handlePageChange={handlePageChange} />
       <hr className='hr' />

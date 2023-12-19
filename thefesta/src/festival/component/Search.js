@@ -14,7 +14,11 @@ function Search({ pageMaker, handleSearch }) {
   const onClickSearch = (e) => {
     e.preventDefault();
 
-    handleSearch(1, keyword);
+    if (keyword.length === 0) {
+      alert('검색어를 입력해 주세요.');
+    } else {
+      handleSearch(1, keyword);
+    }
   };
 
   return (

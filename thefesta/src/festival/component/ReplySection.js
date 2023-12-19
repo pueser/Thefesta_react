@@ -15,12 +15,10 @@ function ReplySection({ contentid, handleReplySubmit, userInfo }) {
   const onClickInsertReply = (e) => {
     e.preventDefault();
 
-    if (content.length === 0) {
-      alert('내용을 입력해 주세요.');
-    }
-
     if (!loginInfo) {
       alert('로그인 후 이용 가능합니다.');
+    } else if (content.length === 0) {
+      alert('내용을 입력해 주세요.');
     } else if (loginInfo && content.length > 0) {
       let data = {
         frcontent: content,
@@ -46,7 +44,7 @@ function ReplySection({ contentid, handleReplySubmit, userInfo }) {
   return (
     <div className='replyForm'>
       <div className='replyUser'>
-        {userInfo ? (
+        {loginInfoString ? (
           <img
             src={userInfo.profileImg}
             alt={userInfo.id}
