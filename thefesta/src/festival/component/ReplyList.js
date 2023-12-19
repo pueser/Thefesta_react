@@ -14,11 +14,6 @@ function ReplyList({ contentid }) {
   const [page, setPage] = useState(1);
   const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   // getUserInfo()를 호출하여 user 값을 업데이트
-
-  // }, [loginInfo]);
-
   useEffect(() => {
     replyList();
     if (loginInfo) {
@@ -59,8 +54,12 @@ function ReplyList({ contentid }) {
 
   const handleReplySubmit = () => {
     // 댓글이 등록되면 최신의 페이지 정보를 가져와서 해당 페이지로 이동
-    setPage(pageMaker.realEnd);
-    replyList();
+    if (pageMaker.realEnd > 1) {
+      setPage(pageMaker.realEnd);
+      replyList();
+    } else {
+      replyList();
+    }
   };
 
   return (

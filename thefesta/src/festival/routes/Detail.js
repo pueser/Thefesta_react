@@ -6,6 +6,7 @@ import './Detail.css';
 import Cookies from 'js-cookie';
 import Listfood from '../../food/Listfood';
 import SimpleSlider from '../component/SimpleSlider';
+import DetailFestivalMap from '../component/DetailFestivalMap';
 
 function Detail() {
   const location = useLocation();
@@ -211,6 +212,7 @@ function Detail() {
             </tr>
           </table>
         </div>
+        <DetailFestivalMap mapx={festival.mapx} mapy={festival.mapy} />
         <Listfood contentid={festival.contentid}></Listfood>
         <div className='bar'></div>
         <ReplyList contentid={festival.contentid}></ReplyList>
