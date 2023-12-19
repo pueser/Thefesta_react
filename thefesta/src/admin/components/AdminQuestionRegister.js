@@ -45,7 +45,7 @@ function AdminQuestionRegister (){
               console.log("error", error)
             })
     }
-
+    console.log("bid = ",bid)
     //글 등록
     const adminQuestionRegister = (e) => {
         e.preventDefault();
@@ -72,12 +72,17 @@ function AdminQuestionRegister (){
                 },
             });
 
-            console.log(response);
+            const responsedelete = axios.post(`http://localhost:9090/admin/adminQuestionbstatecodeChange?bid=${bid}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log(response && responsedelete);
             if (response != null) {
                 alert("문의답변이 등록되었습니다.");
             };
-
-            
+            navigate(-1);
 
         } catch (error) {
             alert("게시글 등록에 실패하였습니다. 관리자에게 문의하십시오.");

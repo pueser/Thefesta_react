@@ -62,6 +62,8 @@ function AdminQuestion (){
     }
 console.log("adminQuestionList = ", adminQuestionList)
 
+
+
     //Pagenation에서 현재페이지 받기
     const curPageChange =(page) =>{
         setCurPage(page);
@@ -125,7 +127,7 @@ console.log("adminQuestionList = ", adminQuestionList)
                             <td><span id="adminTableContentLengthQuestion">{item.bcontent}</span></td>
                             <td>{item.id}</td>
                             <td>{item.bregist}</td>
-                            <td id="adminBtntd2"><button className="adminRgister-button"><Link to={'/admin/adminQuestionRegister'} state={{bid: item.bid, id:item.id}} className="adminLinkBtn">답변하기</Link></button></td>
+                            <td id="adminBtntd2"><button className="adminRgister-button"><Link to={'/admin/adminQuestionRegister'} state={{bid: item.bid, id:item.id}} className="adminLinkBtn" >답변하기</Link></button></td>
                         </tr>
                         )
                     )
