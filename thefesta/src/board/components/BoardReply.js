@@ -18,6 +18,10 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
     setBrno(-1);
   };
   
+  const handleReplyReport = () => {
+    handleReport(reply.brno)
+  }
+  
   return (
     <div key={reply.brno} style={{ display: 'block' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -38,8 +42,8 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
               {
                 user.nickname === reply.nickname ? (
                   <>
-                    <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleEditClick}>수정</button>
-                    <button style={{ fontSize: 16, color: '#ff0000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
+                    <button className="replies-btn" style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleEditClick}>수정</button>
+                    <button className="replies-btn" style={{ fontSize: 16, color: '#ff0000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
                   </>
                 ) : user.statecode !== 0 && (
                   <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleReport(reply.brno)}>신고하기</button>
