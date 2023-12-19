@@ -206,12 +206,12 @@ const BoardRead = () => {
                     {
                         user.nickname === post.nickname ? (  // 사용자의 닉네임과 게시글 작성자의 닉네임 비교
                             <>
-                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
-                                <button className="board-btn" style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
+                                <button style={{ border: 'none', padding: '5px 20px', color: '#000', backgroundColor: 'transparent', marginRight: '5px' }} onClick={handleModify}>수정</button>
+                                <button style={{ border: '1px solid #ff0000', padding: '5px 20px', color: 'red', backgroundColor: 'transparent'}} onClick={handleDelete}>삭제</button>
                             </>
                         ) : (
                                 user.statecode !== 0 && (
-                                <button className="board-btn" style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
+                                <button style={{ border: '1px solid #000', padding: '5px 20px', color: '#000', backgroundColor: 'transparent' }} onClick={() => handleReport(post.bid)}>신고하기</button>
                                 )
                             )
                     }
@@ -244,7 +244,7 @@ const BoardRead = () => {
                     <button type="submit" className="board-btn">등록</button>
                     </div>
                     <span className="read-span"style={{ textAlign: 'center', maxWidth: '1024px' }}>
-                        <input
+                        <input style={{width:'100%', height:'100%'}}
                             id="brcontent"
                             name="brcontent"
                             value={brcontent}
