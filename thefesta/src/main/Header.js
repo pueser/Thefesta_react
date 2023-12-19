@@ -169,7 +169,7 @@ function Header() {
                                         <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                     </Link>
                                     <Link to='/AgreementPage'>
-                                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                     </Link>
                                 </div>
                             </>
@@ -219,7 +219,7 @@ function Header() {
                                     <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                 </Link>
                                 <Link to='/AgreementPage'>
-                                    <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                    <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                 </Link>
                             </>
                         )}
@@ -240,7 +240,7 @@ function Header() {
                         <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                     </Link>
                     <Link to='/AgreementPage'>
-                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                     </Link>
                 </div>
             </H>
