@@ -251,11 +251,6 @@ function Header() {
 export default Header;
 
 const H = styled.div`
-  .logo {
-    margin: 0 1rem;
-    font-size: 2rem;
-  }
-
   .header__menulist {
     list-style: none;
     display: flex;
