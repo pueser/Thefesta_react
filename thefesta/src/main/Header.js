@@ -210,8 +210,8 @@ function Header() {
                     <div className='header_member hover'>
                         {loggedIn ? (
                             <>
-                                <p className='member-logout' onClick={handleLogout}>Logout</p>
                                 <Link to='/mypage' className='mypage'>{getNickname}</Link>
+                                <p className='member-logout' onClick={handleLogout}>Logout</p>
                             </>
                         ) : (
                             <>
