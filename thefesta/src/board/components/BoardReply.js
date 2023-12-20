@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../css/boardReply.css';
 const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, handleReport, handleCommentSubmit, handleInputChange }) => {
   const [brno, setBrno] = useState(-1);
   const [brcontent, setBrcontent] = useState('');
@@ -18,6 +18,10 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
     setBrno(-1);
   };
   
+  const handleReplyReport = () => {
+    handleReport(reply.brno)
+  }
+  
   return (
     <div key={reply.brno} style={{ display: 'block' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -29,8 +33,8 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
           {reply.brno === brno ? (
             <div style={{ display: 'flex', padding: 20 }}>
               <div style={{ fontSize: 16, color: '#9b9b9b', marginRight: 20 }}>{reply.brregist}</div>
-              <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleCancelClick}>취소</button>
-              <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleModifySubmit}>저장</button>
+              <button className='reply-btn' onClick={handleCancelClick}>취소</button>
+              <button className='reply-btn' onClick={handleModifySubmit}>저장</button>
             </div>
           ) : (
             <div style={{ display: 'flex', padding: 20 }}>
@@ -38,11 +42,11 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
               {
                 user.nickname === reply.nickname ? (
                   <>
-                    <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={handleEditClick}>수정</button>
-                    <button style={{ fontSize: 16, color: '#ff0000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
+                    <button className='reply-btn' onClick={handleEditClick}>수정</button>
+                    <button className='reply-btn delete-btn' onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
                   </>
-                ) : user.statecode !== 0 && (
-                  <button style={{ fontSize: 16, color: '#000', marginRight: 20, backgroundColor: 'transparent', padding: 0 }} onClick={() => handleReport(reply.brno)}>신고하기</button>
+                ) : user.statecode !== '0' && (
+                  <button className='reply-btn report-btn' onClick={() => handleReport(reply.brno)}>신고하기</button>
                 )
               }
             </div>

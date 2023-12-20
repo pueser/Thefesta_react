@@ -41,6 +41,7 @@
 }
 
 .board-register-btn {
+  border: solid 1px #d1d1d1;
   background-color: #ffffff;
   color: #030303;
   padding: 10px 20px;
