@@ -99,11 +99,11 @@ const BoardList = () => {
         }
     };
 
-    const handlePostClick = async (bid) => {
+    const handlePostClick = async (bid, pageNum, amount, type, text) => {
         try {
             await axios.put(`http://localhost:9090/board/increaseViewCnt/${bid}`);
             setViewCnt((prevCnt) => prevCnt + 1);
-            navigate(`/board/read?bid=${bid}`);
+            navigate(`/board/read?bid=${bid}&pageNum=${pageNum}&amount=${amount}&type=${type}&keyword=${text}`);
         } catch (error) {
             console.error('Error updating view count:', error);
         }
@@ -151,7 +151,7 @@ const BoardList = () => {
                                         : "기타"
                             }</td>
                             <td className="board-td">{item.bid}</td>
-                            <td className="board-td" style={{cursor:'pointer'}} onClick={() => handlePostClick(item.bid, pageNum)}>{item.btitle} <a style={{ color: 'red'}}> [{item.breplycnt}] </a></td>
+                            <td className="board-td" style={{cursor:'pointer'}} onClick={() => handlePostClick(item.bid, pageNum, amount, type, text)}>{item.btitle} <a style={{ color: 'red'}}> [{item.breplycnt}] </a></td>
                             <td className="board-td">{item.nickname}</td>
                             <td className="board-td">{item.bregist}</td>
                             <td className="board-td">{item.bviewcnt}</td>

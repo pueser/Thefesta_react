@@ -16,7 +16,8 @@ const BoardRegister = () => {
         nickname: "",
         id: ""
     });
-
+    const [titleLength, setTitleLength] = useState(0);
+    const [contentLength, setContentLength] = useState(0);
 
     useEffect(() => {
 
@@ -40,6 +41,8 @@ const BoardRegister = () => {
           console.error('Error fetching member data:', error);
       }
   };
+  const TitleMessage = '';
+  const ContentMessage = '';
 
     const [boardData, setBoardData] = useState({
         bno: bno,
@@ -50,10 +53,27 @@ const BoardRegister = () => {
         attachList: [],
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setBoardData({ ...boardData, [name]: value });
-    };
+    const handleTitleChange = (e) => {
+      const { value } = e.target;
+      if (value.length <= 30) {
+          setBoardData((prevData) => ({
+              ...prevData,
+              btitle: value,
+          }));
+          setTitleLength(value.length);
+      }
+  };
+
+  const handleContentChange = (e) => {
+      const { value } = e.target;
+      if (value.length <= 1000) {
+          setBoardData((prevData) => ({
+              ...prevData,
+              bcontent: value,
+          }));
+          setContentLength(value.length);
+      }
+  };
 
     const handleFileChange = (e) => {
         const files = e.target.files;
@@ -66,41 +86,61 @@ const BoardRegister = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        boardData.bno = bno;
-    
-        try {
-            const formData = new FormData();
-            formData.append('bno', boardData.bno);
-            formData.append('btitle', boardData.btitle);
-            formData.append('bcontent', boardData.bcontent);
-            formData.append('nickname', user.nickname);
-            formData.append('id', user.id);
-    
-            if (Array.isArray(boardData.attachList)) {
-                boardData.attachList.forEach((file, index) => {
-                    formData.append(`attachList[${index}]`, file);
-                });
-            }
-    
-            const response = await axios.post('http://localhost:9090/board/register', formData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-            console.log(response);
-    
-            if (response != null) {
-                alert("게시글이 성공적으로 등록되었습니다.");
-                navigate(`/board`);
-            }
-        } catch (error) {
-            alert("게시글 등록에 실패하였습니다. 관리자에게 문의하십시오.");
-            console.log(error);
-        }
-    };
+      e.preventDefault();
+  
+      let formsubmit = true;
+      let titleMessage = '';
+      let contentMessage = '';
+  
+      const validateForm = () => {
+          if (boardData.btitle.length > 30) {
+              titleMessage = "제목은 최대 30글자까지 입력가능합니다.";
+              formsubmit = false;
+          }
+  
+          if (boardData.bcontent.length > 1000) {
+              contentMessage = "내용은 최대 1000글자까지 입력가능합니다.";
+              formsubmit = false;
+          }
+      };
+  
+      validateForm();
+  
+      if (formsubmit) {
+          try {
+              const formData = new FormData();
+              formData.append('bno', boardData.bno);
+              formData.append('btitle', boardData.btitle);
+              formData.append('bcontent', boardData.bcontent);
+              formData.append('nickname', user.nickname);
+              formData.append('id', user.id);
+  
+              if (Array.isArray(boardData.attachList)) {
+                  boardData.attachList.forEach((file, index) => {
+                      formData.append(`attachList[${index}]`, file);
+                  });
+              }
+  
+              const response = await axios.post('http://localhost:9090/board/register', formData, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+              });
+  
+              console.log(response);
+  
+              if (response != null) {
+                  alert("게시글이 성공적으로 등록되었습니다.");
+                  navigate(`/board`);
+              }
+          } catch (error) {
+              alert("게시글 등록에 실패하였습니다. 관리자에게 문의하십시오.");
+              console.log(error);
+          }
+      } else {
+          alert(titleMessage + '\n' + contentMessage);
+      }
+  };
 
     return (
         <div className="board-register-container">
@@ -127,9 +167,12 @@ const BoardRegister = () => {
                 id="btitle"
                 name="btitle"
                 value={boardData.btitle}
-                onChange={handleInputChange}
+                onChange={handleTitleChange}
               />
+              <a style={{color:"#1d1d1d"}}><a style={{color:"#d9d9d9"}}>{titleLength}</a> / 30</a>
+               
             </div>
+            <a>{TitleMessage}</a>
             <div className="board-register-form-group">
               <label className="board-register-label" htmlFor="bcontent">내용</label>
               <textarea
@@ -137,9 +180,11 @@ const BoardRegister = () => {
                 id="bcontent"
                 name="bcontent"
                 value={boardData.bcontent}
-                onChange={handleInputChange}
+                onChange={handleContentChange}
               ></textarea>
+              <div style={{color:"#1d1d1d"}}><a style={{color:"#d9d9d9"}}>{contentLength}</a> / 1000</div>
             </div>
+            <a>{ContentMessage}</a>
             <div className="board-register-form-group">
                     <label className="board-register-label" htmlFor="file">파일첨부</label>
                     <input
@@ -148,14 +193,15 @@ const BoardRegister = () => {
                         name="file"
                         accept="image/*"
                         onChange={handleFileChange}
-                        multiple  // Allow multiple file selection
+                        multiple  
                     />
                 </div>
+                
             <div
               className="board-register-buttons"
-              style={{ display: 'flex', justifyContent: 'space-between' }}
+              style={{ display: 'flex', textAlign:'center' }}
             >
-              <button
+              <button style={{marginRight:5}}
                 className="board-register-btn"
                 type="submit"
               >
