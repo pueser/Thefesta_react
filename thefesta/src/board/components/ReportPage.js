@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const ReportPage = ({ location }) => {
+const ReportPage = () => {
   const [reportContent, setReportContent] = useState('');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const [user, setUser] = useState({
     nickname: "",
     id: ""
   });
+  const [reportState, setReportState] = useState({
+    bid: queryParams.get('bid'),
+    brno: queryParams.get('brno'),
+    reported: queryParams.get('id'),
+    reporter: user.id,
+    reportContent: reportContent,
+});
 
+  
   useEffect(() => {
     // 페이지 로딩 시, 사용자 정보를 불러오기
     selMember();
-  }, []);
+    
+    // reportContent가 변경될 때 reportDto 업데이트
+    setReportState((prevDto) => ({
+      ...prevDto,
+      reportContent: reportContent,
+    }));
+  }, [reportContent]);
 
   const selMember = async () => {
     try {
@@ -39,37 +56,18 @@ const ReportPage = ({ location }) => {
   };
 
   const handleReportSubmit = async () => {
-    const reporter = user.id;
-
-    // location.state에서 신고할 대상 정보를 받아옴
-    const { targetId, targetType } = location.state;
 
     try {
-      // 대상의 회원 정보를 불러오기
-      const response = await axios.post('http://localhost:9090/member/selMember', {
-        id: targetId
-      });
-
-      const reported = response.data.id;
-
-      const reportDto = {
-        reportContent,
-        reporter,
-        reported,
-        // 댓글인 경우 rbrno, 게시글인 경우 rbid로 지정
-        ...(targetType === 'comment' ? { rbrno: targetId } : { rbid: targetId }),
-      };
-
-      // 서버로 Axios를 사용하여 POST 요청을 보냄
-      const reportResponse = await axios.post('http://localhost:9090/admin/boardReport', reportDto);
+      const reportResponse = await axios.post('http://localhost:9090/admin/boardReport', reportState);
       
       console.log(reportResponse.data);
-      // TODO: 서버 응답에 대한 후속 처리를 추가
+      // 신고 제출 후 어떤 동작을 할지 추가
     } catch (error) {
+
       console.error('Error reporting:', error);
-      // TODO: 에러 처리를 추가
     }
   };
+
 
   return (
     <div>

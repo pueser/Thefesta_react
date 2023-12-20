@@ -13,7 +13,6 @@ const BoardRead = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
-    const bid = queryParams.get('bid');
     const [brcontent, setBrcontent] = useState('');
     const id = Cookies.get('loginInfo');
     const parsedId = id ? JSON.parse(id) : '';
@@ -22,10 +21,17 @@ const BoardRead = () => {
         id: "",
         statecode: ""
     });
+    const [boardState, setBoardState] = useState({
+        bid: queryParams.get('bid'),
+        pageNum: queryParams.get('pageNum'),
+        amount: queryParams.get('amount'),
+        type: queryParams.get('type'),
+        text: queryParams.get('keyword'),
+    })
     
 
     const handleModify = () => {
-        navigate(`/board/modify?bid=${bid}`);
+        navigate(`/board/modify?bid=${boardState.bid}`);
     };
 
 
@@ -74,7 +80,7 @@ const BoardRead = () => {
         const isConfirmed = window.confirm("게시글을 삭제하시겠습니까?");
     
         if (isConfirmed) {
-          axios.post(`http://localhost:9090/board/remove?bid=${bid}`)
+          axios.post(`http://localhost:9090/board/remove?bid=${boardState.bid}`)
             .then(response => {
               console.log(response);
               alert("게시글이 성공적으로 삭제되었습니다.")
@@ -89,14 +95,14 @@ const BoardRead = () => {
       };
 
     useEffect(() => {
-        if (bid) {
+        if (boardState.bid) {
             selMember();
-            fetchPost(bid);
+            fetchPost(boardState.bid);
         }
-    }, [bid]);
+    }, [boardState.bid]);
 
     const handlePostList = (pageNum, amount, type, text) => {
-        navigate(`/board/list?&pageNum=amount=${amount}&type=${type}&keyword=${text}`)
+        navigate(`/board/list?&pageNum=${pageNum}amount=${amount}&type=${type}&keyword=${text}`)
 
     }
 
@@ -109,7 +115,7 @@ const BoardRead = () => {
           
   
           // 필드 추가
-          formData.append('bid', bid);
+          formData.append('bid', boardState.bid);
           formData.append('brcontent', brcontent);
           formData.append('nickname', user.nickname);
           formData.append('id', user.id);
@@ -123,7 +129,7 @@ const BoardRead = () => {
           console.log(response);
         
 
-          navigate(`/board/read/${bid}`);
+          navigate(`/board/read/${boardState.bid}`);
 
       } catch (error) {
           console.error('Error submitting comment:', error);
@@ -143,7 +149,7 @@ const BoardRead = () => {
     
             alert("댓글이 삭제되었습니다.");
             // 댓글 삭제 후 댓글 목록 다시 불러오기
-            getRepliesId(bid);
+            getRepliesId(boardState.bid);
           } catch (error) {
             console.error('Error deleting comment:', error);
           }
@@ -155,20 +161,20 @@ const BoardRead = () => {
       const handleCommentModify = async (brno, modifiedContent) => {
         try {
           await axios.put(`http://localhost:9090/replies/${brno}`, {
-            bid: bid,
+            bid: boardState.bid,
             brcontent: modifiedContent,
           });
     
           // 댓글 수정 후 댓글 목록 다시 불러오기
-          getRepliesId(bid);
+          getRepliesId(boardState.bid);
         } catch (error) {
           console.error('Error modifying comment:', error);
         }
       };
 
-      const handleReport = () => {
+      const handlePostReport = () => {
           if (user.id != "") {
-            navigate(`/reportpage`);
+            navigate(`/reportpage?bid=${post.bid}&id=${post.id}`);
         } else {
             alert("로그인이 필요한 기능입니다.")
             navigate('/login');
@@ -198,7 +204,7 @@ const BoardRead = () => {
         <div className="board-read">
             <h2 style={{padding: '10px 20px'}}>톡톡 게시판</h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
-                <button className="board-btn" style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => navigate(`/board`)}>목록</button>
+                <button className="board-btn" style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handlePostList(boardState.pageNum, boardState.amount, boardState.type, boardState.text)}>목록</button>
                 <button className="board-btn" style={{ border: '1px solid #000', padding: '10px 20px', color: '#000', backgroundColor: 'transparent'}} onClick={() => handleWrite()}>글쓰기</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', backgroundColor: '#cdcdcd', padding: '10px' }}>
@@ -216,7 +222,7 @@ const BoardRead = () => {
                             </>
                         ) : (
                                 user.statecode !== '0' && (
-                                <button className="board-report-btn" onClick={() => handleReport(post.bid)}>신고하기</button>
+                                <button className="board-report-btn" onClick={() => handlePostReport(post.bid, post.id)}>신고하기</button>
                                 )
                             )
                     }
@@ -237,7 +243,6 @@ const BoardRead = () => {
                 user={user}
                 handleCommentModify={handleCommentModify}
                 handleCommentDelete={handleCommentDelete}
-                handleReport={handleReport}
                 />
             ))}  
             <form onSubmit={handleCommentSubmit} className="commentForm">

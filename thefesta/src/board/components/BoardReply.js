@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/boardReply.css';
-const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, handleReport, handleCommentSubmit, handleInputChange }) => {
+const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, handleCommentSubmit, handleInputChange }) => {
   const [brno, setBrno] = useState(-1);
   const [brcontent, setBrcontent] = useState('');
-
+  const navigate = useNavigate();
   const handleEditClick = () => {
     setBrno(reply.brno);
   };
@@ -19,7 +20,12 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
   };
   
   const handleReplyReport = () => {
-    handleReport(reply.brno)
+    if (user.id != "") {
+      navigate(`/reportpage?brno=${reply.brno}&id=${reply.id}`);
+  } else {
+      alert("로그인이 필요한 기능입니다.")
+      navigate('/login');
+  }
   }
   
   return (
@@ -46,7 +52,7 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
                     <button className='reply-btn delete-btn' onClick={() => handleCommentDelete(reply.brno)}>삭제</button>
                   </>
                 ) : user.statecode !== '0' && (
-                  <button className='reply-btn report-btn' onClick={() => handleReport(reply.brno)}>신고하기</button>
+                  <button className='reply-btn report-btn' onClick={() => handleReplyReport(reply.brno, reply.id)}>신고하기</button>
                 )
               }
             </div>
