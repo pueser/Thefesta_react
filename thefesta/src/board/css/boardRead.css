@@ -1,6 +1,7 @@
 /* 게시글 읽기 페이지 스타일 */
 .board-read {
   max-width: 1200px;
+  min-width: 768px;
   margin: 0 auto;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -8,11 +9,42 @@
   background-color: white; /* 수정: 전체 배경색 흰색 */
 }
 
+.board-modify-btn,
+.board-delete-btn,
+.board-report-btn {
+    border: 1px solid #000000;
+    margin-right: 5px;
+    padding: 5px 20px;
+    color: #000;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.board-delete-btn {
+  color: rgb(255, 0, 0);
+}
+
+.board-modify-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
+.board-delete-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
+.board-report-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
 /* 댓글 입력 폼과 댓글 컨테이너 */
 .commentForm {
   display: flex;
   justify-content: space-between;
-  min-width: 100%;
   min-height: 300px;
 }
 
@@ -39,8 +71,7 @@
 
 /* 댓글 입력 부분 스타일 */
 .commentInput {
-  width: 100%;
-  width: 100%;
+  height: 100%;
   padding: 10px;
   border: none;
   font-size: 16px;
