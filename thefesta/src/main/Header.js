@@ -39,7 +39,7 @@ function Header() {
             setSelMenu('board');
         } else if (pathname === '/login') {
             setSelMenu('login')
-        } else if (pathname === '/join') {
+        } else if (pathname === '/AgreementPage') {
             setSelMenu('join')
         } else if (pathname === '/admin/member') {
             console.log('test');
@@ -210,8 +210,8 @@ function Header() {
                     <div className='header_member hover'>
                         {loggedIn ? (
                             <>
-                                <Link to='/mypage' className='mypage'>{getNickname}</Link>
-                                <p className='member-logout' onClick={handleLogout}>Logout</p>
+                                <Link to='/mypage' className='mypage member loginBtn'>{getNickname}</Link>
+                                <p className='member-logout member joinBtn' onClick={handleLogout}>Logout</p>
                             </>
                         ) : (
                             <>
