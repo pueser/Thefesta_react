@@ -68,6 +68,7 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
             value={brcontent}
             onChange={(e) => setBrcontent(e.target.value)}
           />
+          
         ) : (
           // 수정 중이 아닐 때는 댓글 내용 표시
           reply.brcontent

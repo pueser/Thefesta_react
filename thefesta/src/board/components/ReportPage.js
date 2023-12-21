@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// ... (imports는 변경되지 않음)
+
 const ReportPage = () => {
   const [reportContent, setReportContent] = useState('');
   const location = useLocation();
@@ -11,31 +13,29 @@ const ReportPage = () => {
     nickname: "",
     id: ""
   });
+  const bid = queryParams.get('bid');
+  const brno = queryParams.get('brno');
+  const reported = queryParams.get('id');
+
   const [reportState, setReportState] = useState({
-    bid: queryParams.get('bid'),
-    brno: queryParams.get('brno'),
-    reported: queryParams.get('id'),
-    reporter: user.id,
-    reportContent: reportContent,
-});
+    rbid: "",
+    rbrno: "",
+    reported: "",
+    reporter: "",
+    reportContent: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  
   useEffect(() => {
-    // 페이지 로딩 시, 사용자 정보를 불러오기
-    selMember();
-    
-    // reportContent가 변경될 때 reportDto 업데이트
-    setReportState((prevDto) => ({
-      ...prevDto,
-      reportContent: reportContent,
-    }));
-  }, [reportContent]);
+    fetchUserData();
+  }, []); // 마운트 시에만 사용자 데이터 가져오도록
 
-  const selMember = async () => {
+  const fetchUserData = async () => {
     try {
       const id = Cookies.get('loginInfo');
       const parsedId = id ? JSON.parse(id) : '';
-      
+
       if (parsedId !== '') {
         const response = await axios.post('http://localhost:9090/member/selMember', {
           id: parsedId
@@ -47,7 +47,7 @@ const ReportPage = () => {
         });
       }
     } catch (error) {
-      console.error('Error fetching member data:', error);
+      console.error('회원 데이터 가져오기 오류:', error);
     }
   };
 
@@ -56,18 +56,42 @@ const ReportPage = () => {
   };
 
   const handleReportSubmit = async () => {
-
     try {
-      const reportResponse = await axios.post('http://localhost:9090/admin/boardReport', reportState);
+      setIsLoading(true);
       
-      console.log(reportResponse.data);
-      // 신고 제출 후 어떤 동작을 할지 추가
+      
+      if(brno == null){
+
+        setReportState ({
+          rbid: bid,
+          reported: reported,
+          reporter: user.id,
+          reportContent: reportContent,
+        })
+
+        const reportBoard = await axios.post('http://localhost:9090/admin/boardReport', reportState, {
+        
+        });
+  
+        console.log(reportBoard.data);
+        // 성공적인 제출 이후 사용자를 다른 페이지로 리다이렉트하거나 알림을 표시할 수 있습니다.
+      } else if(bid == null) {
+        
+        const reportReply = await axios.post('http://localhost:9090/admin/boardReplyReport', reportState, {
+      });
+  
+        console.log(reportReply.data);
+
+      }
+
     } catch (error) {
+      setError(error.message || '오류가 발생했습니다');
 
-      console.error('Error reporting:', error);
+    } finally {
+      setIsLoading(false);
     }
+      
   };
-
 
   return (
     <div>
@@ -83,9 +107,12 @@ const ReportPage = () => {
           cols={50}
           maxLength={1000}
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
       <div>
-        <button onClick={handleReportSubmit}>신고 제출</button>
+        <button onClick={handleReportSubmit} disabled={isLoading}>
+          {isLoading ? '제출 중...' : '신고 제출'}
+        </button>
       </div>
     </div>
   );

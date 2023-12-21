@@ -93,6 +93,7 @@ const BoardRegister = () => {
       let contentMessage = '';
   
       const validateForm = () => {
+        
           if (boardData.btitle.length > 30) {
               titleMessage = "제목은 최대 30글자까지 입력가능합니다.";
               formsubmit = false;

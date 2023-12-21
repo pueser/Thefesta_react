@@ -259,6 +259,7 @@ const BoardRead = () => {
                             value={brcontent}
                             onChange={handleInputChange}
                             className="commentInput"
+                            
                         />
                 </div>
             </form>
