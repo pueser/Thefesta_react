@@ -24,6 +24,10 @@ function Like({ contentid }) {
       }
     } catch (error) {
       console.error(error);
+      console.error('Error in likeInfo:', error);
+      console.log('Response data:', error.response.data);
+      console.log('Response status:', error.response.status);
+      console.log('Response headers:', error.response.headers);
     }
   };
 
@@ -50,6 +54,7 @@ function Like({ contentid }) {
   const toggleLike = async () => {
     if (isUserLoggedIn()) {
       setLikedStatusToLocalStorage(userId, contentid, !isLiked);
+      setIsLiked(!isLiked); // isLiked 상태 업데이트
 
       if (!isLiked) {
         await sendLikeRequest();
@@ -112,6 +117,8 @@ function Like({ contentid }) {
       } catch (error) {
         console.error('Error parsing loginInfo:', error);
       }
+    } else {
+      setLikedStatusToLocalStorage(userId, contentid, false);
     }
   };
 
@@ -131,7 +138,9 @@ function Like({ contentid }) {
   return (
     <div className='likeContainer'>
       <div
-        className={`likeStar ${isLiked ? 'selLikestar' : ''}`}
+        className={`likeStar ${
+          isLiked && isUserLoggedIn() ? 'selLikestar' : ''
+        }`}
         onClick={toggleLike}
       ></div>
     </div>

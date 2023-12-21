@@ -9,13 +9,31 @@
   text-decoration: none;
   color: black;
 }
-
+/* 
 .container {
   position: relative;
-}
+} */
 
 .festival {
   width: calc(33.33% - 20px);
+  position: relative;
+}
+
+.festivals.singleFestival,
+.festivals.doubleFestival {
+  justify-content: center;
+}
+
+.festivals.singleFestival .festival {
+  width: 30%;
+}
+
+.festivals.doubleFestival {
+  justify-content: center;
+}
+
+.festivals.doubleFestival .festival:first-child {
+  margin-right: 40px;
 }
 
 .festival h1 {

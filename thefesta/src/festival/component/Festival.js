@@ -108,7 +108,6 @@ function Festival({
               <div className='fImg fdfImg'></div>
             )}
           </div>
-          <Like contentid={contentid}></Like>
         </div>
         <div>
           <div className='titleAndState'>
@@ -123,6 +122,7 @@ function Festival({
           </h2>
         </div>
       </Link>
+      <Like contentid={contentid}></Like>
     </div>
   );
 }

@@ -39,7 +39,7 @@ function Header() {
             setSelMenu('board');
         } else if (pathname === '/login') {
             setSelMenu('login')
-        } else if (pathname === '/join') {
+        } else if (pathname === '/AgreementPage') {
             setSelMenu('join')
         } else if (pathname === '/admin/member') {
             console.log('test');
@@ -169,7 +169,7 @@ function Header() {
                                         <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                     </Link>
                                     <Link to='/AgreementPage'>
-                                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                     </Link>
                                 </div>
                             </>
@@ -210,8 +210,8 @@ function Header() {
                     <div className='header_member hover'>
                         {loggedIn ? (
                             <>
-                                <p className='member-logout' onClick={handleLogout}>Logout</p>
-                                <Link to='/mypage' className='mypage'>{getNickname}</Link>
+                                <Link to='/mypage' className='mypage member loginBtn'>{getNickname}</Link>
+                                <p className='member-logout member joinBtn' onClick={handleLogout}>Logout</p>
                             </>
                         ) : (
                             <>
@@ -219,7 +219,7 @@ function Header() {
                                     <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                                 </Link>
                                 <Link to='/AgreementPage'>
-                                    <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                    <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                                 </Link>
                             </>
                         )}
@@ -240,7 +240,7 @@ function Header() {
                         <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
                     </Link>
                     <Link to='/AgreementPage'>
-                        <p className={`member ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
                     </Link>
                 </div>
             </H>
@@ -251,11 +251,6 @@ function Header() {
 export default Header;
 
 const H = styled.div`
-  .logo {
-    margin: 0 1rem;
-    font-size: 2rem;
-  }
-
   .header__menulist {
     list-style: none;
     display: flex;
