@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/boardReply.css';
+
 const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, handleCommentSubmit, handleInputChange }) => {
   const [brno, setBrno] = useState(-1);
   const [brcontent, setBrcontent] = useState('');
   const navigate = useNavigate();
+
+  
   const handleEditClick = () => {
     setBrno(reply.brno);
   };

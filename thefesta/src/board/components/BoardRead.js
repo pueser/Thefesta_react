@@ -101,8 +101,8 @@ const BoardRead = () => {
         }
     }, [boardState.bid]);
 
-    const handlePostList = (pageNum, amount, type, text) => {
-        navigate(`/board/list?&pageNum=${pageNum}amount=${amount}&type=${type}&keyword=${text}`)
+    const handlePostList = () => {
+        navigate(`/board`)
 
     }
 
@@ -128,9 +128,6 @@ const BoardRead = () => {
           alert("댓글이 등록되었습니다.");
           console.log(response);
         
-
-          navigate(`/board/read/${boardState.bid}`);
-
       } catch (error) {
           console.error('Error submitting comment:', error);
       }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 // ... (imports는 변경되지 않음)
 
 const ReportPage = () => {
-  const [reportContent, setReportContent] = useState('');
+  const [reportcontent, setReportcontent] = useState('');
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     nickname: "",
     id: ""
@@ -22,7 +23,7 @@ const ReportPage = () => {
     rbrno: "",
     reported: "",
     reporter: "",
-    reportContent: "",
+    reportcontent: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -52,45 +53,52 @@ const ReportPage = () => {
   };
 
   const handleContentChange = (e) => {
-    setReportContent(e.target.value);
+    setReportcontent(e.target.value);
   };
 
   const handleReportSubmit = async () => {
     try {
       setIsLoading(true);
-      
-      
-      if(brno == null){
-
-        setReportState ({
+  
+      let reportData;
+      let endPoint;
+  
+      if (brno == null) {
+        reportData = {
           rbid: bid,
           reported: reported,
           reporter: user.id,
-          reportContent: reportContent,
-        })
-
-        const reportBoard = await axios.post('http://localhost:9090/admin/boardReport', reportState, {
-        
-        });
-  
-        console.log(reportBoard.data);
-        // 성공적인 제출 이후 사용자를 다른 페이지로 리다이렉트하거나 알림을 표시할 수 있습니다.
-      } else if(bid == null) {
-        
-        const reportReply = await axios.post('http://localhost:9090/admin/boardReplyReport', reportState, {
-      });
-  
-        console.log(reportReply.data);
-
+          reportcontent: reportcontent,
+        };
+      } else if (bid == null) {
+        reportData = {
+          rbrno: brno,
+          reported: reported,
+          reporter: user.id,
+          reportcontent: reportcontent,
+        };
       }
 
+      console.log('reportData:', reportData);
+
+      if (brno == null) {
+
+        endPoint = 'boardReport'
+
+      } else if (bid == null) {
+
+        endPoint = 'boardReplyReport'
+      };
+
+      const response = await axios.post(`http://localhost:9090/admin/${endPoint}`, reportData);
+      alert(response.data);
+
+      navigate('/board');
     } catch (error) {
       setError(error.message || '오류가 발생했습니다');
-
     } finally {
       setIsLoading(false);
     }
-      
   };
 
   return (
@@ -101,7 +109,7 @@ const ReportPage = () => {
         <textarea
           id="reportContent"
           name="reportContent"
-          value={reportContent}
+          value={reportcontent}
           onChange={handleContentChange}
           rows={10}
           cols={50}
