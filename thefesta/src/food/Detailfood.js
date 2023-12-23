@@ -159,6 +159,9 @@ function Detailfood() {
     //firstimage의 데이터 유무 확인
     const imageSource = food.firstimage ? food.firstimage : "/images/noimage.png";
 
+    // title 글자 수에 따라 클래스네임 설정
+    const titleClassName = food && food.title && food.title.length > 15 ? 'Detail-food-title-long' : 'Detail-food-title';
+
     return (
         <section className="Detail-container">
             <div className="Detail-food">
@@ -168,7 +171,7 @@ function Detailfood() {
                     </div>
                     <div className="Detail-food-data">
                         <div className="Detail-food-data-flex1">
-                            <h2 className="Detail-food-title">{food.title}</h2>
+                            <h2 className={titleClassName}>{food.title}</h2>
                             <span id="likeBtn" className="Detail-likeBtn" onClick={toggleLike}>
                                 {isLiked ? <img className="Detail-heart" src="/images/fullheart.png" /> : <img className="Detail-heart" src="/images/emptyheart.png" />}
                             </span>

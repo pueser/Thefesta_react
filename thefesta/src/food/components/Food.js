@@ -13,13 +13,16 @@ function Food({ contentid, title, addr1, firstimage2 }) {
     //firstimage2의 데이터 유무 확인
     const imageSource = firstimage2 ? firstimage2 : "/images/noimage.png";
 
+    // title 글자 수에 따라 클래스네임 설정
+    const titleClassName = title.length > 10 ? 'Food-title-long' : 'Food-title';
+
     return (
         <div className="Food">
             <Link to={`/food/detail/${contentid}`}>
                 <img src={imageSource} title={title} alt={title} />
             </Link>
             <div className="Food-data">
-                <h3 className="Food-title">
+                <h3 className={titleClassName}>
                     <Link to={`/food/detail/${contentid}`}>{title}</Link>
                 </h3>
                 <h5 className="Food-addr"><Link to={`/food/detail/${contentid}`}>{addr1}</Link></h5>
