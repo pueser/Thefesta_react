@@ -2,19 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { json } from 'react-router-dom';
 import Food from './components/Food';
+import Pagenation from './components/Pagenation';
 import './Listfood.css';
 
 function Listfood({ contentid }) {
     const festaId = contentid;
-    // console.log('festaId', festaId);
     const [foods, setFoods] = useState([]);
-    // console.log(foods);
     const [areacode, setAreacode] = useState("");
-    // console.log(areacode);
     const [showMoreFoods, setShowMoreFoods] = useState(
         localStorage.getItem('showMoreFoods') === 'true' || false
     );
     const [id, setId] = useState("");
+
+    const [curPage, setCurPage] = useState(1);   //현재 페이지 세팅
+    const [startPage, setStartPage] = useState("");   //startPage
+    const [endPage, setEndPage] = useState("");   //endPage
+    const [total, setTotal] = useState("");   //list 총갯수
+    const [next, setNext] = useState("");   //이전 페이지
+    const [prev, setPrev] = useState("");   //다음 페이지
+    const [amount, setAmount] = useState("15");   //한 페이지당 보여질 list개수
 
     // 회원 정보 가져오기
     const getUserInfo = () => {
@@ -33,9 +39,9 @@ function Listfood({ contentid }) {
     // 음식점 목록 가져오기
     const getFoods = async () => {
         try {
-            
-            let url = `/food/list?contentid=${festaId}`;
-            
+
+            let url = `/food/list?contentid=${festaId}&pageNum=${curPage}&amount=${amount}`;
+
             if (id) {
                 url += `&id=${id}`;
             }
@@ -52,16 +58,30 @@ function Listfood({ contentid }) {
             console.log('data', data);
 
             setFoods(data.recommendDTOList);
-            setAreacode(data.areacodeDTO)
+            console.log('recdto', data.recommendDTOList);
+            setAreacode(data.areacodeDTO);
+
+            setStartPage(data.pageMaker.startPage);
+            setEndPage(data.pageMaker.endPage);
+            setTotal(data.pageMaker.total);
+            setNext(data.pageMaker.next);
+            setPrev(data.pageMaker.prev);
+
         } catch (error) {
             console.error("데이터 가져오기 오류: ", error);
         }
     }
 
+    //Pagenation에서 현재페이지 받기
+    const curPageChange = async (page) => {
+        console.log("page", page);
+        setCurPage(page);
+    }
+
     useEffect(() => {
         getUserInfo();
         getFoods();
-    }, [id]);
+    }, [id, curPage]);
 
     useEffect(() => {
         localStorage.setItem('showMoreFoods', showMoreFoods);
@@ -69,8 +89,7 @@ function Listfood({ contentid }) {
 
     useEffect(() => {
         const handleBeforeUnload = () => {
-            // 페이지를 떠날 때 상태를 초기화
-            setShowMoreFoods(false);
+            setShowMoreFoods(false);   // 페이지를 떠날 때 상태를 초기화
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -105,6 +124,20 @@ function Listfood({ contentid }) {
                         />
                     ))}
                 </div>
+                {showMoreFoods && (
+                    <div>
+                        <Pagenation
+                            page={curPage}
+                            startPage={startPage}
+                            endPage={endPage}
+                            curPageChange={curPageChange}
+                            total={total}
+                            next={next}
+                            prev={prev}
+                            amount={amount}
+                        />
+                    </div>
+                )}
             </div>
         </section>
     )
