@@ -60,6 +60,10 @@
 	margin-left: 30px;
 }
 
+.joinBtn:hover {
+	cursor: pointer;
+}
+
 .highlight {
 	background-color: rgb(0, 116, 44);
 	color: white;
