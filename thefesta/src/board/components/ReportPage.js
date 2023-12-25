@@ -1,24 +1,42 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const ReportPage = ({ location }) => {
-  const [reportContent, setReportContent] = useState('');
+// ... (imports는 변경되지 않음)
+
+const ReportPage = () => {
+  const [reportcontent, setReportcontent] = useState('');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     nickname: "",
     id: ""
   });
+  const bid = queryParams.get('bid');
+  const brno = queryParams.get('brno');
+  const reported = queryParams.get('id');
+
+  const [reportState, setReportState] = useState({
+    rbid: "",
+    rbrno: "",
+    reported: "",
+    reporter: "",
+    reportcontent: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // 페이지 로딩 시, 사용자 정보를 불러오기
-    selMember();
-  }, []);
+    fetchUserData();
+  }, []); // 마운트 시에만 사용자 데이터 가져오도록
 
-  const selMember = async () => {
+  const fetchUserData = async () => {
     try {
       const id = Cookies.get('loginInfo');
       const parsedId = id ? JSON.parse(id) : '';
-      
+
       if (parsedId !== '') {
         const response = await axios.post('http://localhost:9090/member/selMember', {
           id: parsedId
@@ -30,44 +48,56 @@ const ReportPage = ({ location }) => {
         });
       }
     } catch (error) {
-      console.error('Error fetching member data:', error);
+      console.error('회원 데이터 가져오기 오류:', error);
     }
   };
 
   const handleContentChange = (e) => {
-    setReportContent(e.target.value);
+    setReportcontent(e.target.value);
   };
 
   const handleReportSubmit = async () => {
-    const reporter = user.id;
-
-    // location.state에서 신고할 대상 정보를 받아옴
-    const { targetId, targetType } = location.state;
-
     try {
-      // 대상의 회원 정보를 불러오기
-      const response = await axios.post('http://localhost:9090/member/selMember', {
-        id: targetId
-      });
+      setIsLoading(true);
+  
+      let reportData;
+      let endPoint;
+  
+      if (brno == null) {
+        reportData = {
+          rbid: bid,
+          reported: reported,
+          reporter: user.id,
+          reportcontent: reportcontent,
+        };
+      } else if (bid == null) {
+        reportData = {
+          rbrno: brno,
+          reported: reported,
+          reporter: user.id,
+          reportcontent: reportcontent,
+        };
+      }
 
-      const reported = response.data.id;
+      console.log('reportData:', reportData);
 
-      const reportDto = {
-        reportContent,
-        reporter,
-        reported,
-        // 댓글인 경우 rbrno, 게시글인 경우 rbid로 지정
-        ...(targetType === 'comment' ? { rbrno: targetId } : { rbid: targetId }),
+      if (brno == null) {
+
+        endPoint = 'boardReport'
+
+      } else if (bid == null) {
+
+        endPoint = 'boardReplyReport'
       };
 
-      // 서버로 Axios를 사용하여 POST 요청을 보냄
-      const reportResponse = await axios.post('http://localhost:9090/admin/boardReport', reportDto);
-      
-      console.log(reportResponse.data);
-      // TODO: 서버 응답에 대한 후속 처리를 추가
+      const response = await axios.post(`http://localhost:9090/admin/${endPoint}`, reportData);
+      alert(response.data);
+
+      navigate('/board');
     } catch (error) {
-      console.error('Error reporting:', error);
-      // TODO: 에러 처리를 추가
+      setError(error.message || '오류가 발생했습니다');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,15 +109,18 @@ const ReportPage = ({ location }) => {
         <textarea
           id="reportContent"
           name="reportContent"
-          value={reportContent}
+          value={reportcontent}
           onChange={handleContentChange}
           rows={10}
           cols={50}
           maxLength={1000}
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
       <div>
-        <button onClick={handleReportSubmit}>신고 제출</button>
+        <button onClick={handleReportSubmit} disabled={isLoading}>
+          {isLoading ? '제출 중...' : '신고 제출'}
+        </button>
       </div>
     </div>
   );
