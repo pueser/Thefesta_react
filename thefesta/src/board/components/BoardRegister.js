@@ -86,23 +86,24 @@ const BoardRegister = () => {
     }
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      let formsubmit = true;
-      let titleMessage = '';
-      let contentMessage = '';
-  
-      const validateForm = () => {
-          if (boardData.btitle.length > 30) {
-              titleMessage = "제목은 최대 30글자까지 입력가능합니다.";
-              formsubmit = false;
-          }
-  
-          if (boardData.bcontent.length > 1000) {
-              contentMessage = "내용은 최대 1000글자까지 입력가능합니다.";
-              formsubmit = false;
-          }
-      };
+        e.preventDefault();
+    
+        let formsubmit = true;
+        let titleMessage = '';
+        let contentMessage = '';
+    
+        const validateForm = () => {
+        
+            if (boardData.btitle.length > 30) {
+                titleMessage = "제목은 최대 30글자까지 입력가능합니다.";
+                formsubmit = false;
+            }
+    
+            if (boardData.bcontent.length > 1000) {
+                contentMessage = "내용은 최대 1000글자까지 입력가능합니다.";
+                formsubmit = false;
+            }
+        };
   
       validateForm();
   
