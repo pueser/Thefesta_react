@@ -14,11 +14,22 @@ function Main() {
   const [pageMaker, setPageMaker] = useState({});
   const [areaCode, setAreaCode] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [amount, setAmount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
+    getWindowWidth();
     fetchData();
-  }, [pageNum, keyword]);
+    console.log('amount', amount);
+  }, [pageNum, keyword, amount]);
+
+  const getWindowWidth = () => {
+    (window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth) <= 1000
+      ? setAmount(10)
+      : setAmount(9);
+  };
 
   const fetchData = (page, key) => {
     setLoading(true);
@@ -27,7 +38,7 @@ function Main() {
       .get(`/festival/list`, {
         params: {
           pageNum: page || (pageNum ? parseInt(pageNum, 10) : 1),
-          amount: 9,
+          amount: amount,
           keyword: key || (keyword ? keyword : ''),
         },
       })
@@ -59,6 +70,7 @@ function Main() {
   return (
     <div className='div'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>
+      <p className='mapP'>* 현재 진행 중인 축제만 맵에 표시됩니다.</p>
       <KMap keyword={keyword}></KMap>
       {loading ? (
         <span>Loading...</span>
@@ -88,6 +100,8 @@ function Main() {
               playtime={festival.playtime}
               firstimage={festival.firstimage}
               firstimage2={festival.firstimage2}
+              mapx={festival.mapx}
+              mapy={festival.mapy}
               acode={festival.acode}
               scode={festival.scode}
               areaCode={areaCode}

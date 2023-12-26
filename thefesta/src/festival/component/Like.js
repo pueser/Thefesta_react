@@ -6,6 +6,8 @@ import { useLocation } from 'react-router-dom';
 
 function Like({ contentid }) {
   const [userId, setUserId] = useState(null);
+  const loginInfo = Cookies.get('loginInfo');
+  const id = loginInfo ? JSON.parse(loginInfo) : '';
 
   // 좋아요 DB 데이터 가져오기
   const likeInfo = async (id) => {
@@ -45,14 +47,14 @@ function Like({ contentid }) {
   };
 
   // 회원 로그인 확인
-  const isUserLoggedIn = () => {
-    const loginInfo = Cookies.get('loginInfo');
-    return !!loginInfo;
-  };
+  // const isUserLoggedIn = () => {
+  //   const loginInfo = Cookies.get('loginInfo');
+  //   return !!loginInfo;
+  // };
 
   // 좋아요 토글 및 로그인 상태 확인
   const toggleLike = async () => {
-    if (isUserLoggedIn()) {
+    if (id != '') {
       setLikedStatusToLocalStorage(userId, contentid, !isLiked);
       setIsLiked(!isLiked); // isLiked 상태 업데이트
 
@@ -107,13 +109,13 @@ function Like({ contentid }) {
 
   // 회원 정보 가져오기
   const getUserInfo = async () => {
-    const loginInfo = Cookies.get('loginInfo');
-    if (loginInfo) {
+    // const loginInfo = Cookies.get('loginInfo');
+    if (id != '') {
       try {
-        const parsedLoginInfo = JSON.parse(loginInfo);
-        setUserId(parsedLoginInfo);
-        console.log('아이디 :', parsedLoginInfo);
-        await likeInfo(parsedLoginInfo);
+        // const parsedLoginInfo = JSON.parse(loginInfo);
+        setUserId(id);
+        console.log('아이디 :', id);
+        await likeInfo(id);
       } catch (error) {
         console.error('Error parsing loginInfo:', error);
       }
@@ -123,8 +125,13 @@ function Like({ contentid }) {
   };
 
   useEffect(() => {
-    getUserInfo();
-  }, []); // 두 번째 매개변수로 빈 배열을 전달하여 한 번만 실행되도록 설정
+    if (id != '') {
+      getUserInfo();
+    } else {
+      console.log('로그인 안 함');
+      setIsLiked(false);
+    }
+  }, []);
 
   // 컴포넌트가 마운트 될 때, 로컬 스토리지에서 좋아요 상태를 불러와 설정
   const initialLikedStatus = getLikedStatusFromLocalStorage(userId, contentid);
@@ -139,7 +146,8 @@ function Like({ contentid }) {
     <div className='likeContainer'>
       <div
         className={`likeStar ${
-          isLiked && isUserLoggedIn() ? 'selLikestar' : ''
+          // isLiked && isUserLoggedIn() ? 'selLikestar' : ''
+          isLiked ? 'selLikestar' : ''
         }`}
         onClick={toggleLike}
       ></div>
