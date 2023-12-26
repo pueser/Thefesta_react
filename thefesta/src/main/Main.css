@@ -31,8 +31,17 @@ body {
 .festivals {
   width: 85%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
+  gap: 30px;
   margin: 60px 0 30px;
+}
+
+.mapP {
+  width: 60%;
+  text-align: start;
+  font-size: 12px;
+  color: #808080;
+  margin: 0;
 }
