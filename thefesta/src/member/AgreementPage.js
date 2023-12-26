@@ -60,7 +60,7 @@ function AgreementPage() {
         <div className='AgreementPage-container'>
             <div className='AgreementPage-container2'>
                 <label className='agreement-label1'>
-                    <b>아래 이용약관에 모두 동의합니다.</b>
+                    <b className='Agreement-b1'>아래 이용약관에 모두 동의합니다.</b>
                     <input
                         type="checkbox"
                         checked={allAgreements}
@@ -70,7 +70,7 @@ function AgreementPage() {
                 </label><br/><br/>
 
                 <label className='agreement-label2'>
-                    <b>서비스 이용약관 동의</b>
+                    <b className='Agreement-b2'>서비스 이용약관 동의</b>
                     <input
                         type="checkbox"
                         checked={serviceAgreement}
@@ -99,24 +99,24 @@ function AgreementPage() {
                     "이용자"는 "사이트"를 통해 얻은 정보를 무단으로 수정, 복제, 배포하는 행위를 하여서는 안됩니다.
                     제5조 (게시물의 관리)<br/><br/>
 
-                    "이용자"가 "사이트"에 작성하는 게시물은 해당 "이용자"가 직접 책임져야 합니다.
+                    5."이용자"가 "사이트"에 작성하는 게시물은 해당 "이용자"가 직접 책임져야 합니다.
                     "사이트"는 부적절한 내용의 게시물이나 타인의 권리를 침해하는 게시물에 대해 사전 통지 없이 삭제할 수 있습니다.
                     제6조 (책임 제한)<br/><br/>
 
-                    5. "사이트"는 천재지변, 기간통신사업자의 서비스 중단 등 불가항력적인 사유로 발생한 이용자의 손해에 대해 책임을 지지 않습니다.
+                    6. "사이트"는 천재지변, 기간통신사업자의 서비스 중단 등 불가항력적인 사유로 발생한 이용자의 손해에 대해 책임을 지지 않습니다.
                     "사이트"는 "이용자" 간 또는 "이용자"와 제3자 간의 상호 작용으로 발생한 분쟁에 대해 어떠한 책임도 지지 않습니다.
                     제7조 (분쟁의 해결)<br/><br/>
 
-                    6. 본 이용약관에 따른 분쟁에 대해서는 대한민국 법률을 적용하며, 관할 법원은 "사이트" 소재지의 법원으로 합니다.
+                    7. 본 이용약관에 따른 분쟁에 대해서는 대한민국 법률을 적용하며, 관할 법원은 "사이트" 소재지의 법원으로 합니다.
                     제8조 (유의사항)<br/><br/>
 
-                    7. 본 약관의 내용은 수시로 변경될 수 있으며, 변경된 약관은 "사이트" 내 공지사항에 게시함으로써 효력이 발생합니다.
+                    8. 본 약관의 내용은 수시로 변경될 수 있으며, 변경된 약관은 "사이트" 내 공지사항에 게시함으로써 효력이 발생합니다.
                     "이용자"는 본 약관 및 "사이트"의 운영 정책을 주기적으로 확인하여야 합니다.
                     본 이용약관은 2023년 12월 14일부터 시행됩니다.
                 </div><br/>
 
                 <label className='agreement-label3'>
-                    <b>개인정보 수집 및 이용 동의</b>
+                    <b className='Agreement-b3'>개인정보 수집 및 이용 동의</b>
                     <input
                         type="checkbox"
                         checked={privacyAgreement}

@@ -27,7 +27,9 @@ function MyPage() {
         const memData = response.data;
         setNickname(memData.nickname);
         if (memData.profileImg) {
-          setImageUrl(memData.profileImg);
+          const profileImg = "http://192.168.4.44:9090/resources/fileUpload/" + memData.profileImg
+          console.log("profileImg =>", profileImg);
+          setImageUrl(profileImg);
         }
       } catch (error) {
         console.error('Error fetching member data:', error);
@@ -48,29 +50,23 @@ function MyPage() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:9090/member/updateImg', formData, {
+      const response = await axios.post('http://localhost:9090/member/changeAjaxAction', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      if (response.data === 'success') {
-        const memberResponse = await axios.post('http://localhost:9090/member/selMember', {
-          id: parsedId,
-          randomParam: Math.random(),
-        });
+      const profile = response.data;
+      const profileImg = "http://192.168.4.44:9090/resources/fileUpload/" + profile
+      console.log(profileImg)
 
-        const memData = memberResponse.data;
-        console.log("memData : " + memData.profileImg);
-
-        if (memData.profileImg) {
+        if (profileImg) {
           
           setTimeout(() => {
-            setImageUrl(memData.profileImg);
+            setImageUrl(profileImg);
           }, 4000);
         }
-      }
-    } catch (error) {
+      } catch (error) {
       console.error('Error uploading image:', error);
     }
   };
@@ -114,8 +110,8 @@ function MyPage() {
             <Link to={`/member/likeList/${parsedId}`}><p>좋아요</p></Link>
           </div>
           <div className='MyPage-board'>
-            <Link to='/board/mypage'><img className='MyPage-talktalk' src='./images/ttalk.png' alt='톡톡' /></Link>
-            <Link to='/board/mypage'><p>톡톡</p></Link>
+            <Link to='/member/talktalk'><img className='MyPage-talktalk' src='./images/ttalk.png' alt='톡톡' /></Link>
+            <Link to='/member/talktalk'><p>톡톡</p></Link>
           </div>
         </div>
       </div>
