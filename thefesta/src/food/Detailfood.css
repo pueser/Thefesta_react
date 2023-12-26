@@ -42,6 +42,11 @@
     margin-top: 0px;
 }
 
+.Detail-food-title-long {
+    font-size: 1.6em;
+    margin-top: 0px;
+}
+
 .Detail-food-data-flex1 span {
     margin-top: 10px;
     margin-left: 3%;
@@ -75,7 +80,7 @@
     text-align: left;
     height: 50px;
     color: #4b4b4b;
-    font-size: 0.9em;
+    font-size: 1em;
     outline: none;
 }
 
@@ -103,7 +108,7 @@ td {
     margin-left: 20px;
     margin-top: 10px;
     margin-right: 10px;
-    font-size: 0.9em;
+    font-size: 1em;
     color: #4b4b4b;
     line-height: 2;
 }
@@ -111,7 +116,7 @@ td {
 .Detail-food-location {
     text-align: left;
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 30px;
     font-weight: 700;
     font-size: 1em;
 }
@@ -138,5 +143,15 @@ td {
         width: 100%;
         text-align: start;
         margin: 10px 0; 
+    }
+}
+
+@media screen and (max-width: 768px) { 
+    .Detail-food-title {
+        font-size: 1.5em;
+    }
+
+    .Detail-food-table, .Detail-food-overview, .Detail-food-content, .Detail-food-location {
+        font-size: 0.9em;
     }
 }

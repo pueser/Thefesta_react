@@ -23,10 +23,8 @@
   justify-content: space-around;
   flex-direction: row;
 }
-#districtOptions{
-  width: 8.5em;
-}
 .selectOptions{
+  width: 8.5em;
   display: flex;
   justify-content: space-around;
   font-size: 1em;
@@ -141,4 +139,35 @@
   margin-left: 5%;
   margin-right: 5%;
   font-size: 0.8em;
+}
+
+@media only screen and (max-width: 1400px) {
+	#filterLine {
+		flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	}
+  #selectLine {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .selectMenu {
+    width: 50%;
+  }
+  .selectOptions {
+    width: 100%;
+  }
+  #searchLine {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  #filterLine ,.scheduler {
+    width: 365px;
+  }
 }

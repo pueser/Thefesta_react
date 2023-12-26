@@ -32,10 +32,6 @@ function Scheduler(){
 
   const [monthModalShow, setMonthModalShow] = useState(false);
   
-  // const handlemonthmodal = (modalRequre) => {
-  //   setMonthModalShow(modalRequre);
-  // };
-
   const [getMonth, setMonth] = useState("");
 
   const [getCnt, setCnt] = useState(0);

@@ -1,6 +1,7 @@
 .Food {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .Food img {
@@ -21,6 +22,19 @@
     margin-top: 13px;
     margin-bottom: 10px;
 }
+
+.Food-title-long{ 
+    font-size: 1em;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.Food-title-long a { 
+    text-decoration: none;
+    color: black;
+}
+
 
 .Food-title a {
     text-decoration: none;

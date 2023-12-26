@@ -13,18 +13,22 @@ function Food({ contentid, title, addr1, firstimage2 }) {
     //firstimage2의 데이터 유무 확인
     const imageSource = firstimage2 ? firstimage2 : "/images/noimage.png";
 
-    return (
-        <div className="Food">
-            <Link to={`/food/detail/${contentid}`}>
-                <img src={imageSource} title={title} alt={title} />
-            </Link>
-            <div className="Food-data">
-                <h3 className="Food-title">
-                    <Link to={`/food/detail/${contentid}`}>{title}</Link>
-                </h3>
-                <h5 className="Food-addr"><Link to={`/food/detail/${contentid}`}>{addr1}</Link></h5>
-            </div>
+    // title 글자 수에 따라 클래스네임 설정
+    const titleClassName = title.length > 10 ? 'Food-title-long' : 'Food-title';
 
+    // 상세 페이지 새 창에서 열기
+    const handleFoodClick = () => {
+        const detailedPageURL = `/food/detail/${contentid}`;
+        window.open(detailedPageURL, '_blank');
+    };
+
+    return (
+        <div className="Food" onClick={handleFoodClick}>
+            <img src={imageSource} title={title} alt={title} />
+            <div className="Food-data">
+                <h3 className={titleClassName}>{title}</h3>
+                <h5 className="Food-addr">{addr1}</h5>
+            </div>
         </div>
     )
 }
