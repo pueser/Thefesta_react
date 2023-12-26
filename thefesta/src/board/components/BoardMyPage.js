@@ -65,6 +65,7 @@ const BoardMyPage = () => {
     const fetchData = async () => {
 
         console.log("userID:" + parsedId);
+        
         try {
             const response = await axios.post(`http://localhost:9090/board/userBoard`, {
                 id: parsedId
