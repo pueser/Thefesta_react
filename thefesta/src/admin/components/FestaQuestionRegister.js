@@ -67,17 +67,21 @@ function FestaQuestionRegister (){
         }
 
         e.preventDefault();
-        const formData = new FormData();
+        // const formData = new FormData();
         
-        formData.append('questioncontent', questioncontent)
-        formData.append('id', id);
-        formData.append('contentid', contentid);
-        
+        // formData.append('questioncontent', questioncontent)
+        // formData.append('id', id);
+        // formData.append('contentid', contentid);
+        const data = {
+            questioncontent: questioncontent,
+            id: id,
+            contentid: contentid
+          };
 
         axios({
             method: "post",
             url : 'http://localhost:9090/admin/questionRegister',
-            data: formData,
+            data: data,
         }).then((response)=>{
             console.log(response);
             alert("축제 건의글 등록되었습니다..");
