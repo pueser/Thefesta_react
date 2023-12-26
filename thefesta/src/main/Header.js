@@ -128,7 +128,8 @@ function Header() {
                         </div>
                     </div>
                     <div className='header_logo hover' >
-                        <h1>THE<br />FESTA</h1>
+                        <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
+                        {/* <h1>THE<br />FESTA</h1> */}
                     </div>
                     {loggedIn ? (
                         <>
