@@ -37,6 +37,8 @@ function Header() {
             setSelMenu('scheduler');
         } else if (pathname === '/board') {
             setSelMenu('board');
+        } else if (pathname === '/mypage') {
+            setSelMenu('mypage')
         } else if (pathname === '/login') {
             setSelMenu('login')
         } else if (pathname === '/AgreementPage') {
@@ -59,8 +61,8 @@ function Header() {
             setSelMenu('adminQuestion')
         }
     }, [location.pathname]);
-    
-    
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -110,7 +112,7 @@ function Header() {
         }
     };
 
-    if (getStatecode === "0")  {
+    if (getStatecode === "0") {
         return (
             <H isToggled={isToggled} userToggled={userToggled}>
                 <div className='header'>
@@ -126,55 +128,56 @@ function Header() {
                         </div>
                     </div>
                     <div className='header_logo hover' >
-                        <h1>THE<br />FESTA</h1>
+                        <Link to={'/'}><h1>THE<br />FESTA</h1></Link>
+                        {/* <h1>THE<br />FESTA</h1> */}
                     </div>
-                        {loggedIn ? (
-                            <>
-                                <div className='header_menu hover'>
-                                    <Link to={'/admin/member'}>
-                                        <p className={`menu ${selMenu === 'adminMember' ? 'highlight' : ''}`}>회원</p>
-                                    </Link>
-                                    <Link to={'/admin/report'}>
-                                        <p className={`menu  ${selMenu === 'adminReport' ? 'highlight' : ''}`}>신고</p>
-                                    </Link>
-                                    <Link to={'/admin/festa'}>
-                                        <p className={`menu ${selMenu === 'adminFesta' ? 'highlight' : ''}`}>축제</p>
-                                    </Link>
-                                    <Link to={'/admin/board'}>
-                                        <p className={`menu ${selMenu === 'adminBoard' ? 'highlight' : ''}`}>게시판</p>
-                                    </Link>
-                                    <Link to={'/admin/adminQuestion'}>
-                                        <p className={`menu ${selMenu === 'adminQuestion' ? 'highlight' : ''}`}>문의사항</p>
-                                    </Link>
-                                </div>
-                                <div className='header_member hover'>
-                                    <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className='header_menu hover'>
-                                    <Link to={'/'}>
-                                        <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
-                                    </Link>
-                                    <Link to={'/scheduler'}>
-                                        <p className={`menu  ${selMenu === 'scheduler' ? 'highlight' : ''}`}>스케줄러</p>
-                                    </Link>
-                                    <Link to={'/board'}>
-                                        <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
-                                    </Link>
-                                </div>
-                                <div className='header_member hover'>
-                                    <Link to='/login'>
-                                        <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
-                                    </Link>
-                                    <Link to='/AgreementPage'>
-                                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
-                                    </Link>
-                                </div>
-                            </>
-                            
-                        )}
+                    {loggedIn ? (
+                        <>
+                            <div className='header_menu hover'>
+                                <Link to={'/admin/member'}>
+                                    <p className={`menu ${selMenu === 'adminMember' ? 'highlight' : ''}`}>회원</p>
+                                </Link>
+                                <Link to={'/admin/report'}>
+                                    <p className={`menu  ${selMenu === 'adminReport' ? 'highlight' : ''}`}>신고</p>
+                                </Link>
+                                <Link to={'/admin/festa'}>
+                                    <p className={`menu ${selMenu === 'adminFesta' ? 'highlight' : ''}`}>축제</p>
+                                </Link>
+                                <Link to={'/admin/board'}>
+                                    <p className={`menu ${selMenu === 'adminBoard' ? 'highlight' : ''}`}>게시판</p>
+                                </Link>
+                                <Link to={'/admin/adminQuestion'}>
+                                    <p className={`menu ${selMenu === 'adminQuestion' ? 'highlight' : ''}`}>문의사항</p>
+                                </Link>
+                            </div>
+                            <div className='header_member hover'>
+                                <button type="button" className='adminlogout' onClick={handleLogout} >로그아웃</button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className='header_menu hover'>
+                                <Link to={'/'}>
+                                    <p className={`menu ${selMenu === 'festival' ? 'highlight' : ''}`}>축제</p>
+                                </Link>
+                                <Link to={'/scheduler'}>
+                                    <p className={`menu  ${selMenu === 'scheduler' ? 'highlight' : ''}`}>스케줄러</p>
+                                </Link>
+                                <Link to={'/board'}>
+                                    <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
+                                </Link>
+                            </div>
+                            <div className='header_member hover'>
+                                <Link to='/login'>
+                                    <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
+                                </Link>
+                                <Link to='/AgreementPage'>
+                                    <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                                </Link>
+                            </div>
+                        </>
+
+                    )}
                 </div>
             </H>
         )
@@ -210,8 +213,10 @@ function Header() {
                     <div className='header_member hover'>
                         {loggedIn ? (
                             <>
-                                <Link to='/mypage' className='mypage member loginBtn'>{getNickname}</Link>
-                                <p className='member-logout member joinBtn' onClick={handleLogout}>Logout</p>
+                                <Link to='/mypage'>
+                                    <p className={`member loginBtn ${selMenu === 'mypage' ? 'highlight2' : ''}`}>{getNickname}</p>
+                                </Link>
+                                <p className='member joinBtn' onClick={handleLogout}>Logout</p>
                             </>
                         ) : (
                             <>
@@ -236,12 +241,23 @@ function Header() {
                     <Link to={'/board'}>
                         <p className={`menu ${selMenu === 'board' ? 'highlight' : ''}`}>톡톡</p>
                     </Link>
-                    <Link to='/login'>
-                        <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
-                    </Link>
-                    <Link to='/AgreementPage'>
-                        <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
-                    </Link>
+                    {loggedIn ? (
+                        <>
+                            <Link to='/mypage'>
+                                <p className={`member loginBtn ${selMenu === 'mypage' ? 'highlight2' : ''}`}>{getNickname}</p>
+                            </Link>
+                            <p className='member joinBtn' onClick={handleLogout}>Logout</p>
+                        </>
+                    ) : (
+                        <>
+                            <Link to='/login'>
+                                <p className={`member loginBtn ${selMenu === 'login' ? 'highlight2' : ''}`}>Login</p>
+                            </Link>
+                            <Link to='/AgreementPage'>
+                                <p className={`member joinBtn ${selMenu === 'join' ? 'highlight2' : ''}`}>Join</p>
+                            </Link>
+                        </>
+                    )}
                 </div>
             </H>
         )
