@@ -16,9 +16,9 @@ const BoardMyPage = () => {
         id: ""
     });
 
-    const [currentPagePosts, setCurrentPagePosts] = useState(1);
-    const [currentPageReplies, setCurrentPageReplies] = useState(1);
-    const itemsPerPage = 5;
+    // const [currentPagePosts, setCurrentPagePosts] = useState(1);
+    // const [currentPageReplies, setCurrentPageReplies] = useState(1);
+    // const itemsPerPage = 5;
 
     // // 페이징 처리 함수
     // const paginate = (data, currentPage) => {
@@ -70,15 +70,22 @@ const BoardMyPage = () => {
             const response = await axios.post(`http://localhost:9090/board/userBoard`, {
                 id: parsedId
             });
-    
+            
+            console.log(response);
             setData(response.data.list);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     
         try {
-            const repliesData = await axios.get(`http://localhost:9090/replies/listAll`);
-            setReplies(repliesData.data); // repliesData.data를 사용하여 배열을 설정
+            const repliesData = await axios.post(`http://localhost:9090/replies/userReply`, {
+
+                id: parsedId
+            });
+
+            console.log(repliesData);
+            setReplies(repliesData.data);
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
