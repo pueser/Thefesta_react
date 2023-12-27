@@ -6,6 +6,14 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
   const [brno, setBrno] = useState(-1);
   const [brcontent, setBrcontent] = useState('');
   const navigate = useNavigate();
+  const pageNumReplies = 1;
+  const amount = 10;
+
+  const [pageInfoReplies, setPageInfoReplies] = useState({
+    startPage: 1,
+    endPage: 1,
+    total: 0,
+  });
 
   
   const handleEditClick = () => {
@@ -24,13 +32,17 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
   };
   
   const handleReplyReport = () => {
-    if (user.id != "") {
-      navigate(`/reportpage?brno=${reply.brno}&id=${reply.id}`);
-  } else {
-      alert("로그인이 필요한 기능입니다.")
-      navigate('/login');
+      if (user.id != "") {
+        navigate(`/reportpage?brno=${reply.brno}&id=${reply.id}`);
+    } else {
+        alert("로그인이 필요한 기능입니다.")
+        navigate('/login');
+    }
   }
-  }
+  const handlePageChangeReplies = (pageNumber) => {
+    // 여기에 해당 페이지의 댓글을 불러오는 로직을 추가하세요.(스프링로직구현)
+    // 불러온 데이터를 기반으로 pageInfoReplies와 같은 상태 변수를 업데이트합니다.
+};
   
   return (
     <div key={reply.brno} style={{ display: 'block' }}>

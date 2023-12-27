@@ -28,6 +28,14 @@ const BoardRead = () => {
         type: queryParams.get('type'),
         text: queryParams.get('keyword'),
     })
+    const pageNumReplies = 1;
+    const amount = 10;
+
+    const [pageInfoReplies, setPageInfoReplies] = useState({
+        startPage: 1,
+        endPage: 1,
+        total: 0,
+    });
     
 
     const handleModify = () => {
@@ -201,6 +209,11 @@ const BoardRead = () => {
         }
     };
 
+    const handlePageChangeReplies = (pageNumber) => {
+        // 여기에 해당 페이지의 댓글을 불러오는 로직을 추가하세요.(스프링로직구현)
+        // 불러온 데이터를 기반으로 pageInfoReplies와 같은 상태 변수를 업데이트합니다.
+    };
+
     return (
         <div className="board-read">
             <h2 style={{padding: '10px 20px'}}>톡톡 게시판</h2>
@@ -245,7 +258,24 @@ const BoardRead = () => {
                 handleCommentModify={handleCommentModify}
                 handleCommentDelete={handleCommentDelete}
                 />
-            ))}  
+            ))}
+            <div className="pagination">
+                {pageInfoReplies.startPage !== 1 && (
+                    <button className="pagination-btn" onClick={() => handlePageChangeReplies(pageInfoReplies.startPage - 1)}>
+                    {'<'}
+                    </button>
+                )}
+                {Array.from({ length: pageInfoReplies.endPage - pageInfoReplies.startPage + 1 }, (_, index) => index + pageInfoReplies.startPage).map((page) => (
+                    <button key={page} onClick={() => handlePageChangeReplies(page)} className={page === pageNumReplies ? 'pagination-active' : 'pagination-btn'}>
+                    {page}
+                    </button>
+                ))}
+                {pageInfoReplies.endPage !== Math.ceil(pageInfoReplies.total / amount) && (
+                    <button className="pagination-btn" onClick={() => handlePageChangeReplies(pageInfoReplies.endPage + 1)}>
+                    {'>'}
+                    </button>
+                )}
+            </div> 
             <form onSubmit={handleCommentSubmit} className="commentForm">
                 <div className="commentContainer">
                     <div className="commentHeader">
