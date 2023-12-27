@@ -66,7 +66,7 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
       <div style={{ padding: 20 }}>
         {reply.brno === brno ? (
           // 수정 중일 때는 수정할 수 있는 입력란 표시
-          <input
+          <input style={{Weight:'100%'}}
             type="text"
             name="brcontent"
             value={brcontent}
