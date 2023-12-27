@@ -24,11 +24,9 @@ function MemberReport(props){
                 setMemberReport(response.data)
       
                 console.log("setMemberReport", response)
-                alert("reportcontent 불러오기 성공")
             })
             .catch((error)=>{
               console.log("error", error)
-              alert("reportcontent 불러오기 실패")
             })
     }
 

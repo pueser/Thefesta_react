@@ -45,7 +45,7 @@ function Report() {
         })
         .catch((error)=>{
           console.log("error", error)
-          alert("list 불러오기 실패")
+          //alert("list 불러오기 실패")
         })
   }
   
