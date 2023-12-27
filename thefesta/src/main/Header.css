@@ -32,6 +32,7 @@
 	flex-direction: row;
 	text-align: center;
 	list-style: none;
+	align-items: center;
 }
 
 .menu,
@@ -58,6 +59,11 @@
 
 .joinBtn {
 	margin-left: 30px;
+}
+
+.header_mypage {
+	color: black;
+	line-height: 2;
 }
 
 .joinBtn:hover {
