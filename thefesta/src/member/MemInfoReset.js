@@ -222,7 +222,7 @@ function MemInfoReset() {
           </div>
         </label>
         <label className='MemInfoReset-label-currentPw'>
-          현재 비밀번호
+          현재 비밀번호 
           <input
             className='MemInfoReset-input'
             type="password" 
