@@ -76,7 +76,7 @@ function App() {
           <Route path='/board/register' element={<BoardRegister/>}/>
           <Route path="/board/read" element={<BoardRead/>} />
           <Route path="/board/modify" element={<BoardModify/>}/>
-          <Route path="/board/mypage" element={<BoardMyPage/>}/>
+          <Route path="/member/talktalk" element={<BoardMyPage/>}/>
           <Route path="/reportpage" element={<ReportPage/>}/>
         </Routes>
         <Footer />
