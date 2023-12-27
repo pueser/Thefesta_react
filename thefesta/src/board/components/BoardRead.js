@@ -107,6 +107,9 @@ const BoardRead = () => {
     }
 
     const handleCommentSubmit = async (e) => {
+
+        e.preventDefault();
+
       if (user.id != "") {
 
         try {
@@ -126,7 +129,8 @@ const BoardRead = () => {
               }
           });
           alert("댓글이 등록되었습니다.");
-          console.log(response);
+          fetchPost(boardState.bid);
+          setBrcontent("");
         
       } catch (error) {
           console.error('Error submitting comment:', error);

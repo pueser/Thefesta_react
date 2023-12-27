@@ -86,7 +86,6 @@ const BoardRegister = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
     
         let formsubmit = true;
         let titleMessage = '';
@@ -108,6 +107,7 @@ const BoardRegister = () => {
       validateForm();
   
       if (formsubmit) {
+        e.preventDefault();
           try {
               const formData = new FormData();
               formData.append('bno', boardData.bno);
@@ -122,6 +122,7 @@ const BoardRegister = () => {
                   });
               }
   
+
               const response = await axios.post('http://localhost:9090/board/register', formData, {
                   headers: {
                       'Content-Type': 'application/json',
@@ -149,16 +150,21 @@ const BoardRegister = () => {
           <form onSubmit={handleSubmit}>
             <label>
               게시판 유형:
-              <select
-                className="board-register-select"
-                value={bno}
-                onChange={(e) => setBno(e.target.value)}
-              >
-                <option value={1}>자유게시판</option>
-                <option value={2}>리뷰게시판</option>
-                <option value={3}>문의게시판</option>
-                <option value={10}>기타</option>
-              </select>
+                <select
+                    className="board-register-select"
+                    value={boardData.bno}  // 수정된 부분
+                    onChange={(e) => 
+                    setBoardData((prevData) => ({
+                        ...prevData,
+                        bno: e.target.value  // 수정된 부분
+                    }))
+                    }
+                    >
+                    <option value={1}>자유게시판</option>
+                    <option value={2}>리뷰게시판</option>
+                    <option value={3}>문의게시판</option>
+                    <option value={10}>기타</option>
+                </select>
             </label>
             <div className="board-register-form-group">
               <label className="board-register-label" htmlFor="btitle">제목</label>
