@@ -105,6 +105,7 @@ function MemInfoReset() {
       });
     };
     
+    
     const handleSubmit = () => {
 
       if (userData.nickname.length > 10) {
@@ -180,6 +181,7 @@ function MemInfoReset() {
         console.log(response.data);
           if (response.data === 'success') {
             navigate('/');
+            window.location.reload(true);
           }
         })
         .catch(error => {
