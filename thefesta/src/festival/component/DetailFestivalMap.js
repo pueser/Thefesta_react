@@ -17,8 +17,9 @@ function DetailFestivalMap({ mapx, mapy }) {
       }}
       style={{
         // 지도의 크기
-        width: '100%',
+        width: '60%',
         height: '450px',
+        margin: '0 auto',
       }}
       level={3} // 지도의 확대 레벨
     >
