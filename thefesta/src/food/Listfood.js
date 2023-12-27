@@ -104,7 +104,7 @@ function Listfood({ contentid }) {
         <section className="List-container">
             <div className="List-foods">
                 <div className='List-food-container-top'>
-                    <h1 className='List-food-title'>축제와 함께 즐기는 {areacode.sname} 맛집</h1>
+                    <h1 className='List-food-title'>축제와 함께 즐기는 {areacode ? areacode.sname : ''} 맛집</h1>
                     <button
                         className='List-food-button'
                         onClick={() => setShowMoreFoods(!showMoreFoods)}
