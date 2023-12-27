@@ -37,7 +37,7 @@ function Festival({
   areaCode.map((code) => {
     if (acode === code.acode && scode === code.scode) {
       acode = code.aname;
-      scode = code.scode === 1 ? '' : code.sname;
+      scode = code.acode === 8 && code.scode === 1 ? '' : code.sname;
     }
   });
 

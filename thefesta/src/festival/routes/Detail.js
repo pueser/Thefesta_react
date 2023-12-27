@@ -19,6 +19,7 @@ function Detail() {
   const [festivalInfo, setFestivalInfo] = useState({});
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`/festival/detail/${festival.contentid}`, {
         params: {
@@ -214,8 +215,12 @@ function Detail() {
           </table>
         </div>
         <DetailFestivalMap
-          mapx={festival.mapx ? festival.mapx : festivalInfo.mapx}
-          mapy={festival.mapy ? festival.mapy : festivalInfo.mapy}
+          mapx={
+            (festival && festival.mapx) || (festivalInfo && festivalInfo.mapx)
+          }
+          mapy={
+            (festival && festival.mapy) || (festivalInfo && festivalInfo.mapy)
+          }
         />
         <Listfood contentid={festival.contentid}></Listfood>
         <div className='bar'></div>
