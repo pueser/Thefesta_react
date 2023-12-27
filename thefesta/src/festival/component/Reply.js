@@ -23,7 +23,6 @@ function Reply({
   const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedContent, setEditedContent] = useState(frcontent);
-  const userImg = 'http://192.168.4.40:9090/resources/fileUpload/' + profileImg;
 
   const onClickModify = () => {
     setIsEditMode(true);
@@ -79,7 +78,7 @@ function Reply({
   return (
     <div className='reply'>
       <div className='userInfo'>
-        <img src={userImg} alt={id} className='userImg'></img>
+        <img src={profileImg} alt={id} className='userImg'></img>
         <strong>{nickname}</strong>
       </div>
       {isEditMode ? (
