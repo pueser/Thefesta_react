@@ -18,7 +18,7 @@ function MemInfoReset() {
     password: '',
     rePassword: ''
   });
-  
+  // 
   const [nicknameError, setNicknameError] = useState('');
   const [nicknameCheckResult, setNicknameCheckResult] = useState('');
   const [passwordError1, setPasswordError1] = useState('');
@@ -105,7 +105,6 @@ function MemInfoReset() {
       });
     };
     
-    
     const handleSubmit = () => {
 
       if (userData.nickname.length > 10) {
@@ -121,7 +120,6 @@ function MemInfoReset() {
 
       if (userData.nickname != "") {
         if (nicknameCheckResult != "사용가능한 닉네임입니다.") {
-          setNicknameCheckResult('');
           setNicknameError("*중복체크를 진행해주세요.")
           return;
         }
@@ -182,7 +180,6 @@ function MemInfoReset() {
         console.log(response.data);
           if (response.data === 'success') {
             navigate('/');
-            window.location.reload(true);
           }
         })
         .catch(error => {
@@ -223,7 +220,7 @@ function MemInfoReset() {
           </div>
         </label>
         <label className='MemInfoReset-label-currentPw'>
-          현재 비밀번호 
+          현재 비밀번호
           <input
             className='MemInfoReset-input'
             type="password" 

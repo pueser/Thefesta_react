@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import '../css/Button.css';
-import '../css/Table.css';
+import { useContext, useEffect, useState } from "react";
 import Pagenation from "./Pagenation";
+import { array } from "prop-types";
+import { Link } from "react-router-dom";
+import '../css/Table.css';
+import '../css/Button.css';
+import { Button, NotesContext } from "./MemberDetail";
 
 
 
@@ -70,7 +72,7 @@ function Member() {
         })
         .catch((error)=>{
           console.log("error", error)
-          //alert("list 불러오기 실패")
+          alert("list 불러오기 실패")
 
         })
   }
@@ -82,6 +84,7 @@ function Member() {
      axios .get(`http://localhost:9090/admin/memberList?pageNum=${page}&amount=${amount}`)
         
         .then((response)=> {
+          console.log("response", response)
 
           response.data.list.forEach(element=>{
             let code;
@@ -118,7 +121,7 @@ function Member() {
         })
         .catch((error)=>{
           console.log("error", error)
-          // alert("list 불러오기 실패")
+          alert("list 불러오기 실패")
         })
   }
 

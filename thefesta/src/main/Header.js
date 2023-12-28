@@ -214,7 +214,7 @@ function Header() {
                         {loggedIn ? (
                             <>
                                 <Link to='/mypage'>
-                                    <p className='header_mypage'>{getNickname}</p>
+                                    <p className={`member loginBtn ${selMenu === 'mypage' ? 'highlight2' : ''}`}>{getNickname}</p>
                                 </Link>
                                 <p className='member joinBtn' onClick={handleLogout}>Logout</p>
                             </>
@@ -244,7 +244,7 @@ function Header() {
                     {loggedIn ? (
                         <>
                             <Link to='/mypage'>
-                                <p className='header_mypage'>{getNickname}</p>
+                                <p className={`member loginBtn ${selMenu === 'mypage' ? 'highlight2' : ''}`}>{getNickname}</p>
                             </Link>
                             <p className='member joinBtn' onClick={handleLogout}>Logout</p>
                         </>

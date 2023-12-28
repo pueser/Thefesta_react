@@ -23,12 +23,12 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
   };
   
   const handleReplyReport = () => {
-    if (user.id != "") {
-      navigate(`/reportpage?brno=${reply.brno}&id=${reply.id}`);
-  } else {
-      alert("로그인이 필요한 기능입니다.")
-      navigate('/login');
-  }
+      if (user.id != "") {
+        navigate(`/reportpage?brno=${reply.brno}&id=${reply.id}`);
+    } else {
+        alert("로그인이 필요한 기능입니다.")
+        navigate('/login');
+    }
   }
   
   return (

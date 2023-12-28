@@ -1,8 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import * as ReactDOM from 'react-dom/client';
+import React, { Component, createContext, useEffect, useRef, useState } from "react";
+import { BrowserRouter, Link, Route, Routes, useLocation, useNavigation, useParams } from "react-router-dom";
 import MemberSelectBox from "./MemberSelectBox";
 import Pagenation from "./Pagenation";
+import Member from "./Member";
+import App from "../../App";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -49,7 +53,6 @@ function MemberDetail(){
   
   //회원 상세페이지 get
   const getMemberrDetail = async() =>{
-    console.log("memberDetail : ", memberDetail)
   await axios
       .get(`http://localhost:9090/admin/memberDetail?id=${id}&pageNum=${curPage}&amount=${amount}`)
       
@@ -89,6 +92,7 @@ function MemberDetail(){
       })
       .catch((error)=>{
         console.log("error", error)
+        //alert("list 불러오기 실패")
       })
   }
 
@@ -135,6 +139,7 @@ function MemberDetail(){
       })
       .catch((error)=>{
         console.log("error", error)
+        //alert("list 불러오기 실패")
       })
   }
 
@@ -177,7 +182,6 @@ function MemberDetail(){
       ).then((response) => {
           console.log(response.data[0])
           alert("변경사항이 저장되었습니다.")
-          navigate(-1);
           
       })
       .catch((error)=>{
@@ -186,6 +190,7 @@ function MemberDetail(){
     })
   }
 
+  
 
 
 //승인 버튼 누렀을 때 alert 창
@@ -199,6 +204,19 @@ const confirmAction = (data) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+// const container = document.getElementById('adminroot')
+
+
 //회원 승인 버튼 눌렀을 때(신고누적 4회)
 const noConfirm = (data) =>{
   axios.post(`http://localhost:9090/admin/memberReportnumCnt?id=${data.reported}&reportid=${data.reportid}`, {
@@ -206,6 +224,7 @@ const noConfirm = (data) =>{
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
     
+    // ReactDOM.createRoot(container).render(<BrowserRouter><MemberDetail/></BrowserRouter>);
     navigate(-1);
 
 
@@ -259,9 +278,14 @@ const approveClick = (data)=>{
       }else{
         onConfirm(data);
       }
+
+      alert(response.data)
+      
+      
       
     }).catch((error)=>{
       console.log("error", error.data)
+      alert(error.data)
     })
 }
 
@@ -269,33 +293,35 @@ const approveClick = (data)=>{
   //신고글 삭제
   function deleteClick(data){
     console.log("삭제할 reportid = ", data)
+
     const deleteListArray = 
-    memberDetail&&memberDetail.map((item)=>{
-      if(item.reportid === data.reportid) {
+    memberDetail.list&&memberDetail.list.map((item)=>{
+      if(item.reportid === data) {
         return -1
       }else{   
         return item
       }
     }).filter((item) => item !== -1);
-    setMemberDetail(deleteListArray)
-   
+    setMemberDetail({list : deleteListArray, pageMaker : memberDetail.pageMaker})
+      
       axios.post(`http://localhost:9090/admin/memberReportDelete?reportid=${data}`, {
         }).then((response)=>{
           console.log(response);
-          getMemberrDetail();
+          alert(response.data)
   
         }).catch((error)=>{
           console.log(error)
-          alert("신고글이 삭제되지 않았습니다. 해당 업체에 문의바랍니다.")
+          alert(error.data)
       })
   }
-  console.log("memberDetail = ", memberDetail)
+  console.log("setMemberDetail = ", memberDetail)
   return(
-    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}}>
+    <div className="adminMain" style={{marginBottom: '12px', marginTop: '20px'}} id="adminroot">
       <div className="adminDetailMemeberDisplay">
           <div className="adminDetailReportLeft">
               <div style={{textAlign: 'left' ,marginBottom: '5px'}}><span style={{fontWeight: 'bold'}}>신고대상</span> : {id}</div>
               <span style={{marginRight: '5px', textAlign: 'left'}}><span style={{fontWeight: 'bold'}}>회원상태</span> : <MemberSelectBox  defaultValue={statecodeChange} stateCode={statecode} statecodeChange={StateChange} ></MemberSelectBox></span>
+              <span style={{marginRight: '5px', textAlign: 'left'}}><span style={{fontWeight: 'bold'}}>강퇴누적</span> : {reportnum} 번 </span>
               <span><span style={{fontWeight: 'bold'}}>최근 접속일</span> : {finalaccess}</span>
           </div>
           <div className="adminDetailOut"><Link to='/admin/member' className="adminLinkBtn">X</Link></div>

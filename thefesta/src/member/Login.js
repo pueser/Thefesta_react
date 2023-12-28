@@ -64,7 +64,7 @@ function Login() {
         document.getElementById('idInput').style.borderColor = 'red';
         return;
       }
-
+// 
       if (idCheck == '') {
         setIdError('*미가입 된 아이디입니다. 회원가입 후 로그인해주세요.')
         setPasswordError('')

@@ -97,49 +97,47 @@ function Listfood({ contentid }) {
     };
   }, []);
 
-  return (
-    <section className='List-container'>
-      <div className='List-foods'>
-        <div className='List-food-container-top'>
-          <h1 className='List-food-title'>
-            축제와 함께 즐기는 {areacode.sname} 맛집
-          </h1>
-          <button
-            className='List-food-button'
-            onClick={() => setShowMoreFoods(!showMoreFoods)}
-            title={showMoreFoods ? '숨기기' : '더보기'}
-          >
-            {showMoreFoods ? '▲' : '▼'}
-          </button>
-        </div>
-        <div className='List-food-container-bottom'>
-          {foods.slice(0, showMoreFoods ? foods.length : 3).map((food) => (
-            <Food
-              key={food.contentid}
-              contentid={food.contentid}
-              title={food.title}
-              addr1={food.addr1}
-              firstimage2={food.firstimage2}
-            />
-          ))}
-        </div>
-        {showMoreFoods && (
-          <div>
-            <Pagenation
-              page={curPage}
-              startPage={startPage}
-              endPage={endPage}
-              curPageChange={curPageChange}
-              total={total}
-              next={next}
-              prev={prev}
-              amount={amount}
-            />
-          </div>
-        )}
-      </div>
-    </section>
-  );
+    return (
+        <section className="List-container">
+            <div className="List-foods">
+                <div className='List-food-container-top'>
+                    <h1 className='List-food-title'>축제와 함께 즐기는 {areacode.sname} 맛집</h1>
+                    <button
+                        className='List-food-button'
+                        onClick={() => setShowMoreFoods(!showMoreFoods)}
+                        title={showMoreFoods ? "숨기기" : "더보기"}
+                    >
+                        {showMoreFoods ? "▲" : "▼"}
+                    </button>
+                </div>
+                <div className="List-food-container-bottom">
+                    {foods.slice(0, showMoreFoods ? foods.length : 3).map((food) => (
+                        <Food
+                            key={food.contentid}
+                            contentid={food.contentid}
+                            title={food.title}
+                            addr1={food.addr1}
+                            firstimage2={food.firstimage2}
+                        />
+                    ))}
+                </div>
+                {showMoreFoods && (
+                    <div>
+                        <Pagenation
+                            page={curPage}
+                            startPage={startPage}
+                            endPage={endPage}
+                            curPageChange={curPageChange}
+                            total={total}
+                            next={next}
+                            prev={prev}
+                            amount={amount}
+                        />
+                    </div>
+                )}
+            </div>
+        </section>
+    )
 }
 
 export default Listfood;

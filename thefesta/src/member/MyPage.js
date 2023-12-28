@@ -61,7 +61,7 @@ function MyPage() {
       console.log(profileImg)
 
         if (profileImg) {
-          
+          // 
           setTimeout(() => {
             setImageUrl(profileImg);
           }, 4000);
