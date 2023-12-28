@@ -110,7 +110,7 @@ const BoardRegister = () => {
       if (formsubmit) {
           try {
               const formData = new FormData();
-              formData.append('bno', boardData.bno);
+              formData.append('bno', bno);
               formData.append('btitle', boardData.btitle);
               formData.append('bcontent', boardData.bcontent);
               formData.append('nickname', user.nickname);
