@@ -20,7 +20,7 @@ function PwReset() {
     verificationCode: '',
     rePassword: '',
   });
-
+// 저장
   useEffect(() => {
     console.log(userData);
   }, [userData]);

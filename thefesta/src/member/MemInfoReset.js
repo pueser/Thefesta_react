@@ -18,7 +18,7 @@ function MemInfoReset() {
     password: '',
     rePassword: ''
   });
-  
+  // 
   const [nicknameError, setNicknameError] = useState('');
   const [nicknameCheckResult, setNicknameCheckResult] = useState('');
   const [passwordError1, setPasswordError1] = useState('');
