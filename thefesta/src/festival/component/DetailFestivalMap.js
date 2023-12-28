@@ -1,5 +1,5 @@
 import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
-
+//
 function DetailFestivalMap({ mapx, mapy }) {
   console.log('DetailFestivalMap mapx', mapx);
   console.log('DetailFestivalMap mapy', mapy);

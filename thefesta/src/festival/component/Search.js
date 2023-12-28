@@ -20,7 +20,7 @@ function Search({ pageMaker, handleSearch }) {
       handleSearch(1, keyword);
     }
   };
-
+  //
   return (
     <div className='search'>
       <form method='get' action='/festival/list' className='searchForm'>

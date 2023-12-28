@@ -40,7 +40,7 @@ function Like({ contentid }) {
     );
     return likedStatus || false;
   };
-
+  //
   // 좋아요 상태 로컬 스토리지에 저장
   const setLikedStatusToLocalStorage = (userId, contentid, status) => {
     localStorage.setItem(`likedStatus_${userId}_${contentid}`, status);
