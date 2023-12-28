@@ -7,7 +7,8 @@
 .List-foods {
     margin-left: 10px;
     font-size: 1.1em;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .List-food-container-top {
@@ -17,7 +18,7 @@
 
 .List-food-title {
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 10px;
 }
 
@@ -28,7 +29,7 @@
     border: none;
     text-align: center;
     font-size: 16px;
-    padding-top: 10px;
+    padding-bottom: 5px;
     color: rgb(49, 49, 49);
     cursor: pointer;
 }

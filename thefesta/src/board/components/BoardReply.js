@@ -9,7 +9,6 @@ const BoardReply = ({ reply, user, handleCommentModify, handleCommentDelete, han
 
   
   const handleEditClick = () => {
-    setBrcontent(reply.brcontent)
     setBrno(reply.brno);
   };
 

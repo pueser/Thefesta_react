@@ -6,15 +6,6 @@
   margin: 0;
 }
 
-.likeList {
-  display: flex;
-  justify-content: center;
-}
-
-.likelistDiv {
-  width: 80%;
-}
-
 .likeListTitle {
   display: flex;
   flex-direction: column;

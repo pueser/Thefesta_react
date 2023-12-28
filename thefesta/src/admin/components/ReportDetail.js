@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useHistory } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import '../css/DetailContent.css';
 import '../css/Button.css';
 
@@ -33,7 +33,7 @@ import '../css/Button.css';
         }).then((response)=> {
             console.log("response", response.data)
             alert(`${response.data}번 승인 되었습니다. 해당 회원 상세페이지에서 확인 가능 합니다.`)
-            navigate(-2)
+            navigate('/report')
 
         }).catch((error)=>{
             console.log("error", error.data)
@@ -46,7 +46,7 @@ import '../css/Button.css';
         }).then((response)=>{
             console.log(response);
             alert(`${response.data}번 반려 되었습니다`)
-            navigate(-2)
+            navigate('/report')
 
         }).catch((error)=>{
             console.log(error)
