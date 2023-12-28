@@ -8,6 +8,11 @@ function ReplySection({ contentid, handleReplySubmit, userInfo }) {
   const loginInfo = loginInfoString ? JSON.parse(loginInfoString) : '';
   const [content, setContent] = useState('');
 
+  const userProfileImg = (userImg) => {
+    const imgUrl = 'http://192.168.4.40:9090/resources/fileUpload/' + userImg;
+    return imgUrl;
+  };
+
   const handleContent = async (e) => {
     setContent(e.target.value);
   };
@@ -46,7 +51,7 @@ function ReplySection({ contentid, handleReplySubmit, userInfo }) {
       <div className='replyUser'>
         {loginInfoString ? (
           <img
-            src={userInfo.profileImg}
+            src={userProfileImg(userInfo.profileImg)}
             alt={userInfo.id}
             className='userImg'
           ></img>

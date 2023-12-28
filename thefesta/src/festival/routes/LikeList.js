@@ -81,32 +81,38 @@ function LikeList() {
 
   return (
     <div className='likeList'>
-      <h1 className='likeListTitle'>좋아요</h1>
-      <div className='totalAndCheck'>
-        <input type='checkbox' onChange={handleSelectAll} checked={selectAll} />
-        <p>총 {pageMaker.total}건</p>
+      <div className='likelistDiv'>
+        <h1 className='likeListTitle'>좋아요</h1>
+        <div className='totalAndCheck'>
+          <input
+            type='checkbox'
+            onChange={handleSelectAll}
+            checked={selectAll}
+          />
+          <p>총 {pageMaker.total}건</p>
+        </div>
+        <hr className='likeListHr' />
+        {likeList.map((like) => (
+          <UserLike
+            key={like.lno}
+            lno={like.lno}
+            title={like.title}
+            contentid={like.contentid}
+            firstimage={like.firstimage}
+            selected={like.selected}
+            onCheckboxChange={handleCheckboxChange}
+          />
+        ))}
+        <div className='likeListBtn'>
+          <button type='button' onClick={handleSelectAll}>
+            전체선택
+          </button>
+          <button type='button' onClick={handleDeleteSelected}>
+            삭제
+          </button>
+        </div>
+        <Pagination pageMaker={pageMaker} handlePageChange={handlePageChange} />
       </div>
-      <hr className='likeListHr' />
-      {likeList.map((like) => (
-        <UserLike
-          key={like.lno}
-          lno={like.lno}
-          title={like.title}
-          contentid={like.contentid}
-          firstimage={like.firstimage}
-          selected={like.selected}
-          onCheckboxChange={handleCheckboxChange}
-        />
-      ))}
-      <div className='likeListBtn'>
-        <button type='button' onClick={handleSelectAll}>
-          전체선택
-        </button>
-        <button type='button' onClick={handleDeleteSelected}>
-          삭제
-        </button>
-      </div>
-      <Pagination pageMaker={pageMaker} handlePageChange={handlePageChange} />
     </div>
   );
 }
