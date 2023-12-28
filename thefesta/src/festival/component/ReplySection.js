@@ -12,7 +12,7 @@ function ReplySection({ contentid, handleReplySubmit, userInfo }) {
     const imgUrl = 'http://192.168.4.40:9090/resources/fileUpload/' + userImg;
     return imgUrl;
   };
-
+  //
   const handleContent = async (e) => {
     setContent(e.target.value);
   };

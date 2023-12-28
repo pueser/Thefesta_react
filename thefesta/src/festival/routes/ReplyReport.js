@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './ReplyReport.css';
-
+//
 function ReplyReport() {
   const location = useLocation();
   const navigate = useNavigate();

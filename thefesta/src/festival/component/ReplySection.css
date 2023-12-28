@@ -69,7 +69,7 @@
   background-position: center center;
   border-radius: 50%;
 }
-
+/*  */
 @media screen and (max-width: 1000px) {
   .replyForm {
     height: 160px;

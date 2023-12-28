@@ -12,7 +12,7 @@ const SimpleSlider = ({ images }) => {
       prevSlide === 0 ? Math.min(imageArray.length - 1, 9) : prevSlide - 1
     );
   };
-
+  //
   const goToNextSlide = () => {
     setCurrentSlide((prevSlide) =>
       prevSlide === Math.min(imageArray.length - 1, 9) ? 0 : prevSlide + 1

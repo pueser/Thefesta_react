@@ -17,7 +17,7 @@ function Main() {
   useEffect(() => {
     fetchData();
   }, [pageNum, keyword]);
-
+  //
   const fetchData = (page, key) => {
     axios
       .get(`/festival/list`, {
