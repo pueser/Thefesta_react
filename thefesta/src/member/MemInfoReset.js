@@ -121,6 +121,7 @@ function MemInfoReset() {
 
       if (userData.nickname != "") {
         if (nicknameCheckResult != "사용가능한 닉네임입니다.") {
+          setNicknameCheckResult('');
           setNicknameError("*중복체크를 진행해주세요.")
           return;
         }
