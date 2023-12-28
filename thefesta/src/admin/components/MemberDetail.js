@@ -205,8 +205,7 @@ const noConfirm = (data) =>{
   }).then((response)=> {
     console.log("response", response.data)
     alert(`${response.data}번 신고글이 승인 되었습니다.`)
-    
-    navigate(-1);
+    window.location.reload();
 
 
   }).catch((error)=>{
@@ -282,6 +281,7 @@ const approveClick = (data)=>{
       axios.post(`http://localhost:9090/admin/memberReportDelete?reportid=${data}`, {
         }).then((response)=>{
           console.log(response);
+          alert(`${data}번이 삭제되었습니다.`)
           getMemberrDetail();
   
         }).catch((error)=>{
@@ -318,7 +318,7 @@ const approveClick = (data)=>{
               (item, idx)=>(
                 <tr key={idx}>
                   <td>{item.reportid}</td>
-                  <td ><Link to={{ pathname:`/admin/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength">{item.reportcontent}</Link></td>
+                  <td ><Link to={{ pathname:`/admin/memberReport/${item.reportid}`}} state={{ id: id, statecode:statecode}} className="adminLinkBtn" id="adminTableContentLength" >{item.reportcontent}</Link></td>
                   <td>{item.reporter}</td>
                   <td>{item.reportnumber}</td>
                   <td>{item.reportdate}</td>

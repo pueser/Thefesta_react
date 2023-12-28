@@ -11,31 +11,23 @@ const BoardMyPage = () => {
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
     const id = Cookies.get('loginInfo');
     const parsedId = id ? JSON.parse(id) : '';
+    const pageNumPosts = 1;
+    const pageNumReplies = 1;
+    const amount = 10;
     const [user, setUser] = useState({
         nickname: "",  // 사용자의 닉네임 또는 로그인 정보를 가져와서 설정
         id: ""
     });
-
-    const [currentPagePosts, setCurrentPagePosts] = useState(1);
-    const [currentPageReplies, setCurrentPageReplies] = useState(1);
-    const itemsPerPage = 5;
-
-    // // 페이징 처리 함수
-    // const paginate = (data, currentPage) => {
-    //     const startIndex = (currentPage - 1) * itemsPerPage;
-    //     const endIndex = startIndex + itemsPerPage;
-    //     return data.slice(startIndex, endIndex);
-    // };
-
-    // // 게시글 필터링 및 페이징 처리
-    // const filteredPosts = data.filter(item => user.id === item.id);
-    // const totalPagesPosts = Math.ceil(filteredPosts.length / itemsPerPage);
-    // const currentPosts = paginate(filteredPosts, currentPagePosts);
-
-    // // 댓글 필터링 및 페이징 처리
-    // const userReplies = replies.filter(reply => reply.id === user.id);
-    // const totalPagesReplies = Math.ceil(userReplies.length / itemsPerPage);
-    // const currentReplies = paginate(userReplies, currentPageReplies);
+    const [pageInfoPosts, setPageInfoPosts] = useState({
+        startPage: 1,
+        endPage: 1,
+        total: 0,
+    });
+    const [pageInfoReplies, setPageInfoReplies] = useState({
+        startPage: 1,
+        endPage: 1,
+        total: 0,
+    });
 
     useEffect(() => {
         if (data.length === 0) {
@@ -70,15 +62,22 @@ const BoardMyPage = () => {
             const response = await axios.post(`http://localhost:9090/board/userBoard`, {
                 id: parsedId
             });
-    
+            
+            console.log(response);
             setData(response.data.list);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     
         try {
-            const repliesData = await axios.get(`http://localhost:9090/replies/listAll`);
-            setReplies(repliesData.data); // repliesData.data를 사용하여 배열을 설정
+            const repliesData = await axios.post(`http://localhost:9090/replies/userReply`, {
+
+                id: parsedId
+            });
+
+            console.log(repliesData);
+            setReplies(repliesData.data);
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -97,6 +96,17 @@ const BoardMyPage = () => {
         } catch (error) {
             console.error('Error updating view count:', error);
         }
+    };
+
+    // 페이지 변경을 처리하는 함수를 선언합니다.
+    const handlePageChangePosts = (pageNumber) => {
+        // 여기에 해당 페이지의 게시글을 불러오는 로직을 추가하세요.(스프링로직구현)
+        // 불러온 데이터를 기반으로 pageInfoPosts와 같은 상태 변수를 업데이트합니다.
+    };
+    
+    const handlePageChangeReplies = (pageNumber) => {
+        // 여기에 해당 페이지의 댓글을 불러오는 로직을 추가하세요.(스프링로직구현)
+        // 불러온 데이터를 기반으로 pageInfoReplies와 같은 상태 변수를 업데이트합니다.
     };
 
 
@@ -133,6 +143,23 @@ const BoardMyPage = () => {
                         </tbody>
                     </table>
                 </div>
+                <div className="pagination">
+                    {pageInfoPosts.startPage !== 1 && (
+                        <button className="pagination-btn" onClick={() => handlePageChangePosts(pageInfoPosts.startPage - 1)}>
+                        {'<'}
+                        </button>
+                    )}
+                    {Array.from({ length: pageInfoPosts.endPage - pageInfoPosts.startPage + 1 }, (_, index) => index + pageInfoPosts.startPage).map((page) => (
+                        <button key={page} onClick={() => handlePageChangePosts(page)} className={page === pageNumPosts ? 'pagination-active' : 'pagination-btn'}>
+                        {page}
+                        </button>
+                    ))}
+                    {pageInfoPosts.endPage !== Math.ceil(pageInfoPosts.total / amount) && (
+                        <button className="pagination-btn" onClick={() => handlePageChangePosts(pageInfoPosts.endPage + 1)}>
+                        {'>'}
+                        </button>
+                    )}
+                </div>
             </div>
     
             {/* 내가 쓴 댓글 */}
@@ -157,6 +184,23 @@ const BoardMyPage = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className="pagination">
+                    {pageInfoReplies.startPage !== 1 && (
+                        <button className="pagination-btn" onClick={() => handlePageChangeReplies(pageInfoReplies.startPage - 1)}>
+                        {'<'}
+                        </button>
+                    )}
+                    {Array.from({ length: pageInfoReplies.endPage - pageInfoReplies.startPage + 1 }, (_, index) => index + pageInfoReplies.startPage).map((page) => (
+                        <button key={page} onClick={() => handlePageChangeReplies(page)} className={page === pageNumReplies ? 'pagination-active' : 'pagination-btn'}>
+                        {page}
+                        </button>
+                    ))}
+                    {pageInfoReplies.endPage !== Math.ceil(pageInfoReplies.total / amount) && (
+                        <button className="pagination-btn" onClick={() => handlePageChangeReplies(pageInfoReplies.endPage + 1)}>
+                        {'>'}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
