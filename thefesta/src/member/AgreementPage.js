@@ -17,7 +17,7 @@ function AgreementPage() {
         setServiceAgreement(newValue);
         setPrivacyAgreement(newValue);
     };
-
+// 
     const handleServiceAgreementChange = () => {
         setServiceAgreement(!serviceAgreement);
         

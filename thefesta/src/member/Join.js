@@ -339,7 +339,7 @@ const codeCheckSubmit = () => {
       .catch(error => {
         console.error('Error:', error);
       });
-        
+        // 
     } else if (String(statecode) == "undefined") {
         axios.post('http://localhost:9090/member/joinPost', userData)
         .then(response => {
