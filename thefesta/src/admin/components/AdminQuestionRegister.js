@@ -11,7 +11,7 @@ function AdminQuestionRegister (){
     const [adminQuestioncontentlength, setAdminQuestioncontentlength] = useState("0");
     const [adminId, setAdminId] = useState("");//관리자 아이디 저장
     const [adminNickname, setAdminNickname] = useState("")// 관리자 닉네임 저장
-    const message = "건의글 등록을 취소하시겠습니까?";
+    const message = "문의답변 등록을 취소하시겠습니까?";
     const navigate = useNavigate();
 
     useEffect(() => {

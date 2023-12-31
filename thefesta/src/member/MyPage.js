@@ -27,7 +27,7 @@ function MyPage() {
         const memData = response.data;
         setNickname(memData.nickname);
         if (memData.profileImg) {
-          const profileImg = "http://192.168.4.44:9090/resources/fileUpload/" + memData.profileImg
+          const profileImg = "http://localhost:9090/resources/fileUpload/" + memData.profileImg
           console.log("profileImg =>", profileImg);
           setImageUrl(profileImg);
         }
@@ -57,7 +57,7 @@ function MyPage() {
       });
 
       const profile = response.data;
-      const profileImg = "http://192.168.4.44:9090/resources/fileUpload/" + profile
+      const profileImg = "http://localhost:9090/resources/fileUpload/" + profile
       console.log(profileImg)
 
         if (profileImg) {

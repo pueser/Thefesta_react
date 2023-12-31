@@ -32,6 +32,7 @@ import BoardRegister from "./board/components/BoardRegister";
 import BoardModify from "./board/components/BoardModify";
 import ReportPage from "./board/components/ReportPage";
 import BoardMyPage from "./board/components/BoardMyPage";
+import AdminQuestionDetail from './admin/components/AdminQuestionDetail';
 
 function App() {
   return (
@@ -62,37 +63,20 @@ function App() {
           <Route path='/admin/festa' element={<Festa />} />
           <Route path='/admin/board' element={<Board />} />
           <Route path='/admin/memberDetail/:id' element={<MemberDetail />} />
-          <Route
-            path='/admin/memberReport/:reportid'
-            element={<MemberReport />}
-          />
-          <Route
-            path='/admin/reportDetail/:reportid'
-            element={<ReportDetail />}
-          />
-          <Route
-            path='/admin/festaQuestion/:contentid'
-            element={<FestaQuestion />}
-          />
-          <Route
-            path='/admin/festaQuestionDetail/:contentid'
-            element={<FestaQuestionDetail />}
-          />
-          <Route
-            path='/admin/festaQuestionRegister'
-            element={<FestaQuestionRegister />}
-          />
+          <Route path='/admin/memberReport/:reportid' element={<MemberReport />}/>
+          <Route path='/admin/reportDetail/:reportid'element={<ReportDetail />}/>
+          <Route path='/admin/festaQuestion/:contentid' element={<FestaQuestion />}/>
+          <Route path='/admin/festaQuestionDetail/:contentid'element={<FestaQuestionDetail />}/>
+          <Route path='/admin/festaQuestionRegister'element={<FestaQuestionRegister />}/>
           <Route path='/admin/adminQuestion' element={<AdminQuestion />} />
-          <Route
-            path='/admin/adminQuestionRegister'
-            element={<AdminQuestionRegister />}
-          />
+          <Route path='/admin/adminQuestionRegister'element={<AdminQuestionRegister />}/>
+          <Route path='/admin/adminQuestionDetail'element={<AdminQuestionDetail />}/>
 
           <Route path='/board' element={<BoardPage/>}/>
           <Route path='/board/register' element={<BoardRegister/>}/>
           <Route path="/board/read" element={<BoardRead/>} />
           <Route path="/board/modify" element={<BoardModify/>}/>
-          <Route path="/board/mypage" element={<BoardMyPage/>}/>
+          <Route path="/member/talktalk" element={<BoardMyPage/>}/>
           <Route path="/reportpage" element={<ReportPage/>}/>
         </Routes>
         <Footer />

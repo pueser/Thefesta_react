@@ -124,7 +124,7 @@ console.log("adminQuestionList = ", adminQuestionList)
                         <tr key={idx} >
                             <td >{item.bid}</td>
                             <td><span id="adminTableContentLengthQuestion">{item.btitle}</span></td>
-                            <td><span id="adminTableContentLengthQuestion">{item.bcontent}</span></td>
+                            <td><Link to={'/admin/adminQuestionDetail'} state={{bid: item.bid, id:item.id, bcontent:item.bcontent}} className="adminLinkBtn"><span id="adminTableContentLengthQuestion">{item.bcontent}</span></Link></td>
                             <td>{item.id}</td>
                             <td>{item.bregist}</td>
                             <td id="adminBtntd2"><button className="adminRgister-button"><Link to={'/admin/adminQuestionRegister'} state={{bid: item.bid, id:item.id}} className="adminLinkBtn" >답변하기</Link></button></td>

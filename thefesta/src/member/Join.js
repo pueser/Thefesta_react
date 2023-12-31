@@ -289,6 +289,11 @@ const codeCheckSubmit = () => {
       return;
     }
 
+    if (verificationCodeError != "인증이 완료되었습니다.") {
+      setVerificationCodeError('*인증번호 확인을 진행해주세요.');
+      return;
+    }
+
     if (!userData.password.trim()) {
       setPasswordError('*사용할 비밀번호를 입력해주세요.');
       return;
