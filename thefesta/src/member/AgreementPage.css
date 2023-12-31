@@ -1,0 +1,123 @@
+.AgreementPage-container2 {
+    width: 80%;
+    display: flex;
+    margin: 88px auto 10px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+.button-container {
+    width: 80%;
+    margin: 20px auto 60px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+ /*  */
+.Agreement-ok {
+    font-size: 17px;
+    width: 300px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.Agreement-section1 {
+    width: 350px;
+    height: 100px;
+    border: 1px solid #000;
+    overflow: auto;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+.Agreement-section2 {
+    width: 350px;
+    height: 100px;
+    border: 1px solid #000;
+    overflow: auto;
+    word-wrap: break-word;
+    text-align: left;
+  }
+
+.agreement {
+    width: 355px;
+    text-align: left;
+}
+
+.Agreement-text {
+    width: 355px;
+    text-align: left;
+    color: #cccccc;
+    font-size: 10px;
+}
+
+.agreement-label1 {
+    width: 355px;
+}
+
+.agreement-label2 {
+    width: 355px;
+    margin-bottom: 5px;
+}
+
+.agreement-label3 {
+    width: 355px;
+    margin-bottom: 5px;
+}
+
+.Agreement-b2 {
+    margin-right: 13px;
+}
+
+.Agreement-b3 {
+    margin-right: 17px;
+}
+
+.Agreement-b1 {
+    margin-right: 20px;
+}
+
+.Agreement-check1 {
+    margin-left: 97px;
+}
+
+.Agreement-check2 {
+    margin-left: 186px;
+}
+
+.Agreement-check3 {
+    margin-left: 145px;
+}
+
+.Agreement-button {
+    width: 70px;
+    height: 41.5px;
+    margin: 0 3px 0 3px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.Agreement-button:hover {
+    background-color: black;
+    color: white;
+  }
+
+.Agreement-cencel-button {
+    width: 70px;
+    height: 41.5px;
+    color: #FF4949;
+    border: 2px solid #FF4949;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.Agreement-cencel-button:hover {
+    background-color: #FF4949;
+    color: white;
+  }
+  

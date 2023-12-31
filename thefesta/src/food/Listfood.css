@@ -1,0 +1,64 @@
+.List-container {
+    width: 100%;
+    margin: 0 auto;
+    font-family: 'noto sans kr', sans-serif;
+}
+
+.List-foods {
+    margin-left: 10px;
+    font-size: 1.1em;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.List-food-container-top {
+    display: flex;
+    align-items: center;
+}
+
+.List-food-title {
+    font-weight: 500;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.List-food-button {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(0, 0, 0, 0%);
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    padding-bottom: 5px;
+    color: rgb(49, 49, 49);
+    cursor: pointer;
+}
+
+.List-food-container-bottom {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* 768px 이하를 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* 768px보다 큰 화면을 위한 미디어 쿼리 */
+@media (min-width: 769px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 1024px보다 큰 화면을 위한 미디어 쿼리 */
+@media (min-width: 1024px) {
+    .List-food-container-bottom {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

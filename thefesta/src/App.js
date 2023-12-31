@@ -1,23 +1,87 @@
-import logo from './logo.svg';
-import Header from "./common/Header";
-import Footer from "./common/Footer";
-import List from './food/List';
-import Detailfood from './food/Detailfood';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './food/Login';
+import AdminQuestion from './admin/components/AdminQuestion';
+import AdminQuestionRegister from './admin/components/AdminQuestionRegister';
+import Board from './admin/components/Board';
+import Festa from './admin/components/Festa';
+import FestaQuestion from './admin/components/FestaQuestion';
+import FestaQuestionDetail from './admin/components/FestaQuestionDetail';
+import FestaQuestionRegister from './admin/components/FestaQuestionRegister';
+import Member from './admin/components/Member';
+import MemberDetail from './admin/components/MemberDetail';
+import MemberReport from './admin/components/MemberReport';
+import Report from './admin/components/Report';
+import ReportDetail from './admin/components/ReportDetail';
+import Detail from './festival/routes/Detail';
+import LikeList from './festival/routes/LikeList';
+import ReplyReport from './festival/routes/ReplyReport';
+import Detailfood from './food/Detailfood';
+import Footer from './main/Footer';
+import Header from './main/Header';
+import Main from './main/Main';
+import AgreementPage from './member/AgreementPage';
+import Join from './member/Join';
+import Login from './member/Login';
+import MemInfoReset from './member/MemInfoReset';
+import MyPage from './member/MyPage';
+import PwReset from './member/PwReset';
+import Withdrawal from './member/Withdrawal';
+import Scheduler from './scheduler/scheduler';
+import BoardPage from "./board/BoardPage";
+import BoardRead from "./board/components/BoardRead";
+import BoardRegister from "./board/components/BoardRegister";
+import BoardModify from "./board/components/BoardModify";
+import ReportPage from "./board/components/ReportPage";
+import BoardMyPage from "./board/components/BoardMyPage";
+import AdminQuestionDetail from './admin/components/AdminQuestionDetail';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/food/list' element={<List />} />
-        <Route path='/food/detail/:contentid' element={<Detailfood />} />
-        <Route path='/member/loginPost' element={<Login />} />
-        <Route path='/*' element={<List />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div id='adminapp'>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/festival/:pageNum/:keyword?' element={<Main />} />
+          <Route path='/login' element={<Login />} />   
+          <Route path='/AgreementPage' element={<AgreementPage />} />   
+          <Route path='/join' element={<Join />} />
+          <Route path='/pwreset' element={<PwReset />} />
+          <Route path='/mypage' element={<MyPage />} />
+          <Route path='/withdrawal' element={<Withdrawal />} />
+          <Route path='/MemInfoReset' element={<MemInfoReset />} />
+          <Route
+            path='/festival/detail/:contentid/:page?'
+            element={<Detail />}
+          />
+          <Route path='/festival/replyReport' element={<ReplyReport />} />
+          <Route path='/food/detail/:contentid' element={<Detailfood />} />
+          <Route path='/scheduler' element={<Scheduler />} />
+          <Route path='/member/likeList/:id' element={<LikeList />} />
+
+          <Route path='/admin/member' element={<Member />} />
+          <Route path='/admin/report' element={<Report />} />
+          <Route path='/admin/festa' element={<Festa />} />
+          <Route path='/admin/board' element={<Board />} />
+          <Route path='/admin/memberDetail/:id' element={<MemberDetail />} />
+          <Route path='/admin/memberReport/:reportid' element={<MemberReport />}/>
+          <Route path='/admin/reportDetail/:reportid'element={<ReportDetail />}/>
+          <Route path='/admin/festaQuestion/:contentid' element={<FestaQuestion />}/>
+          <Route path='/admin/festaQuestionDetail/:contentid'element={<FestaQuestionDetail />}/>
+          <Route path='/admin/festaQuestionRegister'element={<FestaQuestionRegister />}/>
+          <Route path='/admin/adminQuestion' element={<AdminQuestion />} />
+          <Route path='/admin/adminQuestionRegister'element={<AdminQuestionRegister />}/>
+          <Route path='/admin/adminQuestionDetail'element={<AdminQuestionDetail />}/>
+
+          <Route path='/board' element={<BoardPage/>}/>
+          <Route path='/board/register' element={<BoardRegister/>}/>
+          <Route path="/board/read" element={<BoardRead/>} />
+          <Route path="/board/modify" element={<BoardModify/>}/>
+          <Route path="/member/talktalk" element={<BoardMyPage/>}/>
+          <Route path="/reportpage" element={<ReportPage/>}/>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 

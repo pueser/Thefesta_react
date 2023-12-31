@@ -1,0 +1,15 @@
+#adminPagination{
+   margin-top: 75px;
+   margin-bottom: 45px;
+}
+
+#adminPagination input {
+    background-color: white;
+     color: black;
+     margin: 0 2px;
+    &.active {
+        background-color: #ddd;
+        font-weight: bold;
+    }
+}
+

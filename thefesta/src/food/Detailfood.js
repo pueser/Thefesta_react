@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import './Detailfood.css';
-import DetailMap from './DetailMap';
+import DetailMap from './components/DetailMap';
 
 function Detailfood() {
     const { contentid } = useParams();
@@ -12,43 +12,43 @@ function Detailfood() {
     const [isLiked, setIsLiked] = useState(false);
     const [userId, setUserId] = useState(null);
 
-    // 좋아요 상태 로컬 스토리지에서 가져오기
-    const getLikedStatusFromLocalStorage = (userId, contentid) => {
-        const likedStatus = JSON.parse(localStorage.getItem(`likedStatus_${userId}_${contentid}`));
-        return likedStatus || false; // 기본값은 false로 설정
-    };
-
-    // 좋아요 상태 로컬 스토리지에 저장
-    const setLikedStatusToLocalStorage = (userId, contentid, status) => {
-        localStorage.setItem(`likedStatus_${userId}_${contentid}`, status);
-    };
-
     // 회원 로그인 확인
     const isUserLoggedIn = () => {
         const loginInfo = Cookies.get('loginInfo');
-        console.log(loginInfo);
+        console.log("login check : ", loginInfo);
         return !!loginInfo; // loginInfo 쿠키가 존재하면 true를 반환
+    };
+
+    // 회원이 좋아요한 음식점 가져오기
+    const getUserLike = async () => {
+        try {
+            const userLikedResponse = await fetch(`/food/userlikelist?id=${userId}`);
+            if (userLikedResponse.ok) {
+
+                const likeData = await userLikedResponse.json();
+                console.log("data:", likeData);
+    
+                const isLikedByUser = likeData.likeDTOList.some(item => item.contentid === contentid);
+                console.log("isLikedByUser", isLikedByUser);
+                setIsLiked(isLikedByUser);
+            }
+        } catch (error) {
+            console.error("Error fetching data: " + error);
+        }
     };
 
     // 좋아요 토글 및 로그인 상태 확인
     const toggleLike = () => {
-        // 좋아요 상태를 토글
+
         setIsLiked(prevIsLiked => !prevIsLiked);
 
         if (isUserLoggedIn()) {
-            // 토글된 상태에 따라 로컬 스토리지에 저장
-            setLikedStatusToLocalStorage(userId, contentid, !isLiked);
-
-            // 토글된 상태에 따라 요청 보내기
             if (!isLiked) {
-                //좋아요 상태로 변경
-                sendLikeRequest();
+                sendLikeRequest();  //좋아요
             } else {
-                //좋아요 취소 상태로 변경
-                sendUnlikeRequest();
+                sendUnlikeRequest();  //좋아요 취소
             }
         } else {
-            // 비회원 또는 미로그인 시
             setIsLiked(false);
             alert('로그인 후 이용해주세요.');
         }
@@ -111,6 +111,11 @@ function Detailfood() {
             }
             const data = await response.json();
             // console.log(data);
+
+            // title의 ()내용 삭제
+            if (data.title && data.title.includes('(')) {
+                data.title = data.title.replace(/\([^)]*\)/, '').trim();
+            }
             setFood(data);
         } catch (error) {
             console.error("Error fetching data: " + error);
@@ -123,8 +128,8 @@ function Detailfood() {
         if (loginInfo) {
             try {
                 const parsedLoginInfo = JSON.parse(decodeURIComponent(loginInfo));
-                setUserId(parsedLoginInfo.id);
-                console.log('id:', parsedLoginInfo.id);
+                setUserId(parsedLoginInfo);
+                console.log('id:', parsedLoginInfo);
             } catch (error) {
                 console.error('Error parsing loginInfo:', error);
             }
@@ -132,27 +137,41 @@ function Detailfood() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         getFood();
         getUserInfo();
-        // 컴포넌트가 마운트 될 때, 로컬 스토리지에서 좋아요 상태를 불러와 설정
-        setIsLiked(getLikedStatusFromLocalStorage(userId, contentid));
-    }, [userId, contentid]);
 
-    // 좋아요 상태 변경 시 로컬 스토리지에 상태 업데이트
-    useEffect(() => {
-        setLikedStatusToLocalStorage(userId, contentid, isLiked);
+        if(userId) {
+            getUserLike();
+        }
+
     }, [userId, contentid, isLiked]);
+
+    // 데이터에서 <br>을 공백으로 대체
+    const formatDataWithLineBreaks = (data) => {
+        if (typeof data === 'string') {
+            return data.replace(/<br>/g, ' ');
+        }
+        return data;
+    };
+
+    //firstimage의 데이터 유무 확인
+    const imageSource = food.firstimage ? food.firstimage : "/images/noimage.png";
+
+    // title 글자 수에 따라 클래스네임 설정
+    const titleClassName = food && food.title && food.title.length > 15 ? 'Detail-food-title-long' : 'Detail-food-title';
 
     return (
         <section className="Detail-container">
             <div className="Detail-food">
                 <div className="Detail-food-flex">
                     <div className="Detail-food-image">
-                        <img src={food.firstimage} title={food.title} alt={food.title} />
+                        <img src={imageSource} title={food.title} alt={food.title} />
                     </div>
                     <div className="Detail-food-data">
                         <div className="Detail-food-data-flex1">
-                            <h2 className="Detail-food-title">{food.title}</h2>
+                            <h2 className={titleClassName}>{food.title}</h2>
                             <span id="likeBtn" className="Detail-likeBtn" onClick={toggleLike}>
                                 {isLiked ? <img className="Detail-heart" src="/images/fullheart.png" /> : <img className="Detail-heart" src="/images/emptyheart.png" />}
                             </span>
@@ -161,31 +180,31 @@ function Detailfood() {
                             <tbody>
                                 <tr>
                                     <th>주소</th>
-                                    <td>{food.addr1}</td>
+                                    <td>{formatDataWithLineBreaks(food.addr1)}</td>
                                 </tr>
                                 <tr>
                                     <th>전화</th>
-                                    <td>{food.infocenterfood}</td>
+                                    <td>{formatDataWithLineBreaks(food.infocenterfood)}</td>
                                 </tr>
                                 <tr>
                                     <th>영업시간</th>
-                                    <td>{food.opentimefood}</td>
+                                    <td>{formatDataWithLineBreaks(food.opentimefood)}</td>
                                 </tr>
                                 <tr>
                                     <th>휴무일</th>
-                                    <td>{food.restdatefood}</td>
+                                    <td>{formatDataWithLineBreaks(food.restdatefood)}</td>
                                 </tr>
                                 <tr>
                                     <th>주차시설</th>
-                                    <td>{food.parkingfood}</td>
+                                    <td>{formatDataWithLineBreaks(food.parkingfood)}</td>
                                 </tr>
                                 <tr>
                                     <th>대표메뉴</th>
-                                    <td>{food.firstmenu}</td>
+                                    <td>{formatDataWithLineBreaks(food.firstmenu)}</td>
                                 </tr>
                                 <tr>
                                     <th>취급메뉴</th>
-                                    <td>{food.treatmenu}</td>
+                                    <td>{formatDataWithLineBreaks(food.treatmenu)}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -193,7 +212,7 @@ function Detailfood() {
                 </div>
                 <div className="Detail-food-info">
                     <p className="Detail-food-overview">소개</p>
-                    <p className="Detail-food-content">{food.overview}</p>
+                    <p className="Detail-food-content">{formatDataWithLineBreaks(food.overview)}</p>
                 </div>
                 <div className="Detail-food-map">
                     <p className="Detail-food-location">위치</p>

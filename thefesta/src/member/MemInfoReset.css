@@ -1,0 +1,147 @@
+.MemInfoReset-container {
+  /* background-color: aqua; */
+  width: 80%;
+  margin: 75px auto;
+  text-align: center;
+}
+
+.MemInfoReset-title {
+  /* background-color: antiquewhite; */
+  width: 63%;
+  margin: 0 auto 50px auto;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #000000;
+  font-size: 1.5em;
+  text-align: left;
+}
+/*  */
+.MemInfoReset-form {
+  display: grid;
+  columns: 1;
+  margin-left: 60px;
+}
+
+.MemInfoReset-form label {
+  /* background-color: beige; */
+  width: 50%;
+  height: 50px;
+  margin: 10px 230px 10px;
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.MemInfoReset-label-id {
+  text-align: left;
+  padding-left: 105px;
+}
+
+.MemInfoReset-label-nickname {
+  text-align: left;
+  padding-left: 105px;
+  
+}
+
+.MemInfoReset-label-currentPw {
+  text-align: left;
+  padding-left: 57.5px;
+}
+
+.MemInfoReset-label-newPw {
+  text-align: left;
+  padding-left: 72px;
+}
+
+.MemInfoReset-label-checkPw {
+  text-align: left;
+  padding-left: 38.5px;
+}
+
+.MemInfoReset-input {
+  width: 230px;
+  height: 30px;
+  margin-left: 40px;
+}
+
+.MemInfoReset-label-id > input {
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-weight: 600;
+  font-size: 1em;
+  color: rgb(167, 166, 166);
+  background-color: white;
+}
+
+.MemInfoReset-checkBtn {
+  height: 33px;
+  margin-left: 5px;
+  font-size: 0.8em;
+  border: 1px solid;
+}
+
+.MemInfoReset-checkBtn:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.MemInfoReset-errorMsg-nickname {
+  color: red;
+  font-size: 0.6em;
+  margin-left: 85px;
+  /* background-color: burlywood; */
+}
+
+.MemInfoReset-errorMsg-currentPw {
+  color: red;
+  font-size: 0.6em;
+  margin-left: 132px;
+  /* background-color: burlywood; */
+}
+
+.MemInfoReset-errorMsg-newPw {
+  color: red;
+  font-size: 0.6em;
+  margin-left: 118px;
+  /* background-color: burlywood; */
+}
+
+.MemInfoReset-errorMsg-checkPw {
+  color: red;
+  font-size: 0.6em;
+  margin-left: 151px;
+  /* background-color: burlywood; */
+}
+
+.MemInfoReset-formButton {
+  width: 63%;
+  margin: 35px auto 10px auto;
+}
+
+.MemInfoReset-saveBtn {
+  width: 68px;
+  height: 38px;
+  margin: 0 3px 0 3px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.MemInfoReset-saveBtn:hover {
+  background-color: black;
+  color: white;
+}
+
+
+.MemInfoReset-cancelBtn {
+  width: 68px;
+  height: 38px;
+  margin: 0 3px 0 3px;
+  color: #FF4949;
+  border: 2px solid #FF4949;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.MemInfoReset-cancelBtn:hover {
+  background-color: #FF4949;
+  color: white;
+}

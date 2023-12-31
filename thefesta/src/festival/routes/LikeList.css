@@ -1,0 +1,101 @@
+.likeList .likeListTitle,
+.likeList .totalAndCheck *,
+.likeListHr,
+.likeList button {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.likeList {
+  display: flex;
+  justify-content: center;
+}
+/*  */
+.likelistDiv {
+  width: 80%;
+}
+
+.likeListTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.likeListTitle::after {
+  content: '';
+  width: 100%;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+.totalAndCheck {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.likeList p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 16px;
+}
+
+.likeListHr {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.likeListBtn button {
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.likeListBtn button:first-child {
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.likeListBtn button:first-child:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.likeListBtn button:last-child {
+  color: #ff4949;
+  border: 1px solid #ff4949;
+  background-color: rgba(255, 73, 73, 0);
+}
+
+.likeListBtn button:last-child:hover {
+  color: white;
+  background-color: rgba(255, 73, 73, 1);
+}
+
+@media screen and (max-width: 1000px) {
+  .likeListTitle::after {
+    margin-top: 15px;
+  }
+
+  .totalAndCheck {
+    padding: 10px 10px;
+  }
+
+  .likeList p {
+    font-size: 16px;
+  }
+
+  .likeListBtn button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .likeListBtn button:first-child {
+    margin-right: 15px;
+  }
+}

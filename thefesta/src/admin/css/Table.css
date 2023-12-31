@@ -1,0 +1,72 @@
+.adminMain{
+    text-align: center;
+    font-family: 'noto sans kr';
+    border-left-color: black;
+    width: 90%;
+    height: 100%;
+    margin: 45px auto 50px;
+    
+} 
+.adminLinkBtn{
+    text-decoration: none;
+    color: black;
+}
+#adminBtntd{
+    width: 13%;
+    padding:5px
+}
+#adminBtntd2{
+    width: 10%;
+    padding:5px
+}
+.adminTable {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.adminThead tr th, .adminTbody tr td{
+    text-align: center;
+    border: 1px solid #d0d3d8;
+    padding: 10px;
+}
+
+
+.adminThead tr th{
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+.adminTbody tr, .adminThead tr {
+    height: 42;
+}
+.adminTbody tr:nth-child(odd), .adminThead tr:nth-child(odd){
+    background-color: #ddd;
+}
+.adminTbody tr:nth-child(even), .adminThead tr:nth-child(even){
+    background-color: #f2f2f2; 
+}
+#adminTableContentLength{
+    text-align: left;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 400px;
+}
+
+#adminTableContentLengthQuestion{
+    text-align: left;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
+
+
+
+
+
+

@@ -1,0 +1,88 @@
+/* 게시글 읽기 페이지 스타일 */
+.board-read {
+  max-width: 1200px;
+  min-width: 768px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white; /* 수정: 전체 배경색 흰색 */
+}
+
+.board-modify-btn,
+.board-delete-btn,
+.board-report-btn {
+    border: 1px solid #000000;
+    margin-right: 5px;
+    padding: 5px 20px;
+    color: #000;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.board-delete-btn {
+  color: rgb(255, 0, 0);
+}
+
+.board-modify-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
+.board-delete-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
+.board-report-btn:hover {
+    background-color: #7f7f7f;
+    border-radius: 5px;
+}
+
+/* 댓글 입력 폼과 댓글 컨테이너 */
+.commentForm {
+  display: flex;
+  justify-content: space-between;
+  min-height: 300px;
+}
+
+/* 개별 댓글 컨테이너 스타일 */
+.commentContainer {
+  border: 2px solid #ced4da; /* 수정: 테두리 색상 회색조 */
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: white; /* 수정: 배경색 흰색 */
+}
+
+/* 댓글 헤더 부분 */
+.commentHeader {
+  padding: 10px;
+  background-color: #f1f3f5; /* 수정: 배경색 회색조 */
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 댓글 입력 부분 스타일 */
+.commentInput {
+  height: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  background-color: white; /* 수정: 배경색 흰색 */
+  margin-top: 10px;
+  border-radius: 4px; /* 수정: 테두리 둥근 테두리로 */
+}
+
+/* 버튼 호버 효과 */
+.submitButton:hover {
+  background-color: #adb5bd; /* 수정: 호버 시 배경색 변경 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 수정: 호버 시 그림자 효과 변경 */
+}

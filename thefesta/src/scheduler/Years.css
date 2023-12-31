@@ -1,0 +1,26 @@
+#yearModalTable {
+    height: 80%;
+    /* width: 80%; */
+    background-color: white;
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yearBlock {
+    border-radius: 15px;
+    height: 10ex;
+    outline: 1px solid black;
+    width: 14.3em;
+    text-align: center;
+}
+
+.yearBtn {
+    background: none;
+    border: none;
+    font-size: x-large;
+    cursor: pointer;
+    padding: 10px;
+    height: 10ex;
+}

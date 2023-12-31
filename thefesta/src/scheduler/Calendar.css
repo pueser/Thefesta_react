@@ -1,0 +1,14 @@
+.calendarRow{
+    flex-direction: row;
+  }
+.dayBlock{
+  margin: 0;
+  outline: 1px solid black;
+  width:14.3em;
+  height: 8ex;
+  position: relative;
+  padding: 5px;
+}
+#notNowMonth{
+  background-color: #D3D3D3;
+}

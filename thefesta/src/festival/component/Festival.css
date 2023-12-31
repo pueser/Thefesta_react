@@ -1,0 +1,150 @@
+.festival * {
+  box-sizing: border-box;
+  margin: 0;
+}
+/*  */
+.festival a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+/* 
+.container {
+  position: relative;
+} */
+
+.festival {
+  width: calc(33.33% - 20px);
+  position: relative;
+}
+
+.festivals.singleFestival,
+.festivals.doubleFestival {
+  justify-content: center;
+}
+
+.festivals.singleFestival .festival {
+  width: 30%;
+}
+
+.festivals.doubleFestival {
+  justify-content: center;
+}
+
+.festivals.doubleFestival .festival:first-child {
+  margin-right: 40px;
+}
+
+.festival h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.festival h2 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.festival h2:last-child {
+  margin-bottom: 40px;
+}
+
+.festivalImg {
+  width: 100%;
+  height: 380px;
+  margin-bottom: 24px;
+}
+
+.fImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fImg.fdfImg {
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/image_default.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.titleAndState {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.festivalOngoing,
+.festivalUpcoming,
+.festivalCompleted {
+  min-width: 64px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 3px;
+  border-radius: 10px;
+  margin-top: 3px;
+}
+
+.festivalOngoing {
+  color: gray;
+  border: 2px solid gray;
+}
+
+.festivalUpcoming {
+  min-width: 80px;
+  color: #0066ff;
+  border: 2px solid #0066ff;
+}
+
+.festivalCompleted {
+  color: #c0392b;
+  border: 2px solid #c0392b;
+}
+
+@media screen and (max-width: 1000px) {
+  .festival {
+    width: calc(50% - 30px);
+  }
+
+  .festival a {
+    width: 100%;
+  }
+
+  .festival h1 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .festival h2 {
+    font-size: 12px;
+  }
+
+  .festival h2:last-child {
+    margin-bottom: 20px;
+  }
+
+  .festivalImg {
+    height: 380px;
+    margin-bottom: 14px;
+  }
+
+  .festivalOngoing,
+  .festivalUpcoming,
+  .festivalCompleted {
+    min-width: 62px;
+    font-size: 10px;
+    padding: 2px;
+    border-radius: 8px;
+    margin-top: 1px;
+  }
+
+  .festivalUpcoming {
+    min-width: 78px;
+  }
+}

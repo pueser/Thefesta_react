@@ -1,0 +1,46 @@
+.adminDelete-button, .adminApprove-button  {
+    width: auto;
+    height: 30px;
+    margin: 0 5px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 2px solid black;
+   
+}
+
+.adminRgister-button {
+    width: auto;
+    height: 30px;
+    margin: 0 5px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 2px solid black;
+    & .adminLinkBtn{
+        color: black;
+    }
+}
+.adminDelete-button:hover {
+    background-color: #ff4949;
+    color: white;
+}
+.adminApprove-button:hover {
+    background-color: #0737f7;
+    color: white;
+}
+.adminRgister-button:hover {
+    background-color: black;
+    & .adminLinkBtn{
+        color: white;
+    }
+}
+.adminDetailOut{
+    font-weight: bold;
+}
+.adminDetailOut:hover{
+    & .adminLinkBtn{
+        color: red;
+    }
+}
+
+.adminRgister-button:hover { cursor: pointer;}
+.adminDelete-button:hover { cursor: pointer; }

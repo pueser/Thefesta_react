@@ -1,0 +1,86 @@
+.replyReport * {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'NotoSansKR-VariableFont_wght';
+}
+
+.replyReport {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.replyReport form {
+  width: 50%;
+}
+
+.replyReport h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.replyReport textarea {
+  width: 100%;
+  height: 415px;
+  font-size: 14px;
+  padding: 10px 22px 10px 22px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  resize: none;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.replyReportBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.replyReportBtn button {
+  font-size: 14px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.replyReportBtn button:first-child {
+  border: 2px solid black;
+  margin-right: 10px;
+}
+
+.replyReportBtn button:last-child {
+  border: 2px solid #ff4949;
+  color: #ff4949;
+}
+/*  */
+.replyReportBtn button:first-child:hover {
+  background-color: black;
+  color: white;
+}
+
+.replyReportBtn button:last-child:hover {
+  background-color: #ff4949;
+  color: white;
+}
+
+@media screen and (max-width: 1000px) {
+  .replyReport form {
+    width: 70%;
+  }
+
+  .replyReport h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  .replyReport textarea {
+    height: 400px;
+    font-size: 16px;
+    padding: 10px 22px 10px 22px;
+    margin-bottom: 25px;
+  }
+}

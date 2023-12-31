@@ -1,0 +1,117 @@
+.join-container {
+  width: 80%;
+  margin: 70px auto 88px;
+  text-align: center;
+}
+
+.join-title {
+    width: 63%;
+    margin: 0 auto 30px auto;
+    font-size: 1.5em;
+  }
+  
+  .join-id {
+    width: 200px;
+    height: 35px;
+    font-weight: 500;
+    font-size: 13px;
+}
+/*  */
+.join-nickname {
+  width: 200px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.join-verificationCode {
+  width: 121px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.join-password {
+  width: 272px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.join-rePassword {
+  width: 272px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.join-button {
+    width: 70px;
+    height: 41.5px;
+    margin: 0 3px 0 3px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.join-verificationCode-button {
+    width: 100px;
+    height: 41.5px;
+    margin: 0 3px 0 3px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.join-check-button {
+    width: 45px;
+    height: 41.5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.join-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.join-verificationCode-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.join-check-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.join-cencel-button {
+    width: 70px;
+    height: 41.5px;
+    color: #FF4949;
+    border: 2px solid #FF4949;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: 600;
+}
+
+.join-cencel-button:hover {
+  background-color: #FF4949;
+  color: white;
+}
+
+.join-errorMsg {
+  width: 270px;
+  height: 15px;
+  color: red;
+  font-size: 0.6em;
+  font-weight: 600;
+  text-align: left;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding-right: 12px;
+}

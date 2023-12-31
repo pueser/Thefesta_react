@@ -1,0 +1,70 @@
+.userLike *,
+.userLikeHr {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.userLike a {
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+
+.userLike {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 10px;
+  margin: 10px 0;
+}
+
+.userLike input {
+  margin-right: 20px;
+}
+
+.userLiketInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userLike h1 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.userLike img {
+  min-width: 200px;
+  width: 200px;
+  height: 125px;
+  object-fit: cover;
+  margin-right: 30px;
+}
+
+.userLikeHr {
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .userLike {
+    margin: 15px 0;
+  }
+
+  .userLike input {
+    margin-right: 25px;
+  }
+
+  .userLike img {
+    min-width: 180px;
+    width: 180px;
+    height: 115px;
+  }
+
+  .userLikeHr {
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+}
+/*  */

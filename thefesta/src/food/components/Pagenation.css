@@ -1,0 +1,21 @@
+#foodPagination {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#foodPagination input {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #eee;
+    margin: 0 2px;
+    padding: 3px 7px;
+
+    &.active {
+        font-weight: bold;
+        color: #fff;
+        border: 1px solid #f40;
+        background-color: #f40;
+    }
+}
