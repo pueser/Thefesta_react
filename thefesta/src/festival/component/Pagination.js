@@ -15,7 +15,7 @@ function Pagination({ pageMaker, handlePageChange }) {
       </li>
     );
   }
-
+  //
   return (
     <div className='pagination'>
       <ul className='pagUl'>

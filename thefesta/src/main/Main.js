@@ -66,7 +66,7 @@ function Main() {
     fetchData(page, keyword);
     navigate(`/festival/${page}/${keyword}`);
   };
-
+  //
   return (
     <div className='div'>
       <Search pageMaker={pageMaker} handleSearch={handleSearch}></Search>

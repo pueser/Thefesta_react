@@ -20,7 +20,7 @@ function PwReset() {
     verificationCode: '',
     rePassword: '',
   });
-
+// 저장
   useEffect(() => {
     console.log(userData);
   }, [userData]);
@@ -105,6 +105,7 @@ function PwReset() {
       const memInfo = response.data;
       const statecode = memInfo.statecode;
 
+      console.log(memInfo);
       if (String(statecode) == 2 || String(statecode) == 3) {
         window.alert("탈퇴한 계정입니다.");
         setIdCheckResult('false')
@@ -115,14 +116,15 @@ function PwReset() {
         setIdCheckResult('false')
         return;
 
-      } else if (String(statecode) == null) {
+      } else if (String(statecode) == 1) {
+        setIdCheckResult('success')
+        
+      } else {
         window.alert("미가입 된 아이디입니다.");
         setIdCheckResult('false')
         return;
 
-      } else if (String(statecode) == 1) {
-        setIdCheckResult('success')
-      }
+      } 
     })
 
     if (idCheckResult == 'success') {
