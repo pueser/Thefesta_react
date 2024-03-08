@@ -4,6 +4,5 @@
 ## 역할
 - **황혜진(관리자)**
   
-  controller 코드경로 : The-Festa/thefesta/src/main/java/kr/co/thefesta/admin/
+ 컴포넌트 경로 : BreadcrumbsThefesta_react/thefesta/src/admin/
 
-   mappers 코드경로 : The-Festa/thefesta/src/main/resources/mappers/AdminMapper.xml
