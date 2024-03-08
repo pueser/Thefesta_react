@@ -4,5 +4,5 @@
 ## 역할
 - **황혜진(관리자)**
   
- 컴포넌트 경로 : BreadcrumbsThefesta_react/thefesta/src/admin/
+components 경로 : BreadcrumbsThefesta_react/thefesta/src/admin/
 
